@@ -6,9 +6,9 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 
 - [x] Type a string using `.type`
 - [x] Simulate mouse movement using `.moveMouse`
-- [x] Get screen size using `.screenSize`
-- [ ] Capture screen
+- [x] Get screen size
 - [x] Alert box using `.alert`
+- [ ] Capture screen
 
 ### Documentation
 
@@ -16,14 +16,8 @@ In progress...
 
 ### Usage
 
-NOTE: This package has not been configured to use directly. You will have to clone this repo and use. Any PRs that so this are welcomed :)
-
-```sh
-$ cargo build
-```
-
 ```typescript
-import AutoPilot from './mod.ts';
+import AutoPilot from 'https://raw.githubusercontent.com/divy-work/autopilot-deno/master/mod.ts';
 
 // create a new AutoPilot instance.
 var pilot = new AutoPilot();
@@ -36,6 +30,6 @@ pilot
 // get screen size
 pilot.screenSize();
 
-// set mouse position
-pilot.moveMouse(200, 300);
+// move mouse
+pilot.moveMouse(200, 400)
 ```
