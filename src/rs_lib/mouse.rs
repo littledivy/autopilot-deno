@@ -1,16 +1,3 @@
-// Copyright 2018, 2019, 2020 Michael Sanders
-//
-// Licensed under the Apache License, Version 2.0, <LICENSE-APACHE or
-// https://apache.org/licenses/LICENSE-2.0> or the MIT License <LICENSE-MIT or
-// https://opensource.org/licenses/MIT>, at your option. This file may not be
-// copied, modified, or distributed except according to those terms.
-//
-//! This module contains functions for getting the current state of and
-//! controlling the mouse cursor.
-//!
-//! Unless otherwise stated, coordinates are those of a screen coordinate
-//! system, where the origin is at the top left.
-
 use geometry::Point;
 use screen;
 use std;

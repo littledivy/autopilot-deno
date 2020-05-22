@@ -19,9 +19,19 @@ const resourcesPre = Deno.resources();
 
 const rid = Deno.openPlugin(filename);
 
-const { type } = Deno.core.ops();
+const { type, alert } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
+
+export function runAlert(arg) {
+  const encoder = new TextEncoder()
+  const view = encoder.encode(arg)
+
+  const response = Deno.core.dispatch(
+    alert,
+    view
+  );
+}
 
 export function runType(arg) {
   const encoder = new TextEncoder()
