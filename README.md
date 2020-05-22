@@ -10,6 +10,10 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 - [ ] Capture screen
 - [x] Alert box using `.alert`
 
+### Documentation
+
+In progress...
+
 ### Usage
 
 NOTE: This package has not been configured to use directly. You will have to clone this repo and use. Any PRs that so this are welcomed :)
