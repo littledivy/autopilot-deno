@@ -1,4 +1,4 @@
-import { runType, runAlert } from './plugin/index.js';
+import { runType, runAlert } from "./plugin/index.js";
 
 class AutoPilot {
   type(str: string) {
