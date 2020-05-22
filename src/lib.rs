@@ -15,6 +15,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("type", op_type);
   interface.register_op("alert", op_alert);
   interface.register_op("screenSize", op_screen_size);
+  interface.register_op("moveMouse", op_move_mouse);
 }
 
 fn op_type(
@@ -106,4 +107,35 @@ fn op_screen_size(
 
   let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
   Op::Sync(result_box)
+}
+
+#[derive(Deserialize)]
+struct MousePostition {
+    x: f64,
+    y: f64
+}
+
+fn op_move_mouse(
+  _interface: &mut dyn Interface,
+  data: &[u8],
+  zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+
+  let params: MousePostition = serde_json::from_slice(data).unwrap();
+
+  if let Some(buf) = zero_copy {
+    let data_str = std::str::from_utf8(&data[..]).unwrap();
+    let buf_str = std::str::from_utf8(&buf[..]).unwrap();
+    println!(
+      "Moving mouse..."
+    );
+  }
+  rs_lib::mouse::move_to(rs_lib::geometry::Point::new(
+            params.x as f64,
+            params.y as f64
+   )).expect("Unable to move mouse");
+
+   let result = b"true";
+   let result_box: Buf = Box::new(*result);
+   Op::Sync(result_box)
 }
