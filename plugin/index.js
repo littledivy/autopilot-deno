@@ -1,23 +1,44 @@
+import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts';
+
 const filenameBase = "autopilot_deno";
 
-let filenameSuffix = ".so";
-let filenamePrefix = "lib";
+const PLUGIN_URL_BASE = "https://github.com/divy-work/autopilot-deno/releases/download/v0.0.1-beta";
 
-if (Deno.build.os === "windows") {
-  filenameSuffix = ".dll";
-  filenamePrefix = "";
+const isDev = Deno.env.get("DEV");
+
+
+if(isDev) {
+  let filenameSuffix = ".so";
+  let filenamePrefix = "lib";
+
+  if (Deno.build.os === "windows") {
+    filenameSuffix = ".dll";
+    filenamePrefix = "";
+  }
+  if (Deno.build.os === "darwin") {
+    filenameSuffix = ".dylib";
+  }
+
+  const filename = `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+
+  // This will be checked against open resources after Plugin.close()
+  // in runTestClose() below.
+  const resourcesPre = Deno.resources();
+
+  const rid = Deno.openPlugin(filename);
 }
-if (Deno.build.os === "darwin") {
-  filenameSuffix = ".dylib";
+else {
+  const pluginId = await prepare({
+      name: "autopilot_deno",
+      printLog: true,
+      urls: {
+        darwin: `${PLUGIN_URL_BASE}/libautopilot_deno.dylib`,
+        windows: `${PLUGIN_URL_BASE}/autopilot_deno.dll`,
+        linux: `${PLUGIN_URL_BASE}/libautopilot_deno.so`,
+      },
+    });
 }
 
-const filename = `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
-
-// This will be checked against open resources after Plugin.close()
-// in runTestClose() below.
-const resourcesPre = Deno.resources();
-
-const rid = Deno.openPlugin(filename);
 
 const { type, alert, screenSize, moveMouse } = Deno.core.ops();
 
@@ -61,7 +82,6 @@ export function runType(arg) {
     view
   );
 }
-
 Deno.core.setAsyncHandler(type, (response) => {
   // leave this blank
 });
