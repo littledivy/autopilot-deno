@@ -13,7 +13,7 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 ### Usage
 
 ```typescript
-import AutoPilot from './mod.ts';
+import AutoPilot from 'https://raw.githubusercontent.com/divy-work/autopilot-deno/master/mod.ts';
 
 // create a new AutoPilot instance.
 var pilot = new AutoPilot();
