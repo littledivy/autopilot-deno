@@ -1,0 +1,32 @@
+[package]
+name = "autopilot-deno"
+version = "0.0.1"
+authors = ["Divy Srivastava"]
+edition = "2018"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+rs_lib = { path = "./src/rs_lib/" }
+futures = "0.3.4"
+deno_core = ""
+image = "0.22.4"
+libc = "0.2.66"
+rand = "0.7.2"
+scopeguard = "1.0.0"
+
+[build-dependencies]
+pkg-config = "0.3.17"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+core-foundation = "0.7.0"
+core-graphics = { version = "0.19.0", features = ["highsierra"] }
+cocoa = "0.20.0"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+x11 = "2.18.1"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3.4", features = ["libloaderapi", "minwindef", "winbase", "winuser"] }
