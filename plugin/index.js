@@ -19,7 +19,7 @@ const resourcesPre = Deno.resources();
 
 const rid = Deno.openPlugin(filename);
 
-const { type, alert } = Deno.core.ops();
+const { type, alert, screenSize } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
 
@@ -31,6 +31,15 @@ export function runAlert(arg) {
     alert,
     view
   );
+}
+
+
+export function runScreenSize() {
+  const response = Deno.core.dispatch(
+    screenSize
+  );
+
+  return textDecoder.decode(response);
 }
 
 export function runType(arg) {

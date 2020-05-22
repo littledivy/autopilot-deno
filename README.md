@@ -6,7 +6,7 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 
 - [x] Type a string using `.type`
 - [ ] Simulate mouse movement
-- [ ] Get screen size
+- [x] Get screen size
 - [ ] Capture screen
 - [x] Alert box using `.alert`
 
@@ -22,4 +22,7 @@ var pilot = new AutoPilot();
 pilot
   .type("Yay! This works")
   .alert("This is a alert")
+
+// get screen size
+pilot.screenSize();
 ```
