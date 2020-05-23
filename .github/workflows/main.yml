@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 60
     strategy:
       matrix:
-        os: [macOS-latest, windows-latest, ubuntu-latest]
+        os: [macOS-latest, windows-latest]
     
     env:
       GH_ACTIONS: true
