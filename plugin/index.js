@@ -1,11 +1,10 @@
 import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts';
 
 const filenameBase = "autopilot_deno";
- 
+
 const PLUGIN_URL_BASE = "https://github.com/divy-work/autopilot-deno/releases/download/v0.0.1-beta";
 
 const isDev = Deno.env.get("DEV");
-
 
 if(isDev) {
   let filenameSuffix = ".so";
