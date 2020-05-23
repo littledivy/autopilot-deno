@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest, windows-latest]
-    
+
     env:
       GH_ACTIONS: true
       RUST_BACKTRACE: full
@@ -66,7 +66,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install libc-dev libx11-dev libxcb1-dev
+          sudo apt-get install gcc libc-dev libx11-dev libxcb1-dev
 
       - name: Build
         env:
@@ -83,4 +83,3 @@ jobs:
           files: |
             target/debug/libautopilot_deno.dylib
             target/debug/autopilot_deno.dll
- 

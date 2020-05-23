@@ -761,7 +761,7 @@ dependencies = [
 
 [[package]]
 name = "rs_lib"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "cocoa",
  "core-foundation",

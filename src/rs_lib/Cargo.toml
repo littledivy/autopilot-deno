@@ -1,6 +1,6 @@
 [package]
 name = "rs_lib"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Divy Srivastava <dj.srivastava23@gmail.com>"]
 description = "A simple, cross-platform GUI automation library for Rust."
 homepage = "https://autopilot.divy.work"

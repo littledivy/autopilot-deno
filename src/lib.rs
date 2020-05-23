@@ -27,6 +27,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("screenSize", op_screen_size);
   interface.register_op("moveMouse", op_move_mouse);
   interface.register_op("screenshot", op_screen_shot);
+  interface.register_op("tap", op_tap);
 }
 
 // deno bindings for `type`
@@ -57,46 +58,6 @@ fn op_type(
     assert!(rx.await.is_ok());
 
     // return true
-    let result = b"true";
-    let result_box: Buf = Box::new(*result);
-    result_box
-  };
-
-  Op::Async(fut.boxed())
-}
-
-// struct for options used by Alert
-#[derive(Deserialize)]
-struct AlertOptions {
-    msg: str,
-    title: str
-}
-
-// deno bindings for `alert`
-fn op_alert(
-  _interface: &mut dyn Interface,
-  data: &[u8],
-  zero_copy: Option<ZeroCopyBuf>,
-) -> Op {
-  let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
-
-  let params: AlertOptions = serde_json::from_slice(data).unwrap();
-
-  let fut = async move {
-    if let Some(buf) = zero_copy {
-      let buf_str = std::str::from_utf8(&buf[..]).unwrap();
-      println!(
-        "Alerting... data: {}",
-        data_str
-      );
-    }
-    let (tx, rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
-    let _ = rs_lib::alert::alert(&params.msg as &str, &params.title, None, None);
-    std::thread::spawn(move || {
-      std::thread::sleep(std::time::Duration::from_secs(1));
-      tx.send(Ok(())).unwrap();
-    });
-    assert!(rx.await.is_ok());
     let result = b"true";
     let result_box: Buf = Box::new(*result);
     result_box
@@ -192,4 +153,47 @@ fn op_screen_shot(
    let result = b"true";
    let result_box: Buf = Box::new(*result);
    Op::Sync(result_box)
+}
+
+// struct for options used by Alert
+#[derive(Serialize)]
+struct AlertOptions {
+    msg: str,
+    title: str,
+}
+
+// deno bindings for `alert`
+fn op_alert(
+  _interface: &mut dyn Interface,
+  data: &[u8],
+  zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+
+  let params: AlertOptions = serde_json::from_slice(data).unwrap();
+
+  if let Some(buf) = zero_copy {
+    let data_str = std::str::from_utf8(&data[..]).unwrap();
+    let buf_str = std::str::from_utf8(&buf[..]).unwrap();
+    println!(
+      "Alerting..."
+    );
+  }
+   let _ = rs_lib::alert::alert(&params.msg, &params.title, None, None);
+
+   let result = b"true";
+   let result_box: Buf = Box::new(*result);
+   Op::Sync(result_box)
+}
+
+fn op_tap(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    zero_copy: Option<ZeroCopyBuf>
+) -> Op {
+    // convert arg to string
+    let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+    rs_lib::key::tap(&rs_lib::key::Character(data_str), &[], 0. as u64, 0. as u64);
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
+    Op::Sync(result_box)
 }
