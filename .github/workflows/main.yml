@@ -78,10 +78,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "autopilot-deno release"
+          tag_name: "v0.0.2-beta"
           draft: true
           files: |
-            target/release/libautopilot_deno.dylib
-            target/release/libautopilot_deno.so
-            target/release/autopilot_deno.dll
+            target/debug/libautopilot_deno.dylib
+            target/debug/autopilot_deno.dll
  
