@@ -23,11 +23,11 @@ pub enum Response {
 /// This may be fixed in a later release.
 pub fn alert(
     msg: &str,
-    title: Option<&str>,
+    title: &str,
     default_button: Option<&str>,
     cancel_button: Option<&str>,
 ) -> Response {
-    let title = title.unwrap_or("Deno AutoPilot Alert");
+    let title = title;
     let default_button = if default_button.unwrap_or("").is_empty() {
         "OK"
     } else {
