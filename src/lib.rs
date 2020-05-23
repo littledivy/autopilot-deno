@@ -56,12 +56,22 @@ fn op_type(
   Op::Async(fut.boxed())
 }
 
+
+#[derive(Deserialize)]
+struct AlertOptions {
+    msg: &str,
+    title: Option<&str>
+}
+
+
 fn op_alert(
   _interface: &mut dyn Interface,
   data: &[u8],
   zero_copy: Option<ZeroCopyBuf>,
 ) -> Op {
   let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+
+  let params: AlertOptions = serde_json::from_slice(data).unwrap();
 
   let fut = async move {
     if let Some(buf) = zero_copy {
@@ -73,10 +83,10 @@ fn op_alert(
     }
     let (tx, rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
     std::thread::spawn(move || {
-      let _ = rs_lib::alert::alert(&data_str, None, None, None);
+      let _ = rs_lib::alert::alert(params.msg, params.title, None, None);
       std::thread::sleep(std::time::Duration::from_secs(1));
       tx.send(Ok(())).unwrap();
-  });
+    });
     assert!(rx.await.is_ok());
     let result = b"true";
     let result_box: Buf = Box::new(*result);

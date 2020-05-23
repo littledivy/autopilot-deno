@@ -27,7 +27,7 @@ pub fn alert(
     default_button: Option<&str>,
     cancel_button: Option<&str>,
 ) -> Response {
-    let title = title.unwrap_or("AutoPilot Alert");
+    let title = title.unwrap_or("Deno AutoPilot Alert");
     let default_button = if default_button.unwrap_or("").is_empty() {
         "OK"
     } else {
