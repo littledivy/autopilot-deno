@@ -62,11 +62,11 @@ jobs:
           python-version: "2.7.x"
           architecture: x64
 
-      - name: Install webkit2gtk
+      - name: Install ubuntu deps
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install libpthread-stubs0 libpthread-stubs0-dev libx11-dev libx11-doc libxau-dev libxcb1-dev libxdmcp-dev x11proto-core-dev x11proto-input-dev x11proto-kb-dev xorg-sgml-doctools xtrans-dev
+          sudo apt-get install ibx11-dev libxcb1-dev
 
       - name: Build
         env:
