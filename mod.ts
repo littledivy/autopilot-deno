@@ -1,4 +1,4 @@
-import { runType, runAlert, runScreenSize, runMoveMouse } from "./plugin/index.js";
+import { runType, runAlert, runScreenSize, runMoveMouse, runScreenShot } from "./plugin/index.js";
 
 class AutoPilot {
   type(str: string) {
@@ -16,6 +16,10 @@ class AutoPilot {
     runMoveMouse({ x, y })
     return this;
   }
+  screenshot(file: string) {
+    runScreenShot(file);
+    return this;
+  }
 }
 
 export default AutoPilot;
@@ -26,6 +30,7 @@ new AutoPilot()
   .type("typing works fine...")
   .alert('bruh')
   .moveMouse(100, 400)
+  .screenshot()
 
 console.log(new AutoPilot().screenSize());
 **/

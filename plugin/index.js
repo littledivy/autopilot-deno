@@ -40,7 +40,7 @@ else {
 }
 
 
-const { type, alert, screenSize, moveMouse } = Deno.core.ops();
+const { type, alert, screenSize, moveMouse, screenshot } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
 
@@ -57,6 +57,18 @@ export function runAlert(arg) {
 export function runScreenSize() {
   const response = Deno.core.dispatch(
     screenSize
+  );
+  return textDecoder.decode(response);
+}
+
+
+export function runScreenShot(arg) {
+  const encoder = new TextEncoder()
+  const view = encoder.encode(arg)
+
+  const response = Deno.core.dispatch(
+    screenshot,
+    view
   );
   return textDecoder.decode(response);
 }
