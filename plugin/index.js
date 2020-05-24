@@ -2,11 +2,12 @@
 
 const filenameBase = "autopilot_deno";
 
-const PLUGIN_URL_BASE = "https://github.com/divy-work/autopilot-deno/latest/download";
+const PLUGIN_URL_BASE =
+  "https://github.com/divy-work/autopilot-deno/latest/download";
 
 const isDev = Deno.env.get("DEV");
 
-if(isDev) {
+if (isDev) {
   let filenameSuffix = ".so";
   let filenamePrefix = "lib";
 
@@ -19,107 +20,90 @@ if(isDev) {
   }
 
   const filename = `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
-  console.log(filename)
+  console.log(filename);
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
   const resourcesPre = Deno.resources();
 
   const rid = Deno.openPlugin(filename);
-}
-else {
+} else {
   const pluginId = await prepare({
-      name: "autopilot_deno",
-      printLog: true,
-      urls: {
-        darwin: `${PLUGIN_URL_BASE}/libautopilot_deno.dylib`,
-        windows: `${PLUGIN_URL_BASE}/autopilot_deno.dll`,
-        linux: `${PLUGIN_URL_BASE}/libautopilot_deno.so`,
-      },
-    });
+    name: "autopilot_deno",
+    printLog: true,
+    urls: {
+      darwin: `${PLUGIN_URL_BASE}/libautopilot_deno.dylib`,
+      windows: `${PLUGIN_URL_BASE}/autopilot_deno.dll`,
+      linux: `${PLUGIN_URL_BASE}/libautopilot_deno.so`,
+    },
+  });
 }
 
-
-const { type, alert, click, screenSize, moveMouse, screenshot, tap } = Deno.core.ops();
+const {
+  type,
+  alert,
+  click,
+  screenSize,
+  moveMouse,
+  screenshot,
+  tap,
+} = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
 
 export function runAlert(arg) {
-  let pass = { title: "AutoPilot", msg: "Alert" }
-  typeof arg == "object" ? pass = JSON.stringify(arg): (
-    pass.msg = arg,
-    pass = JSON.stringify(pass)
-  )
-  const encoder = new TextEncoder()
-  const view = encoder.encode(pass)
+  let pass = { title: "AutoPilot", msg: "Alert" };
+  typeof arg == "object"
+    ? (pass = JSON.stringify(arg))
+    : ((pass.msg = arg), (pass = JSON.stringify(pass)));
+  const encoder = new TextEncoder();
+  const view = encoder.encode(pass);
 
-  const response = Deno.core.dispatch(
-    alert,
-    view
-  );
+  const response = Deno.core.dispatch(alert, view);
 }
 
 export function runMouseClick(arg) {
-  const encoder = new TextEncoder()
-  const view = encoder.encode(arg)
+  const encoder = new TextEncoder();
+  const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(
-    click,
-    view
-  );
+  const response = Deno.core.dispatch(click, view);
 }
 
 export function runScreenSize() {
-  const response = Deno.core.dispatch(
-    screenSize
-  );
+  const response = Deno.core.dispatch(screenSize);
   return textDecoder.decode(response);
 }
 
 export function runKeyTap(arg) {
-  const encoder = new TextEncoder()
-  const view = encoder.encode(arg)
+  const encoder = new TextEncoder();
+  const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(
-    tap,
-    view
-  );
+  const response = Deno.core.dispatch(tap, view);
   return textDecoder.decode(response);
 }
 
 export function runScreenShot(arg) {
-  const encoder = new TextEncoder()
-  const view = encoder.encode(arg)
+  const encoder = new TextEncoder();
+  const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(
-    screenshot,
-    view
-  );
+  const response = Deno.core.dispatch(screenshot, view);
   return textDecoder.decode(response);
 }
 
 export function runMoveMouse(arg) {
-
-  !arg.d ? arg.d = 1: arg.d = arg.d;
-  console.log(arg.d)
+  !arg.d ? (arg.d = 1) : (arg.d = arg.d);
   arg = JSON.stringify(arg);
-  const encoder = new TextEncoder()
-  const view = encoder.encode(arg)
+  const encoder = new TextEncoder();
+  const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(
-    moveMouse,
-    view
-  );
+  const response = Deno.core.dispatch(moveMouse, view);
   return textDecoder.decode(response);
 }
 
 export function runType(arg) {
-  const encoder = new TextEncoder()
-  const view = encoder.encode(arg)
+  const encoder = new TextEncoder();
+  const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(
-    type,
-    view
-  );
+  const response = Deno.core.dispatch(type, view);
 }
 Deno.core.setAsyncHandler(type, (response) => {
   // leave this blank
