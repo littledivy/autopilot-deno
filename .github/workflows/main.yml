@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 60
     strategy:
       matrix:
-        os: [macOS-latest, windows-latest]
+        os: [macOS-latest, windows-latest, ubuntu-latest]
 
     env:
       GH_ACTIONS: true
@@ -70,7 +70,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install gcc libc-dev libx11-dev libxcb1-dev libxtst-dev libpng++-dev
+          sudo apt-get install cmake libc-dev libx11-dev libxcb1-dev
 
       - name: Build
         env:
@@ -87,3 +87,4 @@ jobs:
           files: |
             target/debug/libautopilot_deno.dylib
             target/debug/autopilot_deno.dll
+            target/debug/libautopilot_deno.so
