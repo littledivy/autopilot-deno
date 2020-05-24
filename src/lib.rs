@@ -26,6 +26,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("screenSize", op_screen_size);
   interface.register_op("moveMouse", op_move_mouse);
   interface.register_op("screenshot", op_screen_shot);
+  interface.register_op("click", op_click);
   interface.register_op("tap", op_tap);
 }
 
@@ -185,6 +186,24 @@ fn op_alert(
    Op::Sync(result_box)
 }
 
+fn op_click(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    _zero_copy: Option<ZeroCopyBuf>
+) -> Op {
+    // convert arg to string
+    let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+
+    if data_str == "left" {  rs_lib::mouse::click(rs_lib::mouse::Button::Left, 10 as u64); }
+    if data_str == "right" {  rs_lib::mouse::click(rs_lib::mouse::Button::Right, 10 as u64); }
+    if data_str == "middle" {  rs_lib::mouse::click(rs_lib::mouse::Button::Middle, 10 as u64); }
+
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
+    Op::Sync(result_box)
+}
+
+// tap a key
 fn op_tap(
     _interface: &mut dyn Interface,
     data: &[u8],
@@ -193,9 +212,59 @@ fn op_tap(
     // convert arg to string
     let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
 
-    rs_lib::key::tap(&rs_lib::key::Code(rs_lib::key::KeyCode::Return), &[], 0. as u64, 0. as u64);
+    rs_lib::key::tap(&rs_lib::key::Code(bind_tap(&_data_str)), &[], 0. as u64, 0. as u64);
 
     let result = b"true";
     let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)
+}
+
+// the below code is complete shit
+fn bind_tap(key: &str) -> rs_lib::key::KeyCode {
+    if key == "F1" { rs_lib::key::KeyCode::F1 }
+    else if key == "F2" { rs_lib::key::KeyCode::F2 }
+    else if key == "F3" { rs_lib::key::KeyCode::F3 }
+    else if key == "F4" { rs_lib::key::KeyCode::F4 }
+    else if key == "F5" { rs_lib::key::KeyCode::F5 }
+    else if key == "F6" { rs_lib::key::KeyCode::F6 }
+    else if key == "F7" { rs_lib::key::KeyCode::F7 }
+    else if key == "F8" { rs_lib::key::KeyCode::F8 }
+    else if key == "F9" { rs_lib::key::KeyCode::F9 }
+    else if key == "F10" { rs_lib::key::KeyCode::F10 }
+    else if key == "F11" { rs_lib::key::KeyCode::F11 }
+    else if key == "F12" { rs_lib::key::KeyCode::F12 }
+    else if key == "F13" { rs_lib::key::KeyCode::F13 }
+    else if key == "F14" { rs_lib::key::KeyCode::F14 }
+    else if key == "F15" { rs_lib::key::KeyCode::F15 }
+    else if key == "F16" { rs_lib::key::KeyCode::F16 }
+    else if key == "F17" { rs_lib::key::KeyCode::F17 }
+    else if key == "F18" { rs_lib::key::KeyCode::F18 }
+    else if key == "F19" { rs_lib::key::KeyCode::F19 }
+    else if key == "F20" { rs_lib::key::KeyCode::F20 }
+    else if key == "F21" { rs_lib::key::KeyCode::F21 }
+    else if key == "F22" { rs_lib::key::KeyCode::F22 }
+    else if key == "F23" { rs_lib::key::KeyCode::F23 }
+    else if key == "F24" { rs_lib::key::KeyCode::F24 }
+    else if key == "leftarrow" { rs_lib::key::KeyCode::LeftArrow }
+    else if key == "control" { rs_lib::key::KeyCode::Control }
+    else if key == "rightarrow" { rs_lib::key::KeyCode::RightArrow }
+    else if key == "downarrow" { rs_lib::key::KeyCode::DownArrow }
+    else if key == "end" { rs_lib::key::KeyCode::End }
+    else if key == "uparrow" { rs_lib::key::KeyCode::UpArrow }
+    else if key == "pageup" { rs_lib::key::KeyCode::PageUp }
+    else if key == "alt" { rs_lib::key::KeyCode::Alt }
+    else if key == "enter" { rs_lib::key::KeyCode::Return }
+    else if key == "return" { rs_lib::key::KeyCode::Return }
+    else if key == "pagedown" { rs_lib::key::KeyCode::PageDown }
+    else if key == "delete" { rs_lib::key::KeyCode::Delete }
+    else if key == "home" { rs_lib::key::KeyCode::Home }
+    else if key == "escape" { rs_lib::key::KeyCode::Escape }
+    else if key == "backspace" { rs_lib::key::KeyCode::Backspace }
+    else if key == "back" { rs_lib::key::KeyCode::Backspace }
+    else if key == "meta" { rs_lib::key::KeyCode::Meta }
+    else if key == "capslock" { rs_lib::key::KeyCode::CapsLock }
+    else if key == "shift" { rs_lib::key::KeyCode::Shift }
+    else if key == "tab" { rs_lib::key::KeyCode::Tab }
+    else if key == "space" { rs_lib::key::KeyCode::Space }
+    else { rs_lib::key::KeyCode::Return }
 }

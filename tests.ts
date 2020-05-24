@@ -20,6 +20,8 @@ pilot.moveMouse(300, 500);
 // take a screenshot
 pilot.screenshot("screenshot.png");
 
-///// EXPERIMENTAL STUFF BELOW
+// mouse click
+pilot.click("right")
+
 // tap a key
-pilot.tap("Enter")
+pilot.tap("enter")

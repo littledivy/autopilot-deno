@@ -39,7 +39,7 @@ else {
 }
 
 
-const { type, alert, screenSize, moveMouse, screenshot, tap } = Deno.core.ops();
+const { type, alert, click, screenSize, moveMouse, screenshot, tap } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
 
@@ -54,6 +54,16 @@ export function runAlert(arg) {
 
   const response = Deno.core.dispatch(
     alert,
+    view
+  );
+}
+
+export function runMouseClick(arg) {
+  const encoder = new TextEncoder()
+  const view = encoder.encode(arg)
+
+  const response = Deno.core.dispatch(
+    click,
     view
   );
 }

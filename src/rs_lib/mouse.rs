@@ -83,9 +83,9 @@ pub fn smooth_move(destination: Point, duration: f64) -> Result<(), MouseError> 
 /// the given mouse button. Delay between pressing and releasing the key can be
 /// controlled using the `delay_ms` parameter. If `delay` is not given, the
 /// value defaults to 100 ms.
-pub fn click(button: Button, delay_ms: Option<u64>) {
+pub fn click(button: Button, delay_ms: u64) {
     toggle(button, true);
-    std::thread::sleep(std::time::Duration::from_millis(delay_ms.unwrap_or(100)));
+    std::thread::sleep(std::time::Duration::from_millis(delay_ms));
     toggle(button, false);
 }
 
