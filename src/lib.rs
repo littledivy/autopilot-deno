@@ -30,6 +30,8 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("tap", op_tap);
   interface.register_op("scroll", op_scroll);
   interface.register_op("mousePostition", op_mouse_pos);
+  // TODO: implement pixel color
+  // interface.register_op("pixelColor", op_mouse_pixel_color);
 }
 
 // deno bindings for `type`
@@ -220,7 +222,8 @@ fn op_scroll(
     Op::Sync(result_box)
 }
 
-
+// TODO: implement pixel color
+/*************
 fn op_mouse_pixel_color(
   _interface: &mut dyn Interface,
   data: &[u8],
@@ -236,9 +239,9 @@ fn op_mouse_pixel_color(
   }
   let result = rs_lib::screen::get_color(rs_lib::mouse::location());
   let result_box: Buf = Box::new(*result);
-  Op::Sync(result_box);
+  Op::Sync(result_box)
 }
-
+*********/
 
 #[derive(Serialize)]
 struct MouseResp {
