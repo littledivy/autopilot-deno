@@ -46,6 +46,7 @@ const {
   moveMouse,
   screenshot,
   tap,
+  scroll
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -66,6 +67,13 @@ export function runMouseClick(arg) {
   const view = encoder.encode(arg);
 
   const response = Deno.core.dispatch(click, view);
+}
+
+export function runMouseScroll(arg) {
+  const encoder = new TextEncoder();
+  const view = encoder.encode(arg);
+
+  const response = Deno.core.dispatch(scroll, view);
 }
 
 export function runScreenSize() {

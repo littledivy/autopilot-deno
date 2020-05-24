@@ -6,6 +6,7 @@ import {
   runScreenShot,
   runMouseClick,
   runKeyTap,
+  runMouseScroll
 } from "./plugin/index.js";
 
 interface AlertOptions {
@@ -13,7 +14,9 @@ interface AlertOptions {
   msg: string;
 }
 
-type ClickOptions = "left" | "right";
+type ClickOptions = "left" | "right" | "middle";
+
+type ScrollOptions = "up" | "down";
 
 class AutoPilot {
   type(str: string) {
@@ -42,6 +45,10 @@ class AutoPilot {
   }
   click(arg: ClickOptions) {
     runMouseClick(arg);
+    return this;
+  }
+  scroll(arg: ScrollOptions) {
+    runMouseScroll(arg);
     return this;
   }
 }

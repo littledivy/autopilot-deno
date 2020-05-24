@@ -11,6 +11,9 @@ pilot.alert({
   msg: "alert with params",
 });
 
+// scroll mouse
+pilot.scroll("up");
+
 // type a string
 pilot.type("typing smth...");
 

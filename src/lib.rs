@@ -28,6 +28,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("screenshot", op_screen_shot);
   interface.register_op("click", op_click);
   interface.register_op("tap", op_tap);
+  interface.register_op("scroll", op_scroll);
 }
 
 // deno bindings for `type`
@@ -197,6 +198,21 @@ fn op_click(
     if data_str == "left" {  rs_lib::mouse::click(rs_lib::mouse::Button::Left, 10 as u64); }
     if data_str == "right" {  rs_lib::mouse::click(rs_lib::mouse::Button::Right, 10 as u64); }
     if data_str == "middle" {  rs_lib::mouse::click(rs_lib::mouse::Button::Middle, 10 as u64); }
+
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
+    Op::Sync(result_box)
+}
+
+fn op_scroll(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    _zero_copy: Option<ZeroCopyBuf>
+) -> Op {
+    // convert arg to string
+    let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+
+    rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Up, 5 as u32);
 
     let result = b"true";
     let result_box: Buf = Box::new(*result);
