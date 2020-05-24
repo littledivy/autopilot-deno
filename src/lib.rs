@@ -27,7 +27,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("screenSize", op_screen_size);
   interface.register_op("moveMouse", op_move_mouse);
   interface.register_op("screenshot", op_screen_shot);
-  interface.register_op("tap", op_tap);
+ // interface.register_op("tap", op_tap);
 }
 
 // deno bindings for `type`
@@ -156,10 +156,10 @@ fn op_screen_shot(
 }
 
 // struct for options used by Alert
-#[derive(Serialize)]
+#[derive(Deserialize)]
 struct AlertOptions {
-    msg: str,
-    title: str,
+    msg: String,
+    title: String,
 }
 
 // deno bindings for `alert`
@@ -183,17 +183,4 @@ fn op_alert(
    let result = b"true";
    let result_box: Buf = Box::new(*result);
    Op::Sync(result_box)
-}
-
-fn op_tap(
-    _interface: &mut dyn Interface,
-    data: &[u8],
-    zero_copy: Option<ZeroCopyBuf>
-) -> Op {
-    // convert arg to string
-    let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
-    rs_lib::key::tap(&rs_lib::key::Character(data_str), &[], 0. as u64, 0. as u64);
-    let result = b"true";
-    let result_box: Buf = Box::new(*result);
-    Op::Sync(result_box)
 }
