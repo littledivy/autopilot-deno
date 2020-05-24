@@ -1,12 +1,17 @@
 import { runType, runAlert, runScreenSize, runMoveMouse, runScreenShot } from "./plugin/index.js";
 
+interface AlertOptions = {
+  title: string,
+  msg: string
+}
+
 class AutoPilot {
   type(str: string) {
     runType(str);
     return this;
   }
-  alert(str: string) {
-    runAlert(str);
+  alert(opt: string | obj) {
+    runAlert(opt);
     return this;
   }
   screenSize() {

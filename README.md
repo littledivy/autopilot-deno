@@ -28,7 +28,7 @@ var pilot = new AutoPilot();
 pilot.type("Yay! This works");
 
 // alert something
-pilot.alert("This is a alert")
+pilot.alert("This is a alert");
 
 // get screen size
 pilot.screenSize();
