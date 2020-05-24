@@ -16,7 +16,7 @@ In progress...
 
 ### Usage
 
-**NOTE**: Currently, I have not published plugins for Mac and Windows (because I don't have access to either). I encourage you to build this project on the platform and create an issue.
+**NOTE**: Currently, I have not published plugins for Ubuntu as there are some error while building on Github actions.
 
 ```typescript
 import AutoPilot from 'https://raw.githubusercontent.com/divy-work/autopilot-deno/master/mod.ts';
