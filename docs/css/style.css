@@ -1,0 +1,150 @@
+.fit-2-input {
+  width:48%;
+  display:inline-block
+}
+.pro-pic {
+  border:.5px solid deepskyblue;
+}
+.onedaya{
+  font-family: OneDay;
+}
+.birgulaa {
+  font-family: Birgula;
+}
+* {
+  font-family: 'Product Sans'
+}
+.font-normal,
+.font-normal input {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.braxtaon {
+  font-family: 'Braxton';
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .form-container {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .form-container {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+}
+@media (min-width: 1200px) {
+  .form-container {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+}
+.tilted-div {
+  /*background-image: linear-gradient(150deg,#dd27c6 0%,#8805ff 100%);
+    position: absolute;
+    transform: skewY(-1deg);
+    transform-origin: 0;
+    position: relative;*/
+    transform: skewY(-1deg);
+
+}
+.feed-view-img {
+  width:200px;
+  height:200px;
+  border-radius: 20px;
+  border:2px solid #18bc9c;
+}
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.skew {
+  margin-top: 30px;
+  transform: skewY(-10deg)
+}
+.btn-1 {
+  background-color: transparent;
+  border:1px solid deepskyblue;
+  color: deepskyblue;
+}
+.btn-1:hover {
+  background-color: deepskyblue;
+}
+.btn-2 {
+  background-color: transparent;
+  border:1px solid #18bc9c;
+  color: #18bc9c;
+}
+.btn-2:hover {
+  background-color: #18bc9c;
+}
+
+.logo {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+h1,h2,h3,h4,h5,h6,a,p,body,html,div,span,form,input {
+	font-family: Product Sans , -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.float-left {
+	float: left;
+}
+.float-right {
+	float: right;
+}
+.top-navbar {
+	border-bottom-color: black;
+	border-bottom-width: 10px;
+}
+.box-shadow {
+	border:1px solid #f2f2f2;
+
+}
+.dark-mode {
+	background-color: #2c3e50;
+	 color: white;
+}
+a:hover,
+a {
+  text-decoration: none;
+}
+.margin-top-20 {
+	margin-top: 20px;
+}
+.margin-right-10 {
+  margin-right: 10px;
+}
+.pills {
+	width: 40px;
+  height: 40px;
+}
+#notify_message{
+    position: fixed;
+    display: none;
+    z-index: 9999;
+    padding-top: 10px;
+    height: 50px;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    color: white;
+}
+
+.notify_message-success{
+    background-color: #26B99A;
+}
+
+.notify_message-danger{
+    background-color: #d9534f;
+}
