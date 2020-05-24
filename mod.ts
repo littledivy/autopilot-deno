@@ -32,14 +32,3 @@ class AutoPilot {
 }
 
 export default AutoPilot;
-
-/** Example:
-
-new AutoPilot()
-  .type("typing works fine...")
-  .alert('bruh')
-  .moveMouse(100, 400)
-  .screenshot()
-
-console.log(new AutoPilot().screenSize());
-**/
