@@ -160,7 +160,7 @@ fn op_screen_shot(
 struct AlertOptions {
     msg: String,
     title: String,
-}
+} 
 
 // deno bindings for `alert`
 fn op_alert(
