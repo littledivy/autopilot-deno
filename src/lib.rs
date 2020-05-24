@@ -29,6 +29,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("click", op_click);
   interface.register_op("tap", op_tap);
   interface.register_op("scroll", op_scroll);
+  interface.register_op("mousePostition", op_mouse_pos);
 }
 
 // deno bindings for `type`
@@ -217,6 +218,37 @@ fn op_scroll(
     let result = b"true";
     let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)
+}
+
+#[derive(Serialize)]
+struct MouseResp {
+    x: f64,
+    y: f64,
+}
+
+fn op_mouse_pos(
+  _interface: &mut dyn Interface,
+  data: &[u8],
+  zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+    let mut response = MouseResp {
+        x: 100_f64,
+        y: 100_f64,
+    };
+  if let Some(buf) = zero_copy {
+    let _data_str = std::str::from_utf8(&data[..]).unwrap();
+    let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
+    println!(
+      "Getting Screen Size..."
+    );
+  }
+  let result = rs_lib::mouse::location();
+
+  response.x = result.x;
+  response.y = result.y;
+
+  let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+  Op::Sync(result_box)
 }
 
 // tap a key

@@ -6,17 +6,11 @@ import {
   runScreenShot,
   runMouseClick,
   runKeyTap,
-  runMouseScroll
+  runMouseScroll,
+  runMousePosition
 } from "./plugin/index.js";
 
-interface AlertOptions {
-  title?: string;
-  msg: string;
-}
-
-type ClickOptions = "left" | "right" | "middle";
-
-type ScrollOptions = "up" | "down";
+import { AlertOptions, ClickOptions, ScrollOptions } from "./types.ts";
 
 class AutoPilot {
   type(str: string) {
@@ -50,6 +44,9 @@ class AutoPilot {
   scroll(arg: ScrollOptions) {
     runMouseScroll(arg);
     return this;
+  }
+  mousePostition() {
+    return JSON.parse(runMousePosition());
   }
 }
 
