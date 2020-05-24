@@ -1,3 +1,8 @@
+// mod.ts
+// Copyright 2020 Divy Srivastava
+//
+// autopilot-deno is a desktop automation module written in rust for deno :)
+
 import {
   runType,
   runAlert,
