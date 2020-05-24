@@ -1,4 +1,4 @@
-import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts';
+//import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts';
 
 const filenameBase = "autopilot_deno";
 
@@ -19,7 +19,7 @@ if(isDev) {
   }
 
   const filename = `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
-
+  console.log(filename)
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
   const resourcesPre = Deno.resources();
@@ -39,13 +39,18 @@ else {
 }
 
 
-const { type, alert, screenSize, moveMouse, screenshot } = Deno.core.ops();
+const { type, alert, screenSize, moveMouse, screenshot, tap } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
 
 export function runAlert(arg) {
+  let pass = { title: "AutoPilot", msg: "Alert" }
+  typeof arg == "object" ? pass = JSON.stringify(arg): (
+    pass.msg = arg,
+    pass = JSON.stringify(pass)
+  )
   const encoder = new TextEncoder()
-  const view = encoder.encode(arg)
+  const view = encoder.encode(pass)
 
   const response = Deno.core.dispatch(
     alert,
@@ -60,6 +65,16 @@ export function runScreenSize() {
   return textDecoder.decode(response);
 }
 
+export function runKeyTap(arg) {
+  const encoder = new TextEncoder()
+  const view = encoder.encode(arg)
+
+  const response = Deno.core.dispatch(
+    tap,
+    view
+  );
+  return textDecoder.decode(response);
+}
 
 export function runScreenShot(arg) {
   const encoder = new TextEncoder()
@@ -73,7 +88,10 @@ export function runScreenShot(arg) {
 }
 
 export function runMoveMouse(arg) {
-  arg = JSON.stringify(arg)
+
+  !arg.d ? arg.d = 1: arg.d = arg.d;
+  console.log(arg.d)
+  arg = JSON.stringify(arg);
   const encoder = new TextEncoder()
   const view = encoder.encode(arg)
 

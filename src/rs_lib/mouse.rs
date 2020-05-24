@@ -54,7 +54,7 @@ impl std::error::Error for MouseError {}
 /// defaulted to between mouse movements.
 ///
 /// Returns `MouseError` if coordinate is outside the screen boundaries.
-pub fn smooth_move(destination: Point, duration: Option<f64>) -> Result<(), MouseError> {
+pub fn smooth_move(destination: Point, duration: f64) -> Result<(), MouseError> {
     if !screen::is_point_visible(destination) {
         return Err(MouseError::OutOfBounds);
     }
@@ -62,10 +62,7 @@ pub fn smooth_move(destination: Point, duration: Option<f64>) -> Result<(), Mous
     let start_position = location();
     let distance = (start_position.x - destination.x).hypot(start_position.y - destination.y);
     let step_count = distance.ceil() as i64;
-    let interval: u64 = duration
-        .map(|d| (d * 1000.0) / distance)
-        .unwrap_or(1.0)
-        .round() as u64;
+    let interval: u64 = duration.round() as u64;
 
     for step in 1..=step_count {
         let position = Point::new(

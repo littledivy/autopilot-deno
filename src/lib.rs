@@ -16,7 +16,6 @@ use futures::future::FutureExt;
 use serde::Deserialize;
 use serde::Serialize;
 
-use rs_lib::geometry::{Point, Rect, Size};
 use std::path::Path;
 
 // register all ops here
@@ -27,7 +26,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("screenSize", op_screen_size);
   interface.register_op("moveMouse", op_move_mouse);
   interface.register_op("screenshot", op_screen_shot);
- // interface.register_op("tap", op_tap);
+  interface.register_op("tap", op_tap);
 }
 
 // deno bindings for `type`
@@ -42,7 +41,7 @@ fn op_type(
   // in case, we need a optional functionality in future
   let fut = async move {
     if let Some(buf) = zero_copy {
-      let buf_str = std::str::from_utf8(&buf[..]).unwrap();
+      let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
       println!(
         "Typing... data: {}",
         data_str
@@ -82,8 +81,8 @@ fn op_screen_size(
         height: 1000_f64,
     };
   if let Some(buf) = zero_copy {
-    let data_str = std::str::from_utf8(&data[..]).unwrap();
-    let buf_str = std::str::from_utf8(&buf[..]).unwrap();
+    let _data_str = std::str::from_utf8(&data[..]).unwrap();
+    let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
     println!(
       "Getting Screen Size..."
     );
@@ -100,7 +99,8 @@ fn op_screen_size(
 #[derive(Deserialize)]
 struct MousePostition {
     x: f64,
-    y: f64
+    y: f64,
+    d: f64
 }
 
 fn op_move_mouse(
@@ -112,16 +112,16 @@ fn op_move_mouse(
   let params: MousePostition = serde_json::from_slice(data).unwrap();
 
   if let Some(buf) = zero_copy {
-    let data_str = std::str::from_utf8(&data[..]).unwrap();
-    let buf_str = std::str::from_utf8(&buf[..]).unwrap();
+    let _data_str = std::str::from_utf8(&data[..]).unwrap();
+    let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
     println!(
       "Moving mouse..."
     );
   }
-  rs_lib::mouse::move_to(rs_lib::geometry::Point::new(
+  rs_lib::mouse::smooth_move(rs_lib::geometry::Point::new(
             params.x as f64,
             params.y as f64
-   )).expect("Unable to move mouse");
+   ), params.d as f64).expect("Unable to move mouse");
 
    let result = b"true";
    let result_box: Buf = Box::new(*result);
@@ -136,7 +136,7 @@ fn op_screen_shot(
   let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
   let bmp = rs_lib::bitmap::capture_screen().expect("Unable to capture screen");
   if let Some(buf) = zero_copy {
-    let buf_str = std::str::from_utf8(&buf[..]).unwrap();
+    let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
     println!(
       "Taking screen shot..."
     );
@@ -160,7 +160,7 @@ fn op_screen_shot(
 struct AlertOptions {
     msg: String,
     title: String,
-} 
+}
 
 // deno bindings for `alert`
 fn op_alert(
@@ -172,8 +172,8 @@ fn op_alert(
   let params: AlertOptions = serde_json::from_slice(data).unwrap();
 
   if let Some(buf) = zero_copy {
-    let data_str = std::str::from_utf8(&data[..]).unwrap();
-    let buf_str = std::str::from_utf8(&buf[..]).unwrap();
+    let _data_str = std::str::from_utf8(&data[..]).unwrap();
+    let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
     println!(
       "Alerting..."
     );
@@ -183,4 +183,19 @@ fn op_alert(
    let result = b"true";
    let result_box: Buf = Box::new(*result);
    Op::Sync(result_box)
+}
+
+fn op_tap(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    _zero_copy: Option<ZeroCopyBuf>
+) -> Op {
+    // convert arg to string
+    let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+
+    rs_lib::key::tap(&rs_lib::key::Code(rs_lib::key::KeyCode::Return), &[], 0. as u64, 0. as u64);
+
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
+    Op::Sync(result_box)
 }
