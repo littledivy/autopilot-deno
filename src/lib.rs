@@ -220,12 +220,33 @@ fn op_scroll(
     Op::Sync(result_box)
 }
 
+
+fn op_mouse_pixel_color(
+  _interface: &mut dyn Interface,
+  data: &[u8],
+  zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+
+  if let Some(buf) = zero_copy {
+    let _data_str = std::str::from_utf8(&data[..]).unwrap();
+    let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
+    println!(
+      "Getting Mouse Pixel Color..."
+    );
+  }
+  let result = rs_lib::screen::get_color(rs_lib::mouse::location());
+  let result_box: Buf = Box::new(*result);
+  Op::Sync(result_box);
+}
+
+
 #[derive(Serialize)]
 struct MouseResp {
     x: f64,
     y: f64,
 }
 
+// get mouse position
 fn op_mouse_pos(
   _interface: &mut dyn Interface,
   data: &[u8],
@@ -239,7 +260,7 @@ fn op_mouse_pos(
     let _data_str = std::str::from_utf8(&data[..]).unwrap();
     let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
     println!(
-      "Getting Screen Size..."
+      "Getting Mouse position..."
     );
   }
   let result = rs_lib::mouse::location();
