@@ -1,4 +1,4 @@
-<center>
+<p align="center">
 
 ![](./docs/logo.png)
 
@@ -10,7 +10,7 @@
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
-</center>
+</p>
 
 ### Features
 
