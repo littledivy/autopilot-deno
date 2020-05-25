@@ -1,47 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Autopilot</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Product+Sans"
-      rel="stylesheet"
-      type="text/css"
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
     />
-
-    <link rel="stylesheet" href="./css/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autopilot Deno</title>
+    <!-- Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@egoist/docup@1/dist/docup.min.css"
+    />
   </head>
   <body>
-    <div
-      class="container-fluid"
-      style="
-        color: #fff;
-        background-image: linear-gradient(120deg, deepskyblue, #18bc9c);
-      "
-    >
-      <h1 style="margin-bottom: 0;">Autopilot Deno</h1>
-      <b id="type-here"></b><br /><br />
-    </div>
-    <br /><br />
-
-    <h3 style="margin-left: 30px;">Usage</h3>
-    <hr />
-    <div class="container-fluid" style="margin-left: 10px;">
-      <h4>
-        AutoPilot is written in Rust and compiling it requires Rust on your system
-      </h4>
-      <pre>//hello
-import AutoPilot from 'mod.ts';</pre>
-    </div>
-    <br /><br />
-
-    <h3 style="margin-left: 30px;">API</h3>
-    <hr />
-    <br /><br />
-
-    <br /><br />
-    <script src="./js/typeWriter.js"></script>
-    <script src="./js/type.js"></script>
+    <!-- Script -->
+    <script src="docup.min.js"></script>
+    <!-- Start app -->
+    <script>
+      docup.init({
+        title: "Autopilot",
+        highlightLanguages: ['typescript']
+      })
+    </script>
   </body>
 </html>
