@@ -196,5 +196,7 @@ DEV=* deno run --unstable --allow-* examples/sine.ts
 ### OS Support
 
 * Ubuntu - Full Support
-* MacOS - Not tested
-* Windows - Not tested
+* MacOS - Supported but Not tested
+* Windows - Supported but Not tested
+
+If you find any difficulty while building from source or using this module, please open a issue or PR stating your issue.
