@@ -33,6 +33,8 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 
 ### Documentation
 
+Detailed documentation of the API is available at:
+
 https://autopilot.divy.work
 
 ### Requirements
@@ -42,9 +44,6 @@ https://autopilot.divy.work
 sudo apt-get update
 sudo apt-get install libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 ```
-
-### Windows
-Run cmd as adminsirator
 
 ### Usage
 
