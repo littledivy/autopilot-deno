@@ -21,7 +21,7 @@ In progress...
 
 ### Usage
 
-**NOTE**: Currently, I have not published plugins for Ubuntu as there are some error while building on Github actions.
+**NOTE**: Prebuilt binaries are automatically downloaded the first time you import Autopilot in your project and are cached.
 
 ```typescript
 import AutoPilot from 'https://raw.githubusercontent.com/divy-work/autopilot-deno/master/mod.ts';
