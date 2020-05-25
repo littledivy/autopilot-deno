@@ -90,6 +90,26 @@ Example:
 pilot.mousePosition();
 ```
 
+
+#### .pixelColor
+
+Get current mouse pixel color.
+
+Returns type `RGBA`.
+
+```typescript
+interface RGBA {
+    r: number,
+    g: number,
+    b: number,
+    a: number
+}
+```
+
+Example:
+```typescript
+pilot.pixelColor();
+```
 #### .click
 
 Simulate a click
