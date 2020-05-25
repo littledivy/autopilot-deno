@@ -82,7 +82,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "v0.0.2"
+          tag_name: "v0.0.3-draft"
           draft: true
           files: |
             target/debug/libautopilot_deno.dylib

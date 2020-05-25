@@ -5,6 +5,19 @@
 .pro-pic {
   border:.5px solid deepskyblue;
 }
+pre {
+  display: block;
+    padding: 10px;
+    margin: 0 0 10.5px;
+    font-size: 17px;
+    line-height: 1.42857143;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: white;
+    background-image: linear-gradient(120deg, deepskyblue, #18bc9c);
+    border-radius: 4px;
+    font-weight: bold;
+  }
 .onedaya{
   font-family: OneDay;
 }
