@@ -2,6 +2,8 @@
 
 ![](./docs/logo.png)
 
+</p>
+
 [![stars](https://img.shields.io/github/stars/divy-work/autopilot-deno)](https://github.com/divy-work/autopilot-deno/stargazers)
 [![issues](https://img.shields.io/github/issues/divy-work/autopilot-deno)](https://github.com/divy-work/autopilot-deno/issues)
 [![ci](https://github.com/divy-work/autopilot-deno/workflows/ci/badge.svg)](https://github.com/divy-work/autopilot-deno/actions)
@@ -10,7 +12,6 @@
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
-</p>
 
 ### Features
 
