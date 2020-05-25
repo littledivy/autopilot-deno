@@ -102,7 +102,7 @@ class AutoPilot {
    * executes mousePostition and returns a JSON
    * @return {object} The coordinates of mouse on screen
    */
-  mousePostition() {
+  mousePosition() {
     return JSON.parse(runMousePosition());
   }
 }
