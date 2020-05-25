@@ -6,6 +6,13 @@
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
+## Requirements
+
+### Ubuntu
+
+```sh
+sudo apt-get install libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
+```
 
 ## Quick start
 
@@ -167,3 +174,27 @@ pilot.alert({
   msg: "Something definetly went wrong!"
 })
 ```
+### Building from source
+
+> Warning: This requires Rust and Cargo setup in your machine.
+
+Clone the github repo
+```sh
+git clone https://github.com/divy-work/autopilot-deno
+cd autopilot
+cargo build
+```
+
+Running `cargo build` might take several minutes to build for the first time.
+
+Now, you can test the current builds using the `DEV` env variable
+
+```sh
+DEV=* deno run --unstable --allow-* examples/sine.ts
+```
+
+### OS Support
+
+* Ubuntu - Full Support
+* MacOS - Not tested
+* Windows - Not tested
