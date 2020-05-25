@@ -31,7 +31,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("scroll", op_scroll);
   interface.register_op("mousePostition", op_mouse_pos);
   // TODO: implement pixel color
-  // interface.register_op("pixelColor", op_mouse_pixel_color);
+  interface.register_op("pixelColor", op_mouse_pixel_color);
 }
 
 // deno bindings for `type`
@@ -222,14 +222,26 @@ fn op_scroll(
     Op::Sync(result_box)
 }
 
+#[derive(Serialize)]
+struct PixelRsp {
+    r: u8,
+    g: u8,
+    b: u8,
+    a: u8
+}
+
 // TODO: implement pixel color
-/*************
 fn op_mouse_pixel_color(
   _interface: &mut dyn Interface,
   data: &[u8],
   zero_copy: Option<ZeroCopyBuf>,
 ) -> Op {
-
+    let mut response = PixelRsp {
+        r: 0x82u8,
+        g: 0x82u8,
+        b: 0x82u8,
+        a: 0x82u8
+    };
   if let Some(buf) = zero_copy {
     let _data_str = std::str::from_utf8(&data[..]).unwrap();
     let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
@@ -238,10 +250,17 @@ fn op_mouse_pixel_color(
     );
   }
   let result = rs_lib::screen::get_color(rs_lib::mouse::location());
-  let result_box: Buf = Box::new(*result);
+  let r = result.ok().unwrap();
+
+  response.r = r[0];
+  response.g = r[1];
+  response.b = r[2];
+  response.a = r[3];
+
+  let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
   Op::Sync(result_box)
 }
-*********/
+
 
 #[derive(Serialize)]
 struct MouseResp {

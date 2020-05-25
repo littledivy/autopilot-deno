@@ -13,7 +13,8 @@ import {
   runMouseClick,
   runKeyTap,
   runMouseScroll,
-  runMousePosition
+  runMousePosition,
+  runPixelColor
 } from "./plugin/index.js";
 
 // Import types
@@ -99,11 +100,19 @@ class AutoPilot {
   }
   /**
    * Get mouse position
-   * executes mousePostition and returns a JSON
+   * executes runMousePostition and returns a JSON
    * @return {object} The coordinates of mouse on screen
    */
   mousePostition() {
     return JSON.parse(runMousePosition());
+  }
+  /**
+   * Get pixel color
+   * executes runPixelColor and returns a JSON
+   * @return {object} The RGBA color
+   */
+  pixelColor() {
+    return JSON.parse(runPixelColor());
   }
 }
 

@@ -47,7 +47,8 @@ const {
   screenshot,
   tap,
   scroll,
-  mousePostition
+  mousePostition,
+  pixelColor
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -86,6 +87,12 @@ export function runScreenSize() {
   const response = Deno.core.dispatch(screenSize);
   return textDecoder.decode(response);
 }
+
+export function runPixelColor() {
+  const response = Deno.core.dispatch(pixelColor);
+  return textDecoder.decode(response);
+}
+
 
 export function runKeyTap(arg) {
   const encoder = new TextEncoder();
