@@ -8,7 +8,7 @@
 [![issues](https://img.shields.io/github/issues/divy-work/autopilot-deno)](https://github.com/divy-work/autopilot-deno/issues)
 [![ci](https://github.com/divy-work/autopilot-deno/workflows/ci/badge.svg)](https://github.com/divy-work/autopilot-deno/actions)
 ![build](https://github.com/divy-work/autopilot-deno/workflows/build/badge.svg)
-[![releases](https://img.shields.io/github/downloads/divy-work/autopilot-deno/total)](https://github.com/divy-work/autopilot-deno/releases/latest/)
+![version](https://img.shields.io/badge/version-0.0.5-success)
 ![deno version](https://img.shields.io/badge/deno-1.0.2-success)
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
@@ -29,7 +29,7 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 - [x] Screen
   - [x] Capture screen using `.screenshot`
   - [x] Get screen size using `.screenSize`
-  - [ ] Cropped screenshot
+  - [x] Check if point out of bounds using `.pointVisible`
 
 - [x] Alert
   - [x] Native popup using `.alert`
