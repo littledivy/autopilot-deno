@@ -32,6 +32,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("mousePostition", op_mouse_pos);
     interface.register_op("pixelColor", op_mouse_pixel_color);
     interface.register_op("toggleKey", op_toggle_key);
+    interface.register_op("pointVisible", op_point_visible);
 }
 
 // deno bindings for `type`
@@ -235,6 +236,36 @@ fn op_mouse_pixel_color(
     response.a = r[3];
 
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+    Op::Sync(result_box)
+}
+
+#[derive(Deserialize)]
+struct PointPosition {
+    x: f64,
+    y: f64
+}
+
+// point is visible or not
+fn op_point_visible(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+
+    let params: PointPosition = serde_json::from_slice(data).unwrap();
+
+    if let Some(buf) = zero_copy {
+        let _data_str = std::str::from_utf8(&data[..]).unwrap();
+        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
+        println!("Moving mouse...");
+    }
+
+    let r = rs_lib::screen::is_point_visible(
+        rs_lib::geometry::Point::new(params.x as f64, params.y as f64)
+    );
+    let mut result = b"0";
+    if r == true { result = b"1" };
+    let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)
 }
 
