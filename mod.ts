@@ -14,7 +14,8 @@ import {
   runKeyTap,
   runMouseScroll,
   runMousePosition,
-  runPixelColor
+  runPixelColor,
+  runToggleKey
 } from "./plugin/index.js";
 
 // Import types
@@ -113,6 +114,13 @@ class AutoPilot {
    */
   pixelColor() {
     return JSON.parse(runPixelColor());
+  }
+  toggleKey(key: string, down: boolean) {
+    runToggleKey({
+      key,
+      down: down ? 1 : 0
+    });
+    return this;
   }
 }
 

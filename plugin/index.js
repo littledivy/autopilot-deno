@@ -48,7 +48,8 @@ const {
   tap,
   scroll,
   mousePostition,
-  pixelColor
+  pixelColor,
+  toggleKey
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -69,6 +70,13 @@ export function runMouseClick(arg) {
   const view = encoder.encode(arg);
 
   const response = Deno.core.dispatch(click, view);
+}
+
+export function runToggleKey(arg) {
+  const encoder = new TextEncoder();
+  const view = encoder.encode(JSON.stringify(arg));
+
+  const response = Deno.core.dispatch(toggleKey, view);
 }
 
 export function runMousePosition() {

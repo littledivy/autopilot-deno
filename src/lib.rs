@@ -30,8 +30,8 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
   interface.register_op("tap", op_tap);
   interface.register_op("scroll", op_scroll);
   interface.register_op("mousePostition", op_mouse_pos);
-  // TODO: implement pixel color
   interface.register_op("pixelColor", op_mouse_pixel_color);
+  interface.register_op("toggleKey", op_toggle_key);
 }
 
 // deno bindings for `type`
@@ -230,7 +230,7 @@ struct PixelRsp {
     a: u8
 }
 
-// TODO: implement pixel color
+// get mouse pixel color
 fn op_mouse_pixel_color(
   _interface: &mut dyn Interface,
   data: &[u8],
@@ -292,6 +292,30 @@ fn op_mouse_pos(
 
   let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
   Op::Sync(result_box)
+}
+
+#[derive(Deserialize)]
+struct ToggleOptions {
+    key: String,
+    down: i32,
+}
+
+// toggle a key
+fn op_toggle_key(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    _zero_copy: Option<ZeroCopyBuf>
+) -> Op {
+
+    let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+
+    let params: ToggleOptions = serde_json::from_slice(data).unwrap();
+
+    rs_lib::key::toggle(&rs_lib::key::Code(bind_tap(&params.key)), params.down != 0, &[], 0. as u64);
+
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
+    Op::Sync(result_box)
 }
 
 // tap a key

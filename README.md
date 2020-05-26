@@ -19,6 +19,7 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 - [x] Keyboard
   - [x] Type a string using `.type`
   - [x] Tap a key using `.tap`
+  - [x] Toggle key using `.toggleKey`
 
 - [x] Mouse
   - [x] Simulate mouse movement using `.moveMouse`
