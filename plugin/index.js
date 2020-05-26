@@ -21,7 +21,7 @@ if (isDev) {
 
   const filename =
     `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
-  console.log(filename);
+
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
   const resourcesPre = Deno.resources();
@@ -130,7 +130,6 @@ export function runScreenShot(arg) {
 
 export function runMoveMouse(arg) {
   arg.d = 10; // TODO: implement passing `d`
-  console.log(arg)
   arg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
