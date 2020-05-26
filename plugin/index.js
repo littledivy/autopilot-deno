@@ -19,7 +19,8 @@ if (isDev) {
     filenameSuffix = ".dylib";
   }
 
-  const filename = `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+  const filename =
+    `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
   console.log(filename);
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
@@ -49,7 +50,7 @@ const {
   scroll,
   mousePostition,
   pixelColor,
-  toggleKey
+  toggleKey,
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -100,7 +101,6 @@ export function runPixelColor() {
   const response = Deno.core.dispatch(pixelColor);
   return textDecoder.decode(response);
 }
-
 
 export function runKeyTap(arg) {
   const encoder = new TextEncoder();

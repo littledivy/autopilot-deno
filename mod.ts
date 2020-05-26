@@ -15,7 +15,7 @@ import {
   runMouseScroll,
   runMousePosition,
   runPixelColor,
-  runToggleKey
+  runToggleKey,
 } from "./plugin/index.js";
 
 // Import types
@@ -124,7 +124,7 @@ class AutoPilot {
   toggleKey(key: string, down: boolean) {
     runToggleKey({
       key,
-      down: down ? 1 : 0
+      down: down ? 1 : 0,
     });
     return this;
   }
