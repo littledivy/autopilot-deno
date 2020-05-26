@@ -3,7 +3,7 @@ import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plug
 const filenameBase = "autopilot_deno";
 
 const PLUGIN_URL_BASE =
-  "https://github.com/divy-work/autopilot-deno/latest/download";
+  "https://github.com/divy-work/autopilot-deno/releases/latest/download";
 
 const isDev = Deno.env.get("DEV");
 
