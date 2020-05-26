@@ -129,6 +129,13 @@ class AutoPilot {
     });
     return this;
   }
+  /**
+   * Checks if point is out of bounds or not
+   * executes runPointVisible with given coordinates
+   * @param {number} x The x corrdinate
+   * @param {number} y The y corrdinate
+   * @return {boolean} true if point is visible else false
+   */
   pointVisible(x:number, y:number) {
     return runPointVisible({
       x,
