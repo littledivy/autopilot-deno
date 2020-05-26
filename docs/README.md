@@ -184,7 +184,7 @@ Example:
 pilot.screenshot("screenshot.png");
 ```
 
-### .pointVisible
+#### .pointVisible
 
 Check whether point is out of screen bounds or not.
 
