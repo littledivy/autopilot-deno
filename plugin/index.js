@@ -129,7 +129,8 @@ export function runScreenShot(arg) {
 }
 
 export function runMoveMouse(arg) {
-  !arg.d ? (arg.d = 1) : (arg.d = arg.d);
+  arg.d = 10; // TODO: implement passing `d`
+  console.log(arg)
   arg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);

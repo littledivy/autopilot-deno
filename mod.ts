@@ -60,6 +60,7 @@ class AutoPilot {
    * @param {number} d The speed of mouse
    */
   moveMouse(x: number, y: number, d?: number) {
+    if (isNaN(x) || isNaN(y)) throw "TypeError: height or width is NaN";
     runMoveMouse({ x, y, d });
     return this;
   }
