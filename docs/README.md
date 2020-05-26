@@ -184,6 +184,20 @@ Example:
 pilot.screenshot("screenshot.png");
 ```
 
+### .pointVisible
+
+Check whether point is out of screen bounds or not.
+
+Arguments:
+
+* `x` - number - abcissa of point
+* `y` - number - ordinate of point
+
+Example:
+```typescript
+pilot.pointVisible(100, 35);
+```
+
 ### Alert
 
 ### .alert
