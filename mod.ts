@@ -115,6 +115,12 @@ class AutoPilot {
   pixelColor() {
     return JSON.parse(runPixelColor());
   }
+  /**
+   * Toggle a key
+   * executes runToggleKey with given params
+   * @param {string} key The key to be toggled
+   * @param {boolean} down Whether to press the key or unpress it
+   */
   toggleKey(key: string, down: boolean) {
     runToggleKey({
       key,
