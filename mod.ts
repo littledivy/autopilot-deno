@@ -16,6 +16,7 @@ import {
   runMousePosition,
   runPixelColor,
   runToggleKey,
+  runPointVisible
 } from "./plugin/index.js";
 
 // Import types
@@ -127,6 +128,12 @@ class AutoPilot {
       down: down ? 1 : 0,
     });
     return this;
+  }
+  pointVisible(x:number, y:number) {
+    return runPointVisible({
+      x,
+      y
+    });
   }
 }
 

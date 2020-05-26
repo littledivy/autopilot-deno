@@ -1,4 +1,4 @@
-//import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts';
+import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts';
 
 const filenameBase = "autopilot_deno";
 
@@ -51,6 +51,7 @@ const {
   mousePostition,
   pixelColor,
   toggleKey,
+  pointVisible,
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -78,6 +79,14 @@ export function runToggleKey(arg) {
   const view = encoder.encode(JSON.stringify(arg));
 
   const response = Deno.core.dispatch(toggleKey, view);
+}
+
+export function runPointVisible(arg) {
+  const encoder = new TextEncoder();
+  const view = encoder.encode(JSON.stringify(arg));
+
+  const response = Deno.core.dispatch(pointVisible, view);
+  return textDecoder.decode(response) == "1" ? true : false;
 }
 
 export function runMousePosition() {
