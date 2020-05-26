@@ -56,7 +56,7 @@ Example:
 pilot.tap("enter");
 ```
 
-#### .toggle
+#### .toggleKey
 
 Toggle the given key.
 
