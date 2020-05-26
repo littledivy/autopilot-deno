@@ -56,6 +56,21 @@ Example:
 pilot.tap("enter");
 ```
 
+#### .toggle
+
+Toggle the given key.
+
+
+Arguments:
+
+* `key` - string - The key to be toggled.
+* `down` - boolean - Whether to press down or not.
+
+Example:
+```typescript
+pilot.tap("enter", true);
+```
+
 ### Mouse
 
 #### .moveMouse
