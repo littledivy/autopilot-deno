@@ -2,3 +2,4 @@ target/
 .deno_plugins/
 examples/.deno_plugins
 screenshot.png
+myscripts/
