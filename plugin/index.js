@@ -53,6 +53,7 @@ const {
   pixelColor,
   toggleKey,
   pointVisible,
+  screenScale,
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -105,6 +106,11 @@ export function runMouseScroll(arg) {
 export function runScreenSize() {
   const response = Deno.core.dispatch(screenSize);
   return textDecoder.decode(response);
+}
+
+export function runScreenScale() {
+  const response = Deno.core.dispatch(screenScale);
+  return JSON.parse(textDecoder.decode(response)).scale;
 }
 
 export function runPixelColor() {
