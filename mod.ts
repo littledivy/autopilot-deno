@@ -16,7 +16,8 @@ import {
   runMousePosition,
   runPixelColor,
   runToggleKey,
-  runPointVisible
+  runPointVisible,
+  runScreenScale
 } from "./plugin/index.js";
 
 // Import types
@@ -142,6 +143,9 @@ class AutoPilot {
       x,
       y
     });
+  }
+  screenScale(): number {
+    return runScreenScale();
   }
 }
 
