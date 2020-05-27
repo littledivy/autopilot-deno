@@ -24,6 +24,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("type", op_type);
     interface.register_op("alert", op_alert);
     interface.register_op("screenSize", op_screen_size);
+    interface.register_op("screenScale", op_screen_scale);
     interface.register_op("moveMouse", op_move_mouse);
     interface.register_op("screenshot", op_screen_shot);
     interface.register_op("click", op_click);
@@ -88,6 +89,32 @@ fn op_screen_size(
 
     response.height = result.height;
     response.width = result.width;
+
+    let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+    Op::Sync(result_box)
+}
+
+#[derive(Serialize)]
+struct ScaleResponse {
+    scale: f64,
+}
+
+fn op_screen_scale(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+    let mut response = ScaleResponse {
+        scale: 1000_f64
+    };
+    if let Some(buf) = zero_copy {
+        let _data_str = std::str::from_utf8(&data[..]).unwrap();
+        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
+        println!("Getting Screen Scale...");
+    }
+    let result = rs_lib::screen::scale();
+
+    response.scale = result;
 
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
     Op::Sync(result_box)
