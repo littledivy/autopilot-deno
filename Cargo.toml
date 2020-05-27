@@ -18,7 +18,6 @@ image = "0.22.4"
 libc = "0.2.66"
 rand = "0.7.2"
 scopeguard = "1.0.0"
-wmctrl = "0.1.7"
 
 [build-dependencies]
 pkg-config = "0.3.17"
@@ -30,6 +29,7 @@ cocoa = "0.20.0"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 x11 = "2.18.1"
+wmctrl = "0.1.7"
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3.4", features = ["libloaderapi", "minwindef", "winbase", "winuser"] }
