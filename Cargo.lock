@@ -1008,8 +1008,7 @@ checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 [[package]]
 name = "wmctrl"
 version = "0.1.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ca88ecf5c62c5ff847f29be8e3cdff68bc29026ec084c2bcb03450c37af9a98"
+source = "git+https://github.com/Treborium/rust-wmctrl#e98021aac29e270656464db3bf7ba59e220f89e6"
 dependencies = [
  "regex",
 ]

@@ -12,6 +12,10 @@ use deno_core::plugin_api::Op;
 use deno_core::plugin_api::ZeroCopyBuf;
 use futures::future::FutureExt;
 
+#[cfg(target_os = "linux")]
+extern crate wmctrl;
+use wmctrl::{Window};
+
 // use serde
 use serde::Deserialize;
 use serde::Serialize;
@@ -21,6 +25,13 @@ use std::path::Path;
 // register all ops here
 #[no_mangle]
 pub fn deno_plugin_init(interface: &mut dyn Interface) {
+
+    let windows = wmctrl::get_windows();
+
+    let win = &windows[0].title();
+
+    println!("{}", win);
+
     interface.register_op("type", op_type);
     interface.register_op("alert", op_alert);
     interface.register_op("screenSize", op_screen_size);
