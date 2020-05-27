@@ -13,6 +13,8 @@
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
+Get in touch:
+  * Discord: undefined_void#8575
 
 ### Features
 
