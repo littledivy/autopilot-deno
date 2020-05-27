@@ -184,6 +184,17 @@ Example:
 pilot.screenshot("screenshot.png");
 ```
 
+#### .screenScale
+
+Get the number of pixels in a point
+
+Returns: `number`
+
+Example:
+```typescript
+pilot.screenScale(); // mostly outputs 1
+```
+
 #### .pointVisible
 
 Check whether point is out of screen bounds or not.
