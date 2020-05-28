@@ -17,7 +17,8 @@ import {
   runPixelColor,
   runToggleKey,
   runPointVisible,
-  runScreenScale
+  runScreenScale,
+  runGetWindow
 } from "./plugin/index.js";
 
 // Import types
