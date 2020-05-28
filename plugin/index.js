@@ -1,4 +1,4 @@
-import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts';
+import { prepare } from "https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts";
 
 const filenameBase = "autopilot_deno";
 
@@ -54,7 +54,7 @@ const {
   toggleKey,
   pointVisible,
   screenScale,
-  getWindow
+  getWindow,
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();

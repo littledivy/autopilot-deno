@@ -18,7 +18,7 @@ import {
   runToggleKey,
   runPointVisible,
   runScreenScale,
-  runGetWindow
+  runGetWindow,
 } from "./plugin/index.js";
 
 // Import types
@@ -139,10 +139,10 @@ class AutoPilot {
    * @param {number} y The y corrdinate
    * @return {boolean} true if point is visible else false
    */
-  pointVisible(x:number, y:number) {
+  pointVisible(x: number, y: number) {
     return runPointVisible({
       x,
-      y
+      y,
     });
   }
   screenScale(): number {

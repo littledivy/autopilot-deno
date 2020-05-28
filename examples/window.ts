@@ -1,5 +1,5 @@
 // ONLY SUPPORTED ON LINUX
-import AutoPilot from '../mod.ts';
+import AutoPilot from "../mod.ts";
 
 const pilot = new AutoPilot();
 
