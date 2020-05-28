@@ -135,7 +135,9 @@ export function runScreenShot(arg) {
 }
 
 export function runMoveMouse(arg) {
-  arg.d = 10; // TODO: implement passing `d`
+  const mouseSpeed = arg.d ? arg.d : 6;
+  console.log(mouseSpeed)
+  arg.d = mouseSpeed; // TODO: implement passing `d`
   arg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
