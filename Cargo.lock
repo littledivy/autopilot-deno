@@ -800,6 +800,7 @@ dependencies = [
  "rand",
  "scopeguard",
  "winapi",
+ "wmctrl",
  "x11",
 ]
 

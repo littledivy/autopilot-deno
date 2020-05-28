@@ -12,20 +12,11 @@ use deno_core::plugin_api::Op;
 use deno_core::plugin_api::ZeroCopyBuf;
 use futures::future::FutureExt;
 
-#[cfg(target_os = "linux")]
-extern crate wmctrl;
-// use wmctrl::{Window};
-
 // use serde
 use serde::Deserialize;
 use serde::Serialize;
 
 use std::path::Path;
-
-// TODO(divy-work): wmctrl for linux
-// let windows = wmctrl::get_windows();
-// let win = &windows[0].title();
-// println!("{}", win);
 
 // register all ops here
 #[no_mangle]
@@ -43,6 +34,19 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("pixelColor", op_mouse_pixel_color);
     interface.register_op("toggleKey", op_toggle_key);
     interface.register_op("pointVisible", op_point_visible);
+    interface.register_op("getWindow", op_get_window);
+}
+
+// incomplete fn to get the window name
+fn op_get_window(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+    rs_lib::window::get_window();
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
+    Op::Sync(result_box)
 }
 
 // deno bindings for `type`
