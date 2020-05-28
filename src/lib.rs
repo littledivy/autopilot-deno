@@ -14,7 +14,7 @@ use futures::future::FutureExt;
 
 #[cfg(target_os = "linux")]
 extern crate wmctrl;
-use wmctrl::{Window};
+// use wmctrl::{Window};
 
 // use serde
 use serde::Deserialize;
