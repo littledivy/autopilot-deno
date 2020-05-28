@@ -62,7 +62,7 @@ pub fn smooth_move(destination: Point, duration: f64) -> Result<(), MouseError> 
     let start_position = location();
     let distance = (start_position.x - destination.x).hypot(start_position.y - destination.y);
     let step_count = distance.ceil() as i64;
-    let interval: u64 = duration.round() as u64;
+    let interval: u64 = duration as u64;
 
     for step in 1..=step_count {
         let position = Point::new(

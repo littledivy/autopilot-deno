@@ -1,4 +1,4 @@
-import { prepare } from 'https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts';
+import { prepare } from "https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts";
 
 const filenameBase = "autopilot_deno";
 
@@ -54,6 +54,7 @@ const {
   toggleKey,
   pointVisible,
   screenScale,
+  getWindow,
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -74,6 +75,10 @@ export function runMouseClick(arg) {
   const view = encoder.encode(arg);
 
   const response = Deno.core.dispatch(click, view);
+}
+
+export function runGetWindow() {
+  const response = Deno.core.dispatch(getWindow);
 }
 
 export function runToggleKey(arg) {
@@ -135,7 +140,8 @@ export function runScreenShot(arg) {
 }
 
 export function runMoveMouse(arg) {
-  arg.d = 10; // TODO: implement passing `d`
+  const mouseSpeed = arg.d ? arg.d : 6;
+  arg.d = mouseSpeed;
   arg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);

@@ -17,7 +17,8 @@ import {
   runPixelColor,
   runToggleKey,
   runPointVisible,
-  runScreenScale
+  runScreenScale,
+  runGetWindow,
 } from "./plugin/index.js";
 
 // Import types
@@ -138,14 +139,29 @@ class AutoPilot {
    * @param {number} y The y corrdinate
    * @return {boolean} true if point is visible else false
    */
-  pointVisible(x:number, y:number) {
+  pointVisible(x: number, y: number) {
     return runPointVisible({
       x,
-      y
+      y,
     });
   }
+  /**
+   * Gets the number of pixels in a point.
+   * executes runScreenScale and returns the scale
+   * @return {number} The number of pixels in a point
+   */
   screenScale(): number {
     return runScreenScale();
+  }
+  /**
+   * Gets the window at 0th index. (needs improvement)
+   * executes runGetWindow and logs the window
+   * Works only on Linux
+   */
+  // **EXPERIMENTAL** (Only for Linux)
+  getWindow() {
+    runGetWindow();
+    return this;
   }
 }
 

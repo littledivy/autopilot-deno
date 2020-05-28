@@ -34,6 +34,19 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("pixelColor", op_mouse_pixel_color);
     interface.register_op("toggleKey", op_toggle_key);
     interface.register_op("pointVisible", op_point_visible);
+    interface.register_op("getWindow", op_get_window);
+}
+
+// incomplete fn to get the window name
+fn op_get_window(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+    rs_lib::window::get_window();
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
+    Op::Sync(result_box)
 }
 
 // deno bindings for `type`
@@ -104,9 +117,7 @@ fn op_screen_scale(
     data: &[u8],
     zero_copy: Option<ZeroCopyBuf>,
 ) -> Op {
-    let mut response = ScaleResponse {
-        scale: 1000_f64
-    };
+    let mut response = ScaleResponse { scale: 1000_f64 };
     if let Some(buf) = zero_copy {
         let _data_str = std::str::from_utf8(&data[..]).unwrap();
         let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
@@ -269,7 +280,7 @@ fn op_mouse_pixel_color(
 #[derive(Deserialize)]
 struct PointPosition {
     x: f64,
-    y: f64
+    y: f64,
 }
 
 // point is visible or not
@@ -278,7 +289,6 @@ fn op_point_visible(
     data: &[u8],
     zero_copy: Option<ZeroCopyBuf>,
 ) -> Op {
-
     let params: PointPosition = serde_json::from_slice(data).unwrap();
 
     if let Some(buf) = zero_copy {
@@ -287,11 +297,14 @@ fn op_point_visible(
         println!("Moving mouse...");
     }
 
-    let r = rs_lib::screen::is_point_visible(
-        rs_lib::geometry::Point::new(params.x as f64, params.y as f64)
-    );
+    let r = rs_lib::screen::is_point_visible(rs_lib::geometry::Point::new(
+        params.x as f64,
+        params.y as f64,
+    ));
     let mut result = b"0";
-    if r == true { result = b"1" };
+    if r == true {
+        result = b"1"
+    };
     let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)
 }
