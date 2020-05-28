@@ -147,6 +147,11 @@ class AutoPilot {
   screenScale(): number {
     return runScreenScale();
   }
+  // **EXPERIMENTAL** (Only for Linux)
+  getWindow() {
+    runGetWindow();
+    return this;
+  }
 }
 
 /**

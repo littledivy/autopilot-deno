@@ -54,6 +54,7 @@ const {
   toggleKey,
   pointVisible,
   screenScale,
+  getWindow
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -74,6 +75,10 @@ export function runMouseClick(arg) {
   const view = encoder.encode(arg);
 
   const response = Deno.core.dispatch(click, view);
+}
+
+export function runGetWindow() {
+  const response = Deno.core.dispatch(getWindow);
 }
 
 export function runToggleKey(arg) {
