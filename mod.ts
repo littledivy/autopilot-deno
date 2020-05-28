@@ -145,6 +145,11 @@ class AutoPilot {
       y,
     });
   }
+  /**
+   * Gets the number of pixels in a point.
+   * executes runScreenScale and returns the scale
+   * @return {number} The number of pixels in a point
+   */
   screenScale(): number {
     return runScreenScale();
   }
