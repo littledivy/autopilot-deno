@@ -153,6 +153,11 @@ class AutoPilot {
   screenScale(): number {
     return runScreenScale();
   }
+  /**
+   * Gets the window at 0th index. (needs improvement)
+   * executes runGetWindow and logs the window
+   * Works only on Linux
+   */
   // **EXPERIMENTAL** (Only for Linux)
   getWindow() {
     runGetWindow();
