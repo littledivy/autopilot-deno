@@ -8,7 +8,7 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 
 ## Requirements
 
-### Ubuntu
+### Linux
 
 ```sh
 sudo apt-get install libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
@@ -46,6 +46,8 @@ Example:
 ```typescript
 pilot.type("Hello, World!");
 ```
+
+![](assets/type.gif)
 
 #### .tap
 
@@ -87,6 +89,8 @@ Example:
 pilot.moveMouse(300, 500);
 ```
 
+![](assets/mouse-move.gif)
+
 #### .mousePosition
 
 Get current mouse position.
@@ -105,6 +109,7 @@ Example:
 pilot.mousePosition();
 ```
 
+![](assets/mouse-position.gif)
 
 #### .pixelColor
 
@@ -125,6 +130,10 @@ Example:
 ```typescript
 pilot.pixelColor();
 ```
+
+![](assets/pixel-color.gif)
+
+
 #### .click
 
 Simulate a click
@@ -234,6 +243,9 @@ pilot.alert({
   msg: "Something definetly went wrong!"
 })
 ```
+
+![](assets/alert.gif)
+
 ### Building from source
 
 > Warning: This requires Rust and Cargo setup in your machine.
