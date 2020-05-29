@@ -7,20 +7,22 @@ use std::time::Duration;
 extern crate wmctrl;
 
 #[cfg(target_os = "linux")]
-pub fn get_window() {
+pub fn get_window(index: usize) -> String {
     let windows = wmctrl::get_windows();
-    let win = &windows[0].title();
-    println!("{}", win);
+    let win = &windows[index].title();
+    format!("{}", win)
 }
 
 #[cfg(target_os = "macos")]
-pub fn get_window() {
+pub fn get_window(index: f64) -> String {
     println!("{}", "get_window is not supported for MacOS");
+    String::from("null")
 }
 
 #[cfg(target_os = "windows")]
-pub fn get_window() {
+pub fn get_window(index: f64) -> String {
     println!("{}", "get_window is not supported for Windows");
+    String::from("null")
 }
 
 #[cfg(target_os = "linux")]

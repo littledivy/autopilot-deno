@@ -78,8 +78,14 @@ export function runMouseClick(arg) {
   const response = Deno.core.dispatch(click, view);
 }
 
-export function runGetWindow() {
-  const response = Deno.core.dispatch(getWindow);
+export function runGetWindow(arg) {
+  if(!arg) arg = "0";
+  arg = arg.toString();
+  const encoder = new TextEncoder();
+  const view = encoder.encode(arg);
+
+  const response = Deno.core.dispatch(getWindow, view);
+  return JSON.parse(textDecoder.decode(response)).window;
 }
 
 export function runToggleKey(arg) {

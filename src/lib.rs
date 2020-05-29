@@ -38,15 +38,26 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("getMonitors", op_monitor_list);
 }
 
+#[derive(Serialize)]
+struct WindowResponse<'a> {
+    window: &'a str
+}
+
 // incomplete fn to get the window name
 fn op_get_window(
     _interface: &mut dyn Interface,
     data: &[u8],
     zero_copy: Option<ZeroCopyBuf>,
 ) -> Op {
-    rs_lib::window::get_window();
-    let result = b"true";
-    let result_box: Buf = Box::new(*result);
+    let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+    let index : usize = data_str.trim().parse().unwrap();
+    let window = rs_lib::window::get_window(index);
+
+    let response = WindowResponse {
+        window: &window
+    };
+    let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+
     Op::Sync(result_box)
 }
 
@@ -120,7 +131,7 @@ fn op_monitor_list(
 ) -> Op {
     let _data_str = std::str::from_utf8(&data[..]).unwrap();
     let no_of_monitors = rs_lib::window::get_active_monitors();
-    
+
     let response = MonitorResponse {
         monitors: &no_of_monitors
     };

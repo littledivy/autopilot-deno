@@ -175,14 +175,13 @@ class AutoPilot {
   }
   /**
    * Gets the window at 0th index. (needs improvement)
-   * executes runGetWindow and logs the window
+   * executes runGetWindow and returns the window name
    * Works only on Linux
    */
   // **EXPERIMENTAL** (Only for Linux)
-  getWindow() {
+  getWindow(index?: number) {
     logger.debug("[mod.ts] Running getWindow");
-    runGetWindow();
-    return this;
+    return runGetWindow(index || 0);
   }
   /**
    * Gets the number of monitors
