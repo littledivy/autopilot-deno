@@ -10,7 +10,7 @@ extern crate wmctrl;
 pub fn get_window(index: usize) -> String {
     let windows = wmctrl::get_windows();
     let win = &windows[index].title();
-    format!("{}", win)
+    format!("{}", win)  
 }
 
 #[cfg(target_os = "macos")]
