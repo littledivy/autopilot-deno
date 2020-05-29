@@ -64,7 +64,7 @@ deno run --unstable -A file.ts
 **NOTE**: Prebuilt binaries are automatically downloaded the first time you import Autopilot in your project and are cached.
 
 ```typescript
-import AutoPilot from 'https://raw.githubusercontent.com/divy-work/autopilot-deno/master/mod.ts';
+import AutoPilot from 'https://deno.land/x/autopilot/mod.ts';
 
 // create a new AutoPilot instance.
 var pilot = new AutoPilot();
