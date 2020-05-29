@@ -48,14 +48,14 @@ https://autopilot.divy.work
 #### Linux
 ```sh
 sudo apt-get update
-sudo apt-get install libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
+sudo apt-get install x11-xserver-utils libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 ```
 
 ### Usage
 
 Running your Deno script with AutoPilot requires some flags
 ```sh
-deno run --unstable --allow-net --allow-plugin --allow-env --allow-read --allow-write file.ts
+deno run --unstable -A file.ts
 ```
 
 **NOTE**: Prebuilt binaries are automatically downloaded the first time you import Autopilot in your project and are cached.
