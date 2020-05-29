@@ -120,8 +120,7 @@ fn op_monitor_list(
 ) -> Op {
     let _data_str = std::str::from_utf8(&data[..]).unwrap();
     let no_of_monitors = rs_lib::window::get_active_monitors();
-    //let tokens:Vec<&str>= no_of_monitors.split(":").collect();
-    //let result = tokens.into_boxed_slice();
+    
     let response = MonitorResponse {
         monitors: &no_of_monitors
     };
