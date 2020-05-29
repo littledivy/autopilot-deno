@@ -246,6 +246,18 @@ pilot.alert({
 
 ![](assets/alert.gif)
 
+
+### Others
+
+#### .getMonitors
+
+Returns the number of monitors.
+
+Example:
+```typescript
+pilot.getMonitors();
+```
+
 ### Building from source
 
 > Warning: This requires Rust and Cargo setup in your machine.
