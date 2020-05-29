@@ -70,7 +70,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
+          sudo apt-get install xrandr libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 
       - name: Build
         env:

@@ -63,7 +63,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install wmctrl libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
+          sudo apt-get install xrandr wmctrl libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 
       - name: Build
         env:
