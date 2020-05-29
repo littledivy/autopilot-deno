@@ -45,7 +45,7 @@ pub fn get_active_monitors() -> String {
 }
 
 #[cfg(target_os = "macos")]
-pub fn get_active_monitors() {
+pub fn get_active_monitors() -> String {
     println!("{}", "get_monitors is not supported for MacOS");
     String::from("Monitors: 1")
 }
