@@ -35,6 +35,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("toggleKey", op_toggle_key);
     interface.register_op("pointVisible", op_point_visible);
     interface.register_op("getWindow", op_get_window);
+    interface.register_op("getMonitors", op_monitor_list);
 }
 
 // incomplete fn to get the window name
@@ -106,6 +107,28 @@ fn op_screen_size(
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
     Op::Sync(result_box)
 }
+
+#[derive(Serialize)]
+struct MonitorResponse<'a> {
+    monitors: &'a str
+}
+
+fn op_monitor_list(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+    let _data_str = std::str::from_utf8(&data[..]).unwrap();
+    let no_of_monitors = rs_lib::window::get_active_monitors();
+    //let tokens:Vec<&str>= no_of_monitors.split(":").collect();
+    //let result = tokens.into_boxed_slice();
+    let response = MonitorResponse {
+        monitors: &no_of_monitors
+    };
+    let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+    Op::Sync(result_box)
+}
+
 
 #[derive(Serialize)]
 struct ScaleResponse {
