@@ -19,6 +19,7 @@ import {
   runPointVisible,
   runScreenScale,
   runGetWindow,
+  runGetMonitors
 } from "./plugin/index.js";
 
 // Import types
@@ -162,6 +163,9 @@ class AutoPilot {
   getWindow() {
     runGetWindow();
     return this;
+  }
+  getMonitors() {
+    return runGetMonitors().split("\n")[0].split("Monitors:").join("").trim()
   }
 }
 
