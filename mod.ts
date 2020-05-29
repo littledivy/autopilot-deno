@@ -164,8 +164,14 @@ class AutoPilot {
     runGetWindow();
     return this;
   }
-  getMonitors() {
-    return runGetMonitors().split("\n")[0].split("Monitors:").join("").trim()
+  /**
+   * Gets the number of monitors
+   * executes runGetMonitors and returns the nyumber of monitors
+   * Works only on Linux
+   */
+  // **EXPERIMENTAL** (Only for Linux)
+  getMonitors(): number {
+    return parseInt(runGetMonitors().split("\n")[0].split("Monitors:").join("").trim())
   }
 }
 
