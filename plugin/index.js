@@ -55,6 +55,7 @@ const {
   pointVisible,
   screenScale,
   getWindow,
+  getMonitors
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -116,6 +117,11 @@ export function runScreenSize() {
 export function runScreenScale() {
   const response = Deno.core.dispatch(screenScale);
   return JSON.parse(textDecoder.decode(response)).scale;
+}
+
+export function runGetMonitors() {
+  const response = Deno.core.dispatch(getMonitors);
+  return JSON.parse(textDecoder.decode(response)).monitors;
 }
 
 export function runPixelColor() {

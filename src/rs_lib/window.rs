@@ -25,10 +25,12 @@ pub fn get_window() {
 
 #[cfg(target_os = "linux")]
 pub fn get_active_monitors() -> String {
-    let output = Command::new("xrandr --listactivemonitors | grep \\Monitor")
+    let output = Command::new("xrandr")
+                     .arg("--listactivemonitors")
                      .output()
                      .expect("failed to execute process");
     let active_monitors_cli = String::from_utf8_lossy(&output.stdout);
+    println!("{}", String::from_utf8_lossy(&output.stderr));
     if !active_monitors_cli.is_empty() {
         active_monitors_cli.to_string()
     } else {
