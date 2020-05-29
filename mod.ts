@@ -4,6 +4,9 @@
 // autopilot-deno is a desktop automation module written in rust for deno :)
 
 // Import deno plugin methods
+
+import { logger } from "./deps.ts";
+
 import {
   runType,
   runAlert,
@@ -19,7 +22,7 @@ import {
   runPointVisible,
   runScreenScale,
   runGetWindow,
-  runGetMonitors
+  runGetMonitors,
 } from "./plugin/index.js";
 
 // Import types
@@ -29,12 +32,16 @@ import { AlertOptions, ClickOptions, ScrollOptions } from "./types.ts";
  * Creates an autopilot instance
  */
 class AutoPilot {
+  constructor() {
+    logger.debug("[mod.ts] New AutoPilot instance created");
+  }
   /**
    * Simulates keyboard typing
    * executes runType with the str param
    * @param {string} str The string to be typed
    */
   type(str: string) {
+    logger.debug("[mod.ts] Running type");
     runType(str);
     return this;
   }
@@ -44,6 +51,7 @@ class AutoPilot {
    * @param {string | AlertOptions} opt The arg to be passed
    */
   alert(opt: string | AlertOptions) {
+    logger.debug("[mod.ts] Running alert");
     runAlert(opt);
     return this;
   }
@@ -53,6 +61,7 @@ class AutoPilot {
    * @return {object} width and height of the screen
    */
   screenSize() {
+    logger.debug("[mod.ts] Running screenSize");
     return JSON.parse(runScreenSize());
   }
   /**
@@ -63,6 +72,7 @@ class AutoPilot {
    * @param {number} d The speed of mouse
    */
   moveMouse(x: number, y: number, d?: number) {
+    logger.debug("[mod.ts] Running moveMouse");
     if (isNaN(x) || isNaN(y)) throw "TypeError: height or width is NaN";
     runMoveMouse({ x, y, d });
     return this;
@@ -73,6 +83,7 @@ class AutoPilot {
    * @param {string} file The output file name
    */
   screenshot(file: string) {
+    logger.debug("[mod.ts] Running screenshot");
     runScreenShot(file);
     return this;
   }
@@ -82,6 +93,7 @@ class AutoPilot {
    * @param {string} arg The key name
    */
   tap(arg: string) {
+    logger.debug("[mod.ts] Running tap");
     arg = arg.trim().toLowerCase();
     runKeyTap(arg);
     return this;
@@ -92,6 +104,7 @@ class AutoPilot {
    * @param {ClickOptions} arg The mouse section to click
    */
   click(arg: ClickOptions) {
+    logger.debug("[mod.ts] Running click");
     runMouseClick(arg);
     return this;
   }
@@ -101,6 +114,7 @@ class AutoPilot {
    * @param {ScrollOptions} arg The direction of scroll
    */
   scroll(arg: ScrollOptions) {
+    logger.debug("[mod.ts] Running scroll");
     runMouseScroll(arg);
     return this;
   }
@@ -110,6 +124,7 @@ class AutoPilot {
    * @return {object} The coordinates of mouse on screen
    */
   mousePosition() {
+    logger.debug("[mod.ts] Running mousePosition");
     return JSON.parse(runMousePosition());
   }
   /**
@@ -118,6 +133,7 @@ class AutoPilot {
    * @return {object} The RGBA color
    */
   pixelColor() {
+    logger.debug("[mod.ts] Running pixelColor");
     return JSON.parse(runPixelColor());
   }
   /**
@@ -127,6 +143,7 @@ class AutoPilot {
    * @param {boolean} down Whether to press the key or unpress it
    */
   toggleKey(key: string, down: boolean) {
+    logger.debug("[mod.ts] Running toggleKey");
     runToggleKey({
       key,
       down: down ? 1 : 0,
@@ -141,6 +158,7 @@ class AutoPilot {
    * @return {boolean} true if point is visible else false
    */
   pointVisible(x: number, y: number) {
+    logger.debug("[mod.ts] Running pointVisible");
     return runPointVisible({
       x,
       y,
@@ -152,6 +170,7 @@ class AutoPilot {
    * @return {number} The number of pixels in a point
    */
   screenScale(): number {
+    logger.debug("[mod.ts] Running screenScale");
     return runScreenScale();
   }
   /**
@@ -161,6 +180,7 @@ class AutoPilot {
    */
   // **EXPERIMENTAL** (Only for Linux)
   getWindow() {
+    logger.debug("[mod.ts] Running getWindow");
     runGetWindow();
     return this;
   }
@@ -171,7 +191,10 @@ class AutoPilot {
    */
   // **EXPERIMENTAL** (Only for Linux)
   getMonitors(): number {
-    return parseInt(runGetMonitors().split("\n")[0].split("Monitors:").join("").trim())
+    logger.debug("[mod.ts] Running getMonitors");
+    return parseInt(
+      runGetMonitors().split("\n")[0].split("Monitors:").join("").trim(),
+    );
   }
 }
 

@@ -55,7 +55,7 @@ const {
   pointVisible,
   screenScale,
   getWindow,
-  getMonitors
+  getMonitors,
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
