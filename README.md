@@ -37,6 +37,9 @@ Get in touch:
 - [x] Alert
   - [x] Native popup using `.alert`
 
+- [x] Others
+  - [x] Get the number of monitor (only on Linux)
+
 ### Documentation
 
 Detailed documentation of the API is available at:
