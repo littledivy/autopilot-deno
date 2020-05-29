@@ -10,17 +10,17 @@ extern crate wmctrl;
 pub fn get_window(index: usize) -> String {
     let windows = wmctrl::get_windows();
     let win = &windows[index].title();
-    format!("{}", win)  
+    format!("{}", win)
 }
 
 #[cfg(target_os = "macos")]
-pub fn get_window(index: f64) -> String {
+pub fn get_window(index: usize) -> String {
     println!("{}", "get_window is not supported for MacOS");
     String::from("null")
 }
 
 #[cfg(target_os = "windows")]
-pub fn get_window(index: f64) -> String {
+pub fn get_window(index: usize) -> String {
     println!("{}", "get_window is not supported for Windows");
     String::from("null")
 }
