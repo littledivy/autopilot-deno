@@ -5,9 +5,10 @@ import mouse from "./mouse.ts";
 
 const prebenchList = keyboard.concat(mouse);
 
-export function createBench(pilot: any) {
+export function createBench(pilot: any, logger: any) {
   for (let i = 0; i < prebenchList.length; i++) {
     const benchItem = prebenchList[i];
+    logger.debug(`collecting ${benchItem.name}`);
     bench({
       name: benchItem.name,
       runs: 1,
