@@ -37,8 +37,10 @@ Get in touch:
 - [x] Alert
   - [x] Native popup using `.alert`
 
-- [x] Others
-  - [x] Get the number of monitor (only on Linux)
+- [x] Window management (only on Linux, sry)
+  - [x] Get the number of monitors
+  - [x] Get window title using `.getWindow`
+  - [x] Transform windows size using `.transformByIndex`
 
 ### Documentation
 
@@ -51,7 +53,7 @@ https://autopilot.divy.work
 #### Linux
 ```sh
 sudo apt-get update
-sudo apt-get install x11-xserver-utils libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
+sudo apt-get install x11-xserver-utils wmctrl libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 ```
 
 ### Usage
