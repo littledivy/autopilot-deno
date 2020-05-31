@@ -27,7 +27,7 @@ if (isDev) {
 
   const rid = Deno.openPlugin(filename);
 } else {
-  logger.info(`Downloading latest release from Github`);
+  logger.info(`Downloading latest Autopilot release from Github`);
   const pluginId = await prepare({
     name: "autopilot_deno",
     printLog: true,
@@ -40,7 +40,7 @@ if (isDev) {
   });
 }
 
-logger.info(`Preparing plugin for ${Deno.build.os}`);
+logger.info(`Preparing Autopilot for ${Deno.build.os}`);
 
 const {
   type,
@@ -193,4 +193,4 @@ Deno.core.setAsyncHandler(screenSize, (response) => {
 Deno.core.setAsyncHandler(alert, (response) => {
   // leave this blank
 });
-logger.info(`Plugin setup complete`);
+logger.info(`Autopilot setup complete`);
