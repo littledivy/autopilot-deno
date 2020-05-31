@@ -1,4 +1,4 @@
-import { prepare } from "../deps.ts";
+import { prepare, logger } from "../deps.ts";
 
 const filenameBase = "autopilot_deno";
 
@@ -7,6 +7,7 @@ const PLUGIN_URL_BASE = "https://github.com/divy-work/autopilot-deno/releases/la
 const isDev = Deno.env.get("DEV");
 
 if (isDev) {
+  logger.info("Running in DEV mode");
   let filenameSuffix = ".so";
   let filenamePrefix = "lib";
 
@@ -26,6 +27,7 @@ if (isDev) {
 
   const rid = Deno.openPlugin(filename);
 } else {
+  logger.info(`Downloading latest release from Github`);
   const pluginId = await prepare({
     name: "autopilot_deno",
     printLog: true,
@@ -37,6 +39,8 @@ if (isDev) {
     },
   });
 }
+
+logger.info(`Preparing plugin for ${Deno.build.os}`);
 
 const {
   type,
