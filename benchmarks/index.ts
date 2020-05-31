@@ -23,4 +23,4 @@ bench({
   }
 })
 
-runBenchmarks()
+runBenchmarks();
