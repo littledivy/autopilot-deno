@@ -1,4 +1,4 @@
-import AutoPilot from '../mod.ts';
+import AutoPilot from "../mod.ts";
 
 let pilot = new AutoPilot();
 

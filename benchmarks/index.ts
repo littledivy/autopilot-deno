@@ -1,26 +1,8 @@
-import { runBenchmarks, bench } from "https://deno.land/std/testing/bench.ts";
-import AutoPilot from '../mod.ts';
+import AutoPilot from "../mod.ts";
+import { createBench, runBench } from "./collect.ts";
 
 let pilot = new AutoPilot();
 
-bench({
-  name: "type",
-  runs: 1,
-  func(b): void {
-    b.start();
-    pilot.type("hello");
-    b.stop();
-  },
-});
+createBench(pilot);
 
-bench({
-  name: "click",
-  runs: 1,
-  func(b): void {
-    b.start();
-    pilot.click("left");
-    b.stop();
-  }
-})
-
-runBenchmarks();
+runBench();

@@ -1,4 +1,4 @@
 // 🐒
-import AutoPilot from './lib/autopilot.ts';
+import AutoPilot from "./lib/autopilot.ts";
 
 export default AutoPilot;

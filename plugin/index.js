@@ -2,7 +2,8 @@ import { prepare, logger } from "../deps.ts";
 
 const filenameBase = "autopilot_deno";
 
-const PLUGIN_URL_BASE = "https://github.com/divy-work/autopilot-deno/releases/latest/download";
+const PLUGIN_URL_BASE =
+  "https://github.com/divy-work/autopilot-deno/releases/latest/download";
 
 const isDev = Deno.env.get("DEV");
 
@@ -19,7 +20,8 @@ if (isDev) {
     filenameSuffix = ".dylib";
   }
 
-  const filename = `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+  const filename =
+    `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
 
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
@@ -58,7 +60,7 @@ const {
   screenScale,
   getWindow,
   getMonitors,
-  transformByIndex
+  transformByIndex,
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -89,7 +91,7 @@ export function runTransformByIndex(arg) {
 }
 
 export function runGetWindow(arg) {
-  if(!arg) arg = "0";
+  if (!arg) arg = "0";
   arg = arg.toString();
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);

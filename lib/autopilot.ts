@@ -207,7 +207,7 @@ class AutoPilot {
     runTransformByIndex({
       index,
       width,
-      height
+      height,
     });
     return this;
   }
