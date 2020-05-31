@@ -193,3 +193,4 @@ Deno.core.setAsyncHandler(screenSize, (response) => {
 Deno.core.setAsyncHandler(alert, (response) => {
   // leave this blank
 });
+logger.info(`Plugin setup complete`);
