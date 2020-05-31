@@ -38,7 +38,7 @@ Get in touch:
   - [x] Native popup using `.alert`
 
 - [x] Window management (only on Linux, sry)
-  - [x] Get the number of monitors
+  - [x] Get the number of monitors using `.getMonitors`
   - [x] Get window title using `.getWindow`
   - [x] Transform windows size using `.transformByIndex`
 
