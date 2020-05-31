@@ -18,8 +18,7 @@ if (isDev) {
     filenameSuffix = ".dylib";
   }
 
-  const filename =
-    `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+  const filename = `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
 
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
