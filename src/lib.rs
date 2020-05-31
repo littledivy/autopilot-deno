@@ -41,7 +41,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
 
 #[derive(Serialize)]
 struct WindowResponse<'a> {
-    window: &'a str
+    window: &'a str,
 }
 
 // incomplete fn to get the window name
@@ -51,12 +51,10 @@ fn op_get_window(
     zero_copy: Option<ZeroCopyBuf>,
 ) -> Op {
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
-    let index : usize = data_str.trim().parse().unwrap();
+    let index: usize = data_str.trim().parse().unwrap();
     let window = rs_lib::window::get_window(index);
 
-    let response = WindowResponse {
-        window: &window
-    };
+    let response = WindowResponse { window: &window };
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
 
     Op::Sync(result_box)

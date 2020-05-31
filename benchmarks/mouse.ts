@@ -8,7 +8,7 @@ export default [
   {
     name: "scroll",
     do: function (pilot: any) {
-      pilot.tap("down");
+      pilot.tap("up");
     },
   },
 ];

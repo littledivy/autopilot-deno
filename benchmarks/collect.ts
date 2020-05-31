@@ -15,9 +15,6 @@ export function createBench(pilot: any) {
         b.start();
         benchItem.do(pilot);
         b.stop();
-        setTimeout(() => {
-          
-        }, 1000);
       },
     });
   }
