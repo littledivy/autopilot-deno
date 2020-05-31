@@ -1,4 +1,4 @@
-import { prepare } from "https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts";
+import { prepare } from "../deps.ts";
 
 const filenameBase = "autopilot_deno";
 
