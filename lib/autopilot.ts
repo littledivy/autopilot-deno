@@ -203,6 +203,7 @@ class AutoPilot {
    */
   // **EXPERIMENTAL** (Only for Linux)
   transformByIndex(index: number, width: number, height: number) {
+    logger.debug("[mod.ts] Running transformByIndex");
     runTransformByIndex({
       index,
       width,
