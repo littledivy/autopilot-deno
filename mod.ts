@@ -22,6 +22,7 @@ import {
   runPointVisible,
   runScreenScale,
   runGetWindow,
+  runTransformByIndex,
   runGetMonitors,
 } from "./plugin/index.js";
 
@@ -175,14 +176,13 @@ class AutoPilot {
   }
   /**
    * Gets the window at 0th index. (needs improvement)
-   * executes runGetWindow and logs the window
+   * executes runGetWindow and returns the window name
    * Works only on Linux
    */
   // **EXPERIMENTAL** (Only for Linux)
-  getWindow() {
+  getWindow(index?: number) {
     logger.debug("[mod.ts] Running getWindow");
-    runGetWindow();
-    return this;
+    return runGetWindow(index || 0);
   }
   /**
    * Gets the number of monitors
@@ -195,6 +195,15 @@ class AutoPilot {
     return parseInt(
       runGetMonitors().split("\n")[0].split("Monitors:").join("").trim(),
     );
+  }
+
+  transformByIndex(index: number, width: number, height: number) {
+    runTransformByIndex({
+      index,
+      width,
+      height
+    });
+    return this;
   }
 }
 
