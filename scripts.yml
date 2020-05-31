@@ -1,0 +1,5 @@
+scripts:
+  bench: DEV=* DEBUG=* deno run --unstable -A benchmarks/index.ts
+  test: DEV=* DEBUG=* deno run --unstable -A examples/type.ts
+  fmt: deno fmt && cargo fmt
+  build: cargo build
