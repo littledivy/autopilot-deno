@@ -110,7 +110,7 @@ fn op_screen_size(
 
 #[derive(Serialize)]
 struct MonitorResponse<'a> {
-    monitors: &'a str
+    monitors: &'a str,
 }
 
 fn op_monitor_list(
@@ -120,14 +120,13 @@ fn op_monitor_list(
 ) -> Op {
     let _data_str = std::str::from_utf8(&data[..]).unwrap();
     let no_of_monitors = rs_lib::window::get_active_monitors();
-    
+
     let response = MonitorResponse {
-        monitors: &no_of_monitors
+        monitors: &no_of_monitors,
     };
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
     Op::Sync(result_box)
 }
-
 
 #[derive(Serialize)]
 struct ScaleResponse {
