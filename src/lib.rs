@@ -36,6 +36,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("pointVisible", op_point_visible);
     interface.register_op("getWindow", op_get_window);
     interface.register_op("getMonitors", op_monitor_list);
+    interface.register_op("transformByIndex", op_transform_by_id);
 }
 
 #[derive(Serialize)]
@@ -189,6 +190,25 @@ fn op_move_mouse(
     )
     .expect("Unable to move mouse");
 
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
+    Op::Sync(result_box)
+}
+
+#[derive(Deserialize)]
+struct TransformParams {
+    height: u16,
+    width: u16,
+    index: usize,
+}
+
+fn op_transform_by_id(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+    let params: TransformParams = serde_json::from_slice(data).unwrap();
+    rs_lib::window::transform_by_index(params.index, params.height, params.width);
     let result = b"true";
     let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)

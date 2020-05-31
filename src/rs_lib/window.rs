@@ -13,6 +13,23 @@ pub fn get_window(index: usize) -> String {
     format!("{}", win)
 }
 
+#[cfg(target_os = "linux")]
+pub fn transform_by_index(index: usize, height: u16, width: u16) {
+    let mut windows = wmctrl::get_windows();
+    let win = &mut windows[index];
+    win.transform(wmctrl::Transformation::new(0, 0, height, width));
+}
+
+#[cfg(target_os = "macos")]
+pub fn transform_by_index(index: usize, height: u16, width: u16) {
+    println!("{}", "transform_by_index is not supported for MacOS");
+}
+
+#[cfg(target_os = "windows")]
+pub fn transform_by_index(index: usize, height: u16, width: u16) {
+    println!("{}", "transform_by_index is not supported for Windows");
+}
+
 #[cfg(target_os = "macos")]
 pub fn get_window(index: usize) -> String {
     println!("{}", "get_window is not supported for MacOS");

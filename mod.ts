@@ -22,6 +22,7 @@ import {
   runPointVisible,
   runScreenScale,
   runGetWindow,
+  runTransformByIndex,
   runGetMonitors,
 } from "./plugin/index.js";
 
@@ -194,6 +195,15 @@ class AutoPilot {
     return parseInt(
       runGetMonitors().split("\n")[0].split("Monitors:").join("").trim(),
     );
+  }
+
+  transformByIndex(index: number, width: number, height: number) {
+    runTransformByIndex({
+      index,
+      width,
+      height
+    });
+    return this;
   }
 }
 

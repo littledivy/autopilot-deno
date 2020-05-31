@@ -56,6 +56,7 @@ const {
   screenScale,
   getWindow,
   getMonitors,
+  transformByIndex
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -76,6 +77,13 @@ export function runMouseClick(arg) {
   const view = encoder.encode(arg);
 
   const response = Deno.core.dispatch(click, view);
+}
+
+export function runTransformByIndex(arg) {
+  const encoder = new TextEncoder();
+  const view = encoder.encode(JSON.stringify(arg));
+
+  const response = Deno.core.dispatch(transformByIndex, view);
 }
 
 export function runGetWindow(arg) {
