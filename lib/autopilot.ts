@@ -74,7 +74,7 @@ class AutoPilot {
    */
   moveMouse(x: number, y: number, d?: number) {
     logger.debug("[mod.ts] Running moveMouse");
-    if (isNaN(x) || isNaN(y)) throw "TypeError: height or width is NaN";
+    if (isNaN(x) || isNaN(y)) logger.error("TypeError: height or width is NaN");
     runMoveMouse({ x, y, d });
     return this;
   }
