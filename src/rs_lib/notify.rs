@@ -118,7 +118,7 @@ impl Platform for Windows {
     fn setup() -> Self {
         Windows(Some(winrt::RuntimeContext::init()))
     }
-
+ 
     fn notify(msg_title: &str, msg_body: &str) -> Result<(), Error> {
         use notify::winrt::windows::data::xml::dom::*;
         use notify::winrt::windows::ui::notifications::*;
