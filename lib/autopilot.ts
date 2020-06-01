@@ -63,6 +63,12 @@ class AutoPilot {
     runAlert(opt);
     return this;
   }
+  /**
+   * Notify bindings with deno plugin
+   * executes runNotify with the title and body
+   * @param {string} title The title of the notification
+   * @param {string} body The body of the notification
+   */
   notify(title: string, body: string) {
     runNotify(
       {
