@@ -120,9 +120,9 @@ impl Platform for Windows {
     }
 
     fn notify(msg_title: &str, msg_body: &str) -> Result<(), Error> {
-        use winrt::windows::data::xml::dom::*;
-        use winrt::windows::ui::notifications::*;
-        use winrt::*;
+        use notify::winrt::windows::data::xml::dom::*;
+        use notify::winrt::windows::ui::notifications::*;
+        use self::winrt::*;
         let toast_xml =
             ToastNotificationManager::get_template_content(ToastTemplateType::ToastText02)?.unwrap();
         let toast_text_elements =
