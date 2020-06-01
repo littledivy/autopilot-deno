@@ -33,6 +33,7 @@ import {
   ClickOptions,
   ScrollOptions,
   ToggleKeys,
+  NotificationParams
 } from "../types.ts";
 
 /**
@@ -66,7 +67,7 @@ class AutoPilot {
     runNotify({
       title,
       body
-    });
+    } as NotificationParams);
     return this;
   }
   /**

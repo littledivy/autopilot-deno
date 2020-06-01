@@ -3,6 +3,11 @@ export interface AlertOptions {
   msg: string;
 }
 
+export interface NotificationParams {
+  title: string,
+  body: string
+}
+
 export type ClickOptions = "left" | "right" | "middle";
 
 export type ScrollOptions = "up" | "down";
