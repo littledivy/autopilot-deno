@@ -27,7 +27,7 @@ import {
 } from "../plugin/index.js";
 
 // Import types
-import { AlertOptions, ClickOptions, ScrollOptions } from "../types.ts";
+import { AlertOptions, ClickOptions, ScrollOptions, ToggleKeys } from "../types.ts";
 
 /**
  * Creates an autopilot instance
@@ -93,7 +93,7 @@ class AutoPilot {
    * executes runKeyTap with the key name
    * @param {string} arg The key name
    */
-  tap(arg: string) {
+  tap(arg: ToggleKeys) {
     logger.debug("[mod.ts] Running tap");
     arg = arg.trim().toLowerCase();
     runKeyTap(arg);
@@ -143,7 +143,7 @@ class AutoPilot {
    * @param {string} key The key to be toggled
    * @param {boolean} down Whether to press the key or unpress it
    */
-  toggleKey(key: string, down: boolean) {
+  toggleKey(key: ToggleKeys, down: boolean) {
     logger.debug("[mod.ts] Running toggleKey");
     runToggleKey({
       key,
