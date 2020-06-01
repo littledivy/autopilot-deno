@@ -61,9 +61,18 @@ const {
   getWindow,
   getMonitors,
   transformByIndex,
+  notify
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
+
+export function runNotify(arg) {
+  arg = JSON.stringify(arg);
+  const encoder = new TextEncoder();
+  const view = encoder.encode(arg);
+
+  const response = Deno.core.dispatch(notify, view);
+}
 
 export function runAlert(arg) {
   let pass = { title: "AutoPilot", msg: "Alert" };

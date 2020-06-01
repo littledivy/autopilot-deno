@@ -24,6 +24,7 @@ import {
   runGetWindow,
   runTransformByIndex,
   runGetMonitors,
+  runNotify
 } from "../plugin/index.js";
 
 // Import types
@@ -59,6 +60,13 @@ class AutoPilot {
   alert(opt: string | AlertOptions) {
     logger.debug("[mod.ts] Running alert");
     runAlert(opt);
+    return this;
+  }
+  notify(title: string, body: string) {
+    runNotify({
+      title,
+      body
+    });
     return this;
   }
   /**
