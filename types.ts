@@ -4,8 +4,8 @@ export interface AlertOptions {
 }
 
 export interface NotificationParams {
-  title: string,
-  body: string
+  title: string;
+  body: string;
 }
 
 export type ClickOptions = "left" | "right" | "middle";

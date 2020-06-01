@@ -24,7 +24,7 @@ import {
   runGetWindow,
   runTransformByIndex,
   runGetMonitors,
-  runNotify
+  runNotify,
 } from "../plugin/index.js";
 
 // Import types
@@ -33,7 +33,7 @@ import {
   ClickOptions,
   ScrollOptions,
   ToggleKeys,
-  NotificationParams
+  NotificationParams,
 } from "../types.ts";
 
 /**
@@ -64,10 +64,12 @@ class AutoPilot {
     return this;
   }
   notify(title: string, body: string) {
-    runNotify({
-      title,
-      body
-    } as NotificationParams);
+    runNotify(
+      {
+        title,
+        body,
+      } as NotificationParams,
+    );
     return this;
   }
   /**

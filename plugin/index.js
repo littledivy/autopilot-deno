@@ -61,7 +61,7 @@ const {
   getWindow,
   getMonitors,
   transformByIndex,
-  notify
+  notify,
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();

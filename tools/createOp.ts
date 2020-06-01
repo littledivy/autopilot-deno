@@ -1,6 +1,12 @@
-type OPType = "no-return" | "no-return-serde" | "return" | "return-serde" | "all";
+type OPType =
+  | "no-return"
+  | "no-return-serde"
+  | "return"
+  | "return-serde"
+  | "all";
 
-const baseTemplate = (name: string, code: string) => `
+const baseTemplate = (name: string, code: string) =>
+  `
 fn op_${name}(
     _interface: &mut dyn Interface,
     data: &[u8],
@@ -13,16 +19,24 @@ fn op_${name}(
 }
 `;
 
-export default function createOP(name: string = Deno.args[0], type: string = Deno.args[1]) {
+export default function createOP(
+  name: string = Deno.args[0],
+  type: string = Deno.args[1],
+) {
   switch (type) {
     case "no-return":
-      return baseTemplate(name, `
+      return baseTemplate(
+        name,
+        `
       let result = b"true";
       let result_box: Buf = Box::new(*result);
-      `)
+      `,
+      );
       break;
     case "no-return-serde":
-      return baseTemplate(name, `
+      return baseTemplate(
+        name,
+        `
         #[derive(Deserialize)]
         struct SomeSerde {
             x: f64,
@@ -31,16 +45,22 @@ export default function createOP(name: string = Deno.args[0], type: string = Den
         let params: SomeSerde = serde_json::from_slice(data).unwrap();
         let result = b"true";
         let result_box: Buf = Box::new(*result);
-      `)
+      `,
+      );
       break;
     case "return":
-      return baseTemplate(name, `
+      return baseTemplate(
+        name,
+        `
       let result = b"true";
       let result_box: Buf = Box::new(*result);
-      `)
+      `,
+      );
       break;
     case "return-serde":
-      return baseTemplate(name, `
+      return baseTemplate(
+        name,
+        `
       #[derive(Serialize)]
       struct SomeResponse {
         thing: str,
@@ -49,10 +69,13 @@ export default function createOP(name: string = Deno.args[0], type: string = Den
         thing: "a"
       };
       let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
-      `)
+      `,
+      );
       break;
     case "all":
-      return baseTemplate(name, `
+      return baseTemplate(
+        name,
+        `
         #[derive(Deserialize)]
         struct SomeSerde {
             x: f64,
@@ -67,7 +90,8 @@ export default function createOP(name: string = Deno.args[0], type: string = Den
           thing: "a"
         };
         let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
-      `)
+      `,
+      );
       break;
   }
 }
