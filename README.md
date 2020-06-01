@@ -1,6 +1,6 @@
 <p align="center">
 
-![](/docs/logo.png)
+![](docs/logo.png)
 
 </p>
 
