@@ -1,6 +1,8 @@
 export default function convert(list: string) {
-  let listOfKeyCodes = list.split("\n").join("").trim().split(",").map(x => `"${x.trim().toLowerCase()}"`)
-  return `type ToggleKeys = ${listOfKeyCodes.join("|")}`
+  let listOfKeyCodes = list.split("\n").join("").trim().split(",").map((x) =>
+    `"${x.trim().toLowerCase()}"`
+  );
+  return `type ToggleKeys = ${listOfKeyCodes.join("|")}`;
 }
 
 let x = convert(`F1,
@@ -45,5 +47,5 @@ let x = convert(`F1,
     CapsLock,
     Shift,
     Tab,
-    Space`)
-console.log(x)
+    Space`);
+console.log(x);

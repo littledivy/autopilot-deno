@@ -23,5 +23,5 @@ export function createBench(pilot: any, logger: any) {
 
 export function runBench() {
   var x = runBenchmarks();
-  console.log(x)
+  console.log(x);
 }
