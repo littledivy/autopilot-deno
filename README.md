@@ -54,7 +54,7 @@ https://autopilot.divy.work
 #### Linux
 ```sh
 sudo apt-get update
-sudo apt-get install x11-xserver-utils wmctrl libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
+sudo apt-get install libdbus-1-dev x11-xserver-utils wmctrl libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 ```
 
 ### Usage
