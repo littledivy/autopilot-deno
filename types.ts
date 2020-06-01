@@ -6,3 +6,5 @@ export interface AlertOptions {
 export type ClickOptions = "left" | "right" | "middle";
 
 export type ScrollOptions = "up" | "down";
+
+export type ToggleKeys = ""
