@@ -93,10 +93,10 @@ class AutoPilot {
    * executes runKeyTap with the key name
    * @param {string} arg The key name
    */
-  tap(arg: ToggleKeys) {
+  tap(arg: string) {
     logger.debug("[mod.ts] Running tap");
     arg = arg.trim().toLowerCase();
-    runKeyTap(arg);
+    runKeyTap(arg as ToggleKeys);
     return this;
   }
   /**
