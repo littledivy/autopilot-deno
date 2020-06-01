@@ -1,4 +1,4 @@
-import AutoPilot from "https://raw.githubusercontent.com/divy-work/autopilot-deno/master/mod.ts";
+import AutoPilot from "../mod.ts";
 
 var pilot = new AutoPilot();
 
