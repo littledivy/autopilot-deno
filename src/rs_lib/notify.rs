@@ -8,7 +8,7 @@ use mac_notification_sys::error::{ApplicationError, NotificationError};
 extern crate notify_rust;
 
 #[cfg(target_os = "linux")]
-use notify_rust::error::Error as LError;
+use notify::notify_rust::error::Error as LError;
 
 #[cfg(target_os = "windows")]
 extern crate winrt;
