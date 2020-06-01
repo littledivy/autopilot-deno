@@ -35,8 +35,9 @@ Get in touch:
   - [x] Check if point out of bounds using `.pointVisible`
   - [x] Get number of pixels in a point using `.screenScale`
 
-- [x] Alert
+- [x] Notifications
   - [x] Native popup using `.alert`
+  - [x] Notifications using `.notify`
 
 - [x] Window management (only on Linux, sry)
   - [x] Get the number of monitors using `.getMonitors`
