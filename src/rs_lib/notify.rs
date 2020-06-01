@@ -2,7 +2,7 @@
 extern crate mac_notification_sys;
 
 #[cfg(target_os = "macos")]
-use mac_notification_sys::error::{ApplicationError, NotificationError};
+use notify::mac_notification_sys::error::{ApplicationError, NotificationError};
 
 #[cfg(target_os = "linux")]
 extern crate notify_rust;
@@ -14,7 +14,7 @@ use notify::notify_rust::error::Error as LError;
 extern crate winrt;
 
 #[cfg(target_os = "windows")]
-use winrt::Error as WError;
+use notify::winrt::Error as WError;
 
 use std::{
     error::Error as StdError,
