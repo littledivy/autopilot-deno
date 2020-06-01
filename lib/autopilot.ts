@@ -27,7 +27,12 @@ import {
 } from "../plugin/index.js";
 
 // Import types
-import { AlertOptions, ClickOptions, ScrollOptions, ToggleKeys } from "../types.ts";
+import {
+  AlertOptions,
+  ClickOptions,
+  ScrollOptions,
+  ToggleKeys,
+} from "../types.ts";
 
 /**
  * Creates an autopilot instance
