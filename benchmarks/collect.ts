@@ -4,8 +4,9 @@ import keyboard from "./keyboard.ts";
 import mouse from "./mouse.ts";
 import screen from "./screen.ts";
 import alert from "./alert.ts";
+import window from "./window.ts";
 
-const prebenchList = keyboard.concat(mouse).concat(screen).concat(alert);
+const prebenchList = keyboard.concat(mouse).concat(screen).concat(alert).concat(window);
 
 export function createBench(pilot: any, logger: any) {
   for (let i = 0; i < prebenchList.length; i++) {
