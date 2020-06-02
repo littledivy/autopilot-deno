@@ -70,6 +70,7 @@ class AutoPilot {
    * @param {string} body The body of the notification
    */
   notify(title: string, body: string) {
+    logger.debug("Running notify");
     runNotify(
       {
         title,
