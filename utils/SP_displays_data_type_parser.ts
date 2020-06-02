@@ -1,9 +1,14 @@
+import { parse } from "https://deno.land/std/encoding/yaml.ts";
+
 export default function parseMonitorsMac(info: string): string {
   const result = parse(info);
   let displayList;
+  // @ts-ignore
   for (var i in result["Graphics/Displays"]) {
+    // @ts-ignore
     for (var j in result["Graphics/Displays"][i]) {
       if (j == "Displays") {
+        // @ts-ignore
         displayList = result["Graphics/Displays"][i][j];
         break;
       }

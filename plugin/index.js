@@ -1,5 +1,4 @@
 import { prepare, logger } from "../deps.ts";
-import { parse } from "https://deno.land/std/encoding/yaml.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
 
 const filenameBase = "autopilot_deno";
