@@ -22,7 +22,7 @@ export default [
     do: function (pilot: any) {
       pilot.mousePosition();
     }
-  }
+  },
   {
     name: "moveMouse",
     do: function (pilot:any) {
