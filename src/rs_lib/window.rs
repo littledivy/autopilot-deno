@@ -59,8 +59,17 @@ pub fn get_active_monitors() -> String {
 
 #[cfg(target_os = "windows")]
 pub fn get_active_monitors() -> String {
-    println!("{}", "get_monitors is not supported for Windows");
-    String::from("Monitors: 1")
+    let output = Command::new("cmd")
+                     .args(&["/C", "monitors.bat"])
+                     .output()
+                     .expect("failed to execute process");
+    let active_monitors_cli = String::from_utf8_lossy(&output.stdout);
+    println!("{}", String::from_utf8_lossy(&output.stderr));
+    if !active_monitors_cli.is_empty() {
+        active_monitors_cli.to_string()
+    } else {
+        String::from("Monitors: 1")
+    }
 }
 
 #[cfg(target_os = "macos")]
