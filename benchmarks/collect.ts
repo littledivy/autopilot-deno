@@ -1,4 +1,5 @@
 import { runBenchmarks, bench } from "https://deno.land/std/testing/bench.ts";
+import write from "./write.ts";
 
 import keyboard from "./keyboard.ts";
 import mouse from "./mouse.ts";
@@ -29,7 +30,12 @@ export function createBench(pilot: any, logger: any) {
   }
 }
 
-export function runBench() {
-  var x = runBenchmarks();
-  console.log(x);
+export async function runBench() {
+  var res = await runBenchmarks();
+  let toWrite = {
+    results: res.results,
+    os: Deno.build,
+    metrics: Deno.metrics()
+  }
+  write(toWrite);
 }

@@ -1,0 +1,92 @@
+{
+  "results": [
+    {
+      "name": "type",
+      "totalMs": 1.3448269999998956
+    },
+    {
+      "name": "tap",
+      "totalMs": 3.1048710000004576
+    },
+    {
+      "name": "toggle",
+      "totalMs": 1.2013000000006286
+    },
+    {
+      "name": "click",
+      "totalMs": 11.40948600000047
+    },
+    {
+      "name": "scroll",
+      "totalMs": 0.829106999999567
+    },
+    {
+      "name": "pixelColor",
+      "totalMs": 6.000632999999652
+    },
+    {
+      "name": "mousePosition",
+      "totalMs": 0.6756610000011278
+    },
+    {
+      "name": "moveMouse",
+      "totalMs": 299.84014899999966
+    },
+    {
+      "name": "screenSize",
+      "totalMs": 1.2830859999994573
+    },
+    {
+      "name": "screenshot",
+      "totalMs": 2454.733475000001
+    },
+    {
+      "name": "pointVisible",
+      "totalMs": 1.3070430000007036
+    },
+    {
+      "name": "screenScale",
+      "totalMs": 1.331347999999707
+    },
+    {
+      "name": "getMonitors",
+      "totalMs": 203.48807999999917
+    },
+    {
+      "name": "notify",
+      "totalMs": 10.503413999998884
+    },
+    {
+      "name": "alert",
+      "totalMs": 1774.524612000001
+    },
+    {
+      "name": "getWindow",
+      "totalMs": 10.741369999996095
+    },
+    {
+      "name": "transformByIndex",
+      "totalMs": 25.219200999999885
+    }
+  ],
+  "os": {
+    "target": "x86_64-unknown-linux-gnu",
+    "arch": "x86_64",
+    "os": "linux",
+    "vendor": "unknown",
+    "env": "gnu"
+  },
+  "metrics": {
+    "opsDispatched": 73,
+    "opsDispatchedSync": 56,
+    "opsDispatchedAsync": 17,
+    "opsDispatchedAsyncUnref": 0,
+    "opsCompleted": 73,
+    "opsCompletedSync": 56,
+    "opsCompletedAsync": 17,
+    "opsCompletedAsyncUnref": 0,
+    "bytesSentControl": 702,
+    "bytesSentData": 0,
+    "bytesReceived": 3388
+  }
+}
