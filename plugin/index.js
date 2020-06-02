@@ -63,6 +63,7 @@ const {
   getMonitors,
   transformByIndex,
   notify,
+  quickMoveMouse
 } = Deno.core.ops();
 
 const textDecoder = new TextDecoder();
@@ -177,13 +178,10 @@ export function runScreenShot(arg) {
 }
 
 export function runMoveMouse(arg) {
-  const mouseSpeed = arg.d ? arg.d : 1;
-  arg.d = mouseSpeed;
-  arg = JSON.stringify(arg);
+  let sarg = JSON.stringify(arg);
   const encoder = new TextEncoder();
-  const view = encoder.encode(arg);
-
-  const response = Deno.core.dispatch(moveMouse, view);
+  const view = encoder.encode(sarg);
+  const response = Deno.core.dispatch(arg.d ? moveMouse: quickMoveMouse, view);
   return textDecoder.decode(response);
 }
 

@@ -26,6 +26,7 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("screenSize", op_screen_size);
     interface.register_op("screenScale", op_screen_scale);
     interface.register_op("moveMouse", op_move_mouse);
+    interface.register_op("quickMoveMouse", op_quick_move_mouse);
     interface.register_op("screenshot", op_screen_shot);
     interface.register_op("click", op_click);
     interface.register_op("tap", op_tap);
@@ -176,6 +177,35 @@ fn op_screen_scale(
     response.scale = result;
 
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+    Op::Sync(result_box)
+}
+
+
+#[derive(Deserialize)]
+struct QuickMousePostition {
+    x: f64,
+    y: f64
+}
+
+fn op_quick_move_mouse(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    zero_copy: Option<ZeroCopyBuf>,
+) -> Op {
+    let params: QuickMousePostition = serde_json::from_slice(data).unwrap();
+
+    if let Some(buf) = zero_copy {
+        let _data_str = std::str::from_utf8(&data[..]).unwrap();
+        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
+        println!("Moving mouse...");
+    }
+    rs_lib::mouse::move_to(
+        rs_lib::geometry::Point::new(params.x as f64, params.y as f64)
+    )
+    .expect("Unable to move mouse");
+
+    let result = b"true";
+    let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)
 }
 
