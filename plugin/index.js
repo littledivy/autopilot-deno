@@ -1,5 +1,5 @@
 import { prepare, logger } from "../deps.ts";
-import { parse } from 'https://deno.land/std/encoding/yaml.ts';
+import { parse } from "https://deno.land/std/encoding/yaml.ts";
 
 function parseMonitorsMac(info) {
   const result = parse(info);
@@ -16,7 +16,7 @@ function parseMonitorsMac(info) {
 }
 
 function makeParseableString(len) {
-  return `Monitors: ${len}`
+  return `Monitors: ${len}`;
 }
 
 function parseDisplayListLength(displayList) {
@@ -175,7 +175,9 @@ export function runScreenScale() {
 
 export function runGetMonitors() {
   const response = Deno.core.dispatch(getMonitors);
-  if(Deno.build.os === "darwin") return parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors);
+  if (Deno.build.os === "darwin") {
+    return parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors);
+  }
   return JSON.parse(textDecoder.decode(response)).monitors;
 }
 
