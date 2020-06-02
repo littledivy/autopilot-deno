@@ -2,8 +2,9 @@ import { runBenchmarks, bench } from "https://deno.land/std/testing/bench.ts";
 
 import keyboard from "./keyboard.ts";
 import mouse from "./mouse.ts";
+import screen from "./screen.ts";
 
-const prebenchList = keyboard.concat(mouse);
+const prebenchList = keyboard.concat(mouse).concat(screen);
 
 export function createBench(pilot: any, logger: any) {
   for (let i = 0; i < prebenchList.length; i++) {
@@ -12,10 +13,15 @@ export function createBench(pilot: any, logger: any) {
     bench({
       name: benchItem.name,
       runs: 1,
-      func(b): void {
-        b.start();
-        benchItem.do(pilot);
-        b.stop();
+      async func(b): Promise<void> {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            b.start();
+            benchItem.do(pilot);
+            b.stop();
+            resolve();
+          }, 2000);
+        })
       },
     });
   }

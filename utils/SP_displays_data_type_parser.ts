@@ -22,7 +22,7 @@ function makeParseableString(len: number) {
 }
 
 function parseDisplayListLength(displayList: object): number {
-  let length:number = 0;
+  let length: number = 0;
   for (var x in displayList) {
     length++;
   }
