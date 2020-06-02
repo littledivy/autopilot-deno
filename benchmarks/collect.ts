@@ -3,8 +3,9 @@ import { runBenchmarks, bench } from "https://deno.land/std/testing/bench.ts";
 import keyboard from "./keyboard.ts";
 import mouse from "./mouse.ts";
 import screen from "./screen.ts";
+import alert from "./alert.ts";
 
-const prebenchList = keyboard.concat(mouse).concat(screen);
+const prebenchList = keyboard.concat(mouse).concat(screen).concat(alert);
 
 export function createBench(pilot: any, logger: any) {
   for (let i = 0; i < prebenchList.length; i++) {

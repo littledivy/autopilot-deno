@@ -12,6 +12,18 @@ export default [
     }
   },
   {
+    name: "pointVisible",
+    do: function(pilot: any) {
+      pilot.pointVisible(1000, 2000);
+    }
+  },
+  {
+    name: "screenScale",
+    do: function(pilot: any) {
+      pilot.screenScale();
+    }
+  },
+  {
     name: "getMonitors",
     do: function(pilot: any) {
       pilot.getMonitors();

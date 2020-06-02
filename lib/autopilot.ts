@@ -198,6 +198,17 @@ class AutoPilot {
     return runScreenScale();
   }
   /**
+   * Gets the number of monitors
+   * executes runGetMonitors and returns the nyumber of monitors
+   * @return {number} The number of monitors
+   */
+  getMonitors(): number {
+    logger.debug("[mod.ts] Running getMonitors");
+    return parseInt(
+      runGetMonitors().split("\n")[0].split("Monitors:").join("").trim(),
+    );
+  }
+  /**
    * Gets the window at 0th index. (needs improvement)
    * executes runGetWindow and returns the window name
    * Works only on Linux
@@ -206,18 +217,6 @@ class AutoPilot {
   getWindow(index?: number) {
     logger.debug("[mod.ts] Running getWindow");
     return runGetWindow(index || 0);
-  }
-  /**
-   * Gets the number of monitors
-   * executes runGetMonitors and returns the nyumber of monitors
-   * Works only on Linux
-   */
-  // **EXPERIMENTAL** (Only for Linux)
-  getMonitors(): number {
-    logger.debug("[mod.ts] Running getMonitors");
-    return parseInt(
-      runGetMonitors().split("\n")[0].split("Monitors:").join("").trim(),
-    );
   }
   /**
    * Transform a window by index
