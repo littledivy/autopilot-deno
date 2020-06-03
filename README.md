@@ -7,7 +7,6 @@
 [![stars](https://img.shields.io/github/stars/divy-work/autopilot-deno)](https://github.com/divy-work/autopilot-deno/stargazers)
 [![issues](https://img.shields.io/github/issues/divy-work/autopilot-deno)](https://github.com/divy-work/autopilot-deno/issues)
 [![ci](https://github.com/divy-work/autopilot-deno/workflows/ci/badge.svg)](https://github.com/divy-work/autopilot-deno/actions)
-![build](https://github.com/divy-work/autopilot-deno/workflows/build/badge.svg)
 ![version](https://img.shields.io/badge/version-0.1.0-success)
 ![deno version](https://img.shields.io/badge/deno-1.0.2-success)
 [![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
