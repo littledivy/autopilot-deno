@@ -50,7 +50,6 @@ pub fn get_active_monitors() -> String {
                      .output()
                      .expect("failed to execute process");
     let active_monitors_cli = String::from_utf8_lossy(&output.stdout);
-    println!("{}", String::from_utf8_lossy(&output.stderr));
     if !active_monitors_cli.is_empty() {
         active_monitors_cli.to_string()
     } else {
@@ -66,7 +65,6 @@ pub fn get_active_monitors() -> String {
                      .output()
                      .expect("failed to execute process");
     let active_monitors_cli = String::from_utf8_lossy(&output.stdout);
-    println!("{}", String::from_utf8_lossy(&output.stderr));
     if !active_monitors_cli.is_empty() {
         active_monitors_cli.to_string()
     } else {
@@ -81,7 +79,6 @@ pub fn get_active_monitors() -> String {
                      .output()
                      .expect("failed to execute process");
     let active_monitors_cli = String::from_utf8_lossy(&output.stdout);
-    println!("{}", String::from_utf8_lossy(&output.stderr));
     if !active_monitors_cli.is_empty() {
         active_monitors_cli.to_string()
     } else {
