@@ -26,8 +26,8 @@ for (let i = 0; i < preTestList.length; i++) {
     name: benchItem.name,
     async fn(): Promise<void> {
       return new Promise((resolve, reject) => {
-          benchItem.do(pilot);
-          resolve();
+        benchItem.do(pilot);
+        resolve();
       });
     },
   });

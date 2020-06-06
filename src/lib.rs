@@ -185,7 +185,6 @@ fn op_quick_move_mouse(
 ) -> Op {
     let params: QuickMousePostition = serde_json::from_slice(data).unwrap();
 
-
     rs_lib::mouse::move_to(rs_lib::geometry::Point::new(
         params.x as f64,
         params.y as f64,
