@@ -277,9 +277,9 @@ dependencies = [
 
 [[package]]
 name = "deno_core"
-version = "0.45.1"
+version = "0.47.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "042f7018c21b20764a8952ee4eba02c4c0dc6bffed7ce0453ae5edbd3ee68fd3"
+checksum = "88bb710ac3916a30de1d3f03f0763c9c0ed5100473687f95ddb37df7de661d0c"
 dependencies = [
  "downcast-rs",
  "futures 0.3.5",
@@ -551,9 +551,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.70"
+version = "0.2.71"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3baa92041a6fec78c687fa0cc2b3fae8884f743d672cf551bed1d6dac6988d0f"
+checksum = "9457b06509d27052635f90d6466700c65095fdf75409b3fbdd903e988b886f49"
 
 [[package]]
 name = "libdbus-sys"
@@ -996,9 +996,9 @@ checksum = "4c691c0e608126e00913e33f0ccf3727d5fc84573623b8d65b2df340b5201783"
 
 [[package]]
 name = "rusty_v8"
-version = "0.4.2"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "acb0ad56a57c42009a8d16df5fa94ae882ad0ffe0e88fe1a23b261b3affbccf2"
+checksum = "acb51793f34f267b197a6688c986ddcd7a60c94894d77702f1b4a3febf6e1eda"
 dependencies = [
  "bitflags",
  "cargo_gn",
@@ -1103,6 +1103,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "thiserror"
+version = "1.0.19"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b13f926965ad00595dd129fa12823b04bbf866e9085ab0a5f2b05b850fbfc344"
+dependencies = [
+ "thiserror-impl",
+]
+
+[[package]]
+name = "thiserror-impl"
+version = "1.0.19"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "893582086c2f98cde18f906265a65b5030a074b1046c674ae898be6519a7f479"
+dependencies = [
+ "proc-macro2 1.0.14",
+ "quote 1.0.6",
+ "syn 1.0.23",
+]
+
+[[package]]
 name = "thread_local"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1182,12 +1202,12 @@ checksum = "cccddf32554fecc6acb585f82a32a72e28b48f8c4c1883ddfeeeaa96f7d8e519"
 
 [[package]]
 name = "which"
-version = "3.1.1"
+version = "4.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d011071ae14a2f6671d0b74080ae0cd8ebf3a6f8c9589a2cd45f23126fe29724"
+checksum = "bd3edc3cf5458851a4d6a2329232bd5f42c7f9bbe4c4782c4ef9ce37e5d101b2"
 dependencies = [
- "failure",
  "libc",
+ "thiserror",
 ]
 
 [[package]]
