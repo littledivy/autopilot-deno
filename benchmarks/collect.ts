@@ -1,8 +1,11 @@
-import { runBenchmarks, bench } from "https://deno.land/std@0.56.0/testing/bench.ts";
+import {
+  runBenchmarks,
+  bench,
+} from "https://deno.land/std@0.56.0/testing/bench.ts";
 import {
   prettyBenchmarkResult,
-  prettyBenchmarkProgress
-} from 'https://deno.land/x/pretty_benching/mod.ts';
+  prettyBenchmarkProgress,
+} from "https://deno.land/x/pretty_benching/mod.ts";
 
 import write from "./write.ts";
 
@@ -12,7 +15,9 @@ import screen from "./screen.ts";
 import alert from "./alert.ts";
 import window from "./window.ts";
 
-const prebenchList = keyboard.concat(mouse).concat(screen).concat(alert).concat(window);
+const prebenchList = keyboard.concat(mouse).concat(screen).concat(alert).concat(
+  window,
+);
 
 export function createBench(pilot: any, logger: any) {
   for (let i = 0; i < prebenchList.length; i++) {
@@ -29,7 +34,7 @@ export function createBench(pilot: any, logger: any) {
             b.stop();
             resolve();
           }, 2000);
-        })
+        });
       },
     });
   }
@@ -40,7 +45,7 @@ export async function runBench() {
   let toWrite = {
     results: res.results,
     os: Deno.build,
-    metrics: Deno.metrics()
-  }
+    metrics: Deno.metrics(),
+  };
   write(toWrite);
 }

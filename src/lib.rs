@@ -180,11 +180,10 @@ fn op_screen_scale(
     Op::Sync(result_box)
 }
 
-
 #[derive(Deserialize)]
 struct QuickMousePostition {
     x: f64,
-    y: f64
+    y: f64,
 }
 
 fn op_quick_move_mouse(
@@ -199,9 +198,10 @@ fn op_quick_move_mouse(
         let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
         println!("Moving mouse...");
     }
-    rs_lib::mouse::move_to(
-        rs_lib::geometry::Point::new(params.x as f64, params.y as f64)
-    )
+    rs_lib::mouse::move_to(rs_lib::geometry::Point::new(
+        params.x as f64,
+        params.y as f64,
+    ))
     .expect("Unable to move mouse");
 
     let result = b"true";
