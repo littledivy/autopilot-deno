@@ -15,7 +15,6 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 
 > __NOTE__: Works with Deno v1.0.5 or up.
 
-Discord: undefined_void#8575
 
 ### Features
 
@@ -43,6 +42,10 @@ Discord: undefined_void#8575
   - [x] Get the number of monitors using `.getMonitors`
   - [x] Get window title using `.getWindow`
   - [x] Transform windows size using `.transformByIndex`
+
+#### Join Discord
+
+[![](https://discordapp.com/api/guilds/715564894904123424/widget.png?style=banner2)](https://discord.gg/uqywa4W)
 
 ### Documentation
 
