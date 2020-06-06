@@ -181,7 +181,6 @@ export function runMoveMouse(arg) {
   let sarg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(sarg);
-  console.log(arg.d)
   const response = Deno.core.dispatch(arg.d ? moveMouse : quickMoveMouse, view);
   return textDecoder.decode(response);
 }
