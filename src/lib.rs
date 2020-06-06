@@ -122,11 +122,7 @@ fn op_screen_size(
         width: 1000_f64,
         height: 1000_f64,
     };
-    if let Some(buf) = zero_copy {
-        let _data_str = std::str::from_utf8(&data[..]).unwrap();
-        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
-        println!("Getting Screen Size...");
-    }
+
     let result = rs_lib::screen::size();
 
     response.height = result.height;
@@ -167,11 +163,7 @@ fn op_screen_scale(
     zero_copy: Option<ZeroCopyBuf>,
 ) -> Op {
     let mut response = ScaleResponse { scale: 1000_f64 };
-    if let Some(buf) = zero_copy {
-        let _data_str = std::str::from_utf8(&data[..]).unwrap();
-        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
-        println!("Getting Screen Scale...");
-    }
+
     let result = rs_lib::screen::scale();
 
     response.scale = result;
@@ -193,11 +185,7 @@ fn op_quick_move_mouse(
 ) -> Op {
     let params: QuickMousePostition = serde_json::from_slice(data).unwrap();
 
-    if let Some(buf) = zero_copy {
-        let _data_str = std::str::from_utf8(&data[..]).unwrap();
-        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
-        println!("Moving mouse...");
-    }
+
     rs_lib::mouse::move_to(rs_lib::geometry::Point::new(
         params.x as f64,
         params.y as f64,
@@ -223,11 +211,6 @@ fn op_move_mouse(
 ) -> Op {
     let params: MousePostition = serde_json::from_slice(data).unwrap();
 
-    if let Some(buf) = zero_copy {
-        let _data_str = std::str::from_utf8(&data[..]).unwrap();
-        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
-        println!("Moving mouse...");
-    }
     rs_lib::mouse::smooth_move(
         rs_lib::geometry::Point::new(params.x as f64, params.y as f64),
         params.d as f64,
@@ -295,11 +278,6 @@ struct AlertOptions {
 fn op_alert(_interface: &mut dyn Interface, data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> Op {
     let params: AlertOptions = serde_json::from_slice(data).unwrap();
 
-    if let Some(buf) = zero_copy {
-        let _data_str = std::str::from_utf8(&data[..]).unwrap();
-        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
-        println!("Alerting...");
-    }
     let _ = rs_lib::alert::alert(&params.msg, &params.title, None, None);
 
     let result = b"true";
@@ -357,11 +335,7 @@ fn op_mouse_pixel_color(
         b: 0x82u8,
         a: 0x82u8,
     };
-    if let Some(buf) = zero_copy {
-        let _data_str = std::str::from_utf8(&data[..]).unwrap();
-        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
-        println!("Getting Mouse Pixel Color...");
-    }
+
     let result = rs_lib::screen::get_color(rs_lib::mouse::location());
     let r = result.ok().unwrap();
 
@@ -388,12 +362,6 @@ fn op_point_visible(
 ) -> Op {
     let params: PointPosition = serde_json::from_slice(data).unwrap();
 
-    if let Some(buf) = zero_copy {
-        let _data_str = std::str::from_utf8(&data[..]).unwrap();
-        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
-        println!("Moving mouse...");
-    }
-
     let r = rs_lib::screen::is_point_visible(rs_lib::geometry::Point::new(
         params.x as f64,
         params.y as f64,
@@ -418,11 +386,7 @@ fn op_mouse_pos(_interface: &mut dyn Interface, data: &[u8], zero_copy: Option<Z
         x: 100_f64,
         y: 100_f64,
     };
-    if let Some(buf) = zero_copy {
-        let _data_str = std::str::from_utf8(&data[..]).unwrap();
-        let _buf_str = std::str::from_utf8(&buf[..]).unwrap();
-        println!("Getting Mouse position...");
-    }
+
     let result = rs_lib::mouse::location();
 
     response.x = result.x;
