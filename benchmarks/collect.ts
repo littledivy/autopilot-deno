@@ -1,4 +1,9 @@
-import { runBenchmarks, bench } from "https://deno.land/std/testing/bench.ts";
+import { runBenchmarks, bench } from "https://deno.land/std@0.56.0/testing/bench.ts";
+import {
+  prettyBenchmarkResult,
+  prettyBenchmarkProgress
+} from 'https://deno.land/x/pretty_benching/mod.ts';
+
 import write from "./write.ts";
 
 import keyboard from "./keyboard.ts";
@@ -31,7 +36,7 @@ export function createBench(pilot: any, logger: any) {
 }
 
 export async function runBench() {
-  var res = await runBenchmarks();
+  var res = await runBenchmarks({ silent: true }, prettyBenchmarkProgress());
   let toWrite = {
     results: res.results,
     os: Deno.build,

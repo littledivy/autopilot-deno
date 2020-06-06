@@ -8,7 +8,7 @@ export default [
   {
     name: "tap",
     do: function (pilot: any) {
-      pilot.tap("control");
+      pilot.tap("alt");
     },
   },
   {

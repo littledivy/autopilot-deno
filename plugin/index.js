@@ -191,6 +191,7 @@ export function runType(arg) {
 
   const response = Deno.core.dispatch(type, view);
 }
+
 Deno.core.setAsyncHandler(type, (response) => {
   // leave this blank
 });

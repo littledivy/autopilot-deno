@@ -2,71 +2,71 @@
   "results": [
     {
       "name": "type",
-      "totalMs": 29.409969000000274
+      "totalMs": 79.35845999999947
     },
     {
       "name": "tap",
-      "totalMs": 4.067156999999497
+      "totalMs": 1.4709689999999682
     },
     {
       "name": "toggle",
-      "totalMs": 1.4662099999995917
+      "totalMs": 0.49958800000058545
     },
     {
       "name": "click",
-      "totalMs": 40.237003000000186
+      "totalMs": 41.52075200000036
     },
     {
       "name": "scroll",
-      "totalMs": 0.8705209999989165
+      "totalMs": 1.0166380000009667
     },
     {
       "name": "pixelColor",
-      "totalMs": 68.87367300000005
+      "totalMs": 55.014045000003534
     },
     {
       "name": "mousePosition",
-      "totalMs": 1.4926799999993818
+      "totalMs": 1.5047730000005686
     },
     {
       "name": "moveMouse",
-      "totalMs": 1.6156039999987115
+      "totalMs": 0.8835870000002615
     },
     {
       "name": "screenSize",
-      "totalMs": 1.3250580000021728
+      "totalMs": 1.0319340000023658
     },
     {
       "name": "screenshot",
-      "totalMs": 2505.4648140000027
+      "totalMs": 2794.8334300000024
     },
     {
       "name": "pointVisible",
-      "totalMs": 0.7763730000006035
+      "totalMs": 1.3329580000063288
     },
     {
       "name": "screenScale",
-      "totalMs": 1.0058769999996002
+      "totalMs": 0.9526610000029905
     },
     {
       "name": "getMonitors",
-      "totalMs": 360.6069699999971
+      "totalMs": 277.6533830000044
     },
     {
       "name": "notify",
-      "totalMs": 206.72362499999872
+      "totalMs": 10.974747000000207
     },
     {
       "name": "alert",
-      "totalMs": 2447.488557000004
+      "totalMs": 1835.1819590000014
     },
     {
       "name": "getWindow",
-      "totalMs": 111.44350000000122
+      "totalMs": 41.50413000000117
     },
     {
       "name": "transformByIndex",
-      "totalMs": 22.796555000000808
+      "totalMs": 22.858362999999372
     }
   ],
   "os": {
@@ -77,16 +77,16 @@
     "env": "gnu"
   },
   "metrics": {
-    "opsDispatched": 73,
-    "opsDispatchedSync": 56,
+    "opsDispatched": 176,
+    "opsDispatchedSync": 159,
     "opsDispatchedAsync": 17,
     "opsDispatchedAsyncUnref": 0,
-    "opsCompleted": 73,
-    "opsCompletedSync": 56,
+    "opsCompleted": 176,
+    "opsCompletedSync": 159,
     "opsCompletedAsync": 17,
     "opsCompletedAsyncUnref": 0,
-    "bytesSentControl": 702,
-    "bytesSentData": 0,
-    "bytesReceived": 3379
+    "bytesSentControl": 1248,
+    "bytesSentData": 5083,
+    "bytesReceived": 8079
   }
 }

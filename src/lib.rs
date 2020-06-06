@@ -50,7 +50,7 @@ struct WindowResponse<'a> {
 fn op_get_window(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: Option<ZeroCopyBuf>,
+    _zero_copy: Option<ZeroCopyBuf>,
 ) -> Op {
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let index: usize = data_str.trim().parse().unwrap();
@@ -69,7 +69,7 @@ struct NotifyParams {
 }
 
 // incomplete fn to get the window name
-fn op_notify(_interface: &mut dyn Interface, data: &[u8], zero_copy: Option<ZeroCopyBuf>) -> Op {
+fn op_notify(_interface: &mut dyn Interface, data: &[u8], _zero_copy: Option<ZeroCopyBuf>) -> Op {
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let params: NotifyParams = serde_json::from_slice(data).unwrap();
     rs_lib::notify::notify(&params.title, &params.body);
