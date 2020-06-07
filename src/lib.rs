@@ -150,7 +150,7 @@ struct ScaleResponse {
 
 fn op_screen_scale(
     _interface: &mut dyn Interface,
-    data: &[u8],
+    _data: &[u8],
     _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let mut response = ScaleResponse { scale: 1000_f64 };
