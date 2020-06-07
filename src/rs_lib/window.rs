@@ -2,8 +2,6 @@
 
 // window.rs
 use std::process::Command;
-use std::str::FromStr;
-use std::time::Duration;
 
 #[cfg(target_os = "linux")]
 extern crate wmctrl;
