@@ -1,11 +1,7 @@
 import { prepare, logger } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
 import filename from "./detect.ts";
-
-const filenameBase: string = "autopilot_deno";
-
-const PLUGIN_URL_BASE: string =
-  "https://github.com/divy-work/autopilot-deno/releases/latest/download";
+import { filenameBase, pluginBase } from "../plugin_config.json";
 
 const isDev = Deno.env.get("DEV");
 
@@ -16,7 +12,7 @@ if (isDev) {
   // in runTestClose() below.
   const resourcesPre = Deno.resources();
 
-  const rid = Deno.openPlugin(filename(filenameBase));
+  const rid = Deno.openPlugin("./target/debug/" + filename(filenameBase));
 } else {
   logger.info(`Downloading latest Autopilot release from Github`);
   const pluginId = await prepare({
@@ -24,9 +20,9 @@ if (isDev) {
     printLog: true,
     checkCache: Boolean(Deno.env.get("CACHE")) || true,
     urls: {
-      darwin: `${PLUGIN_URL_BASE}/libautopilot_deno.dylib`,
-      windows: `${PLUGIN_URL_BASE}/autopilot_deno.dll`,
-      linux: `${PLUGIN_URL_BASE}/libautopilot_deno.so`,
+      darwin: `${pluginBase}/libautopilot_deno.dylib`,
+      windows: `${pluginBase}/autopilot_deno.dll`,
+      linux: `${pluginBase}/libautopilot_deno.so`,
     },
   });
 }

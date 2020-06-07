@@ -10,5 +10,5 @@ export default function filename(filenameBase: string): string {
     filenameSuffix = ".dylib";
   }
 
-  return `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+  return `${filenamePrefix}${filenameBase}${filenameSuffix}`;
 }
