@@ -3,18 +3,18 @@
 const WinArgs = [
   "cmd",
   "/C",
-  "monitors.bat"
+  "monitors.bat",
 ];
 
 const MacArgs = [
   "system_profiler",
-  "SPDisplaysDataType"
-]
+  "SPDisplaysDataType",
+];
 
 const LinuxArgs = [
   "xrandr",
-  "--listactivemonitors"
-]
+  "--listactivemonitors",
+];
 
 async function runCommand(cliArgs: string[]): Promise<string> {
   const process = Deno.run({
@@ -37,8 +37,7 @@ export async function getMonitors() {
   switch (Deno.build.os) {
     case "linux":
       const res = await runCommand(LinuxArgs);
-      return res.split("\n")[0].split("Monitors:").join("").trim()
+      return res.split("\n")[0].split("Monitors:").join("").trim();
       break;
-
   }
 }
