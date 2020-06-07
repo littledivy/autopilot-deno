@@ -107,7 +107,7 @@ struct Resp {
 
 fn op_screen_size(
     _interface: &mut dyn Interface,
-    data: &[u8],
+    _data: &[u8],
     _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let mut response = Resp {
