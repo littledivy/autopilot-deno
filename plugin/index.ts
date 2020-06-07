@@ -1,7 +1,9 @@
 import { prepare, logger } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
 import filename from "./detect.ts";
-import { filenameBase, pluginBase } from "../plugin_config.json";
+import config from "../plugin_config.ts";
+
+const { filenameBase, pluginBase } = config;
 
 const isDev = Deno.env.get("DEV");
 

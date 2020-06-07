@@ -34,6 +34,7 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
   - [x] Check if point out of bounds using `.pointVisible`
   - [x] Get number of pixels in a point using `.screenScale`
   - [ ] Screen recording
+
 - [x] Notifications
   - [x] Native popup using `.alert`
   - [x] Notifications using `.notify`
