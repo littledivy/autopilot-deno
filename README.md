@@ -33,13 +33,15 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
   - [x] Get screen size using `.screenSize`
   - [x] Check if point out of bounds using `.pointVisible`
   - [x] Get number of pixels in a point using `.screenScale`
-
+  - [ ] Screen recording
 - [x] Notifications
   - [x] Native popup using `.alert`
   - [x] Notifications using `.notify`
 
-- [x] Window management (only on Linux, sry)
-  - [x] Get the number of monitors using `.getMonitors`
+- [x] Monitors
+   - [x] Get the number of monitors using `.getMonitors`
+
+- [x] Window management __(only for linux)__
   - [x] Get window title using `.getWindow`
   - [x] Transform windows size using `.transformByIndex`
 
