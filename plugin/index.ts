@@ -2,6 +2,7 @@ import { prepare, logger } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
 import filename from "./detect.ts";
 import config from "../plugin_config.ts";
+import { core } from "../types.ts";
 
 const { filenameBase, pluginBase } = config;
 
@@ -28,16 +29,6 @@ if (isDev) {
     },
   });
 }
-// @ts-ignore
-const core = Deno.core as {
-  ops: () => { [key: string]: number };
-  setAsyncHandler(rid: number, handler: (response: Uint8Array) => void): void;
-  dispatch(
-    rid: number,
-    msg?: any,
-    buf?: ArrayBufferView,
-  ): Uint8Array | undefined;
-};
 
 logger.info(`Preparing Autopilot for ${Deno.build.os}`);
 
