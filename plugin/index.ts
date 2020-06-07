@@ -1,5 +1,6 @@
 import { prepare, logger } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
+import filename from "./detect.ts";
 
 const filenameBase: string = "autopilot_deno";
 
@@ -10,25 +11,12 @@ const isDev = Deno.env.get("DEV");
 
 if (isDev) {
   logger.info("Running in DEV mode");
-  let filenameSuffix = ".so";
-  let filenamePrefix = "lib";
-
-  if (Deno.build.os === "windows") {
-    filenameSuffix = ".dll";
-    filenamePrefix = "";
-  }
-  if (Deno.build.os === "darwin") {
-    filenameSuffix = ".dylib";
-  }
-
-  const filename =
-    `./target/debug/${filenamePrefix}${filenameBase}${filenameSuffix}`;
 
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
   const resourcesPre = Deno.resources();
 
-  const rid = Deno.openPlugin(filename);
+  const rid = Deno.openPlugin(filename(filenameBase));
 } else {
   logger.info(`Downloading latest Autopilot release from Github`);
   const pluginId = await prepare({
