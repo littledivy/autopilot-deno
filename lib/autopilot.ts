@@ -25,7 +25,7 @@ import {
   runTransformByIndex,
   runGetMonitors,
   runNotify,
-} from "../plugin/index.js";
+} from "../plugin/index.ts";
 
 // Import types
 import {

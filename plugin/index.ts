@@ -1,9 +1,9 @@
 import { prepare, logger } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
 
-const filenameBase = "autopilot_deno";
+const filenameBase: string = "autopilot_deno";
 
-const PLUGIN_URL_BASE =
+const PLUGIN_URL_BASE: string =
   "https://github.com/divy-work/autopilot-deno/releases/latest/download";
 
 const isDev = Deno.env.get("DEV");
@@ -42,6 +42,16 @@ if (isDev) {
     },
   });
 }
+// @ts-ignore
+const core = Deno.core as {
+  ops: () => { [key: string]: number };
+  setAsyncHandler(rid: number, handler: (response: Uint8Array) => void): void;
+  dispatch(
+    rid: number,
+    msg?: any,
+    buf?: ArrayBufferView,
+  ): Uint8Array | undefined;
+};
 
 logger.info(`Preparing Autopilot for ${Deno.build.os}`);
 
@@ -64,92 +74,91 @@ const {
   transformByIndex,
   notify,
   quickMoveMouse,
-} = Deno.core.ops();
+} = core.ops();
 
 const textDecoder = new TextDecoder();
 
-export function runNotify(arg) {
-  arg = JSON.stringify(arg);
+export function runNotify(arg: object) {
+  let sarg = JSON.stringify(arg);
   const encoder = new TextEncoder();
-  const view = encoder.encode(arg);
+  const view = encoder.encode(sarg);
 
-  const response = Deno.core.dispatch(notify, view);
+  const response = core.dispatch(notify, view);
 }
 
-export function runAlert(arg) {
-  let pass = { title: "AutoPilot", msg: "Alert" };
+export function runAlert(arg: object | string) {
+  let pass: any = { title: "AutoPilot", msg: "Alert" };
   typeof arg == "object"
     ? (pass = JSON.stringify(arg))
     : ((pass.msg = arg), (pass = JSON.stringify(pass)));
   const encoder = new TextEncoder();
   const view = encoder.encode(pass);
 
-  const response = Deno.core.dispatch(alert, view);
+  const response = core.dispatch(alert, view);
 }
 
-export function runMouseClick(arg) {
+export function runMouseClick(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(click, view);
+  const response = core.dispatch(click, view);
 }
 
-export function runTransformByIndex(arg) {
+export function runTransformByIndex(arg: object) {
   const encoder = new TextEncoder();
   const view = encoder.encode(JSON.stringify(arg));
 
-  const response = Deno.core.dispatch(transformByIndex, view);
+  const response = core.dispatch(transformByIndex, view);
 }
 
-export function runGetWindow(arg) {
-  if (!arg) arg = "0";
-  arg = arg.toString();
+export function runGetWindow(arg: number = 0) {
+  let i = arg.toString();
   const encoder = new TextEncoder();
-  const view = encoder.encode(arg);
+  const view = encoder.encode(i);
 
-  const response = Deno.core.dispatch(getWindow, view);
+  const response = core.dispatch(getWindow, view);
   return JSON.parse(textDecoder.decode(response)).window;
 }
 
-export function runToggleKey(arg) {
+export function runToggleKey(arg: object) {
   const encoder = new TextEncoder();
   const view = encoder.encode(JSON.stringify(arg));
 
-  const response = Deno.core.dispatch(toggleKey, view);
+  const response = core.dispatch(toggleKey, view);
 }
 
-export function runPointVisible(arg) {
+export function runPointVisible(arg: object) {
   const encoder = new TextEncoder();
   const view = encoder.encode(JSON.stringify(arg));
 
-  const response = Deno.core.dispatch(pointVisible, view);
+  const response = core.dispatch(pointVisible, view);
   return textDecoder.decode(response) == "1" ? true : false;
 }
 
 export function runMousePosition() {
-  const response = Deno.core.dispatch(mousePostition);
+  const response = core.dispatch(mousePostition);
   return textDecoder.decode(response);
 }
 
-export function runMouseScroll(arg) {
+export function runMouseScroll(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(scroll, view);
+  const response = core.dispatch(scroll, view);
 }
 
 export function runScreenSize() {
-  const response = Deno.core.dispatch(screenSize);
+  const response = core.dispatch(screenSize);
   return textDecoder.decode(response);
 }
 
 export function runScreenScale() {
-  const response = Deno.core.dispatch(screenScale);
+  const response = core.dispatch(screenScale);
   return JSON.parse(textDecoder.decode(response)).scale;
 }
 
 export function runGetMonitors() {
-  const response = Deno.core.dispatch(getMonitors);
+  const response = core.dispatch(getMonitors);
   if (Deno.build.os === "darwin") {
     return parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors);
   }
@@ -157,54 +166,55 @@ export function runGetMonitors() {
 }
 
 export function runPixelColor() {
-  const response = Deno.core.dispatch(pixelColor);
+  const response = core.dispatch(pixelColor);
   return textDecoder.decode(response);
 }
 
-export function runKeyTap(arg) {
+export function runKeyTap(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(tap, view);
+  const response = core.dispatch(tap, view);
   return textDecoder.decode(response);
 }
 
-export function runScreenShot(arg) {
+export function runScreenShot(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(screenshot, view);
+  const response = core.dispatch(screenshot, view);
   return textDecoder.decode(response);
 }
 
-export function runMoveMouse(arg) {
+export function runMoveMouse(arg: any) {
   let sarg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(sarg);
-  const response = Deno.core.dispatch(arg.d ? moveMouse : quickMoveMouse, view);
+  const response = core.dispatch(arg.d ? moveMouse : quickMoveMouse, view);
   return textDecoder.decode(response);
 }
 
-export function runType(arg) {
+export function runType(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
 
-  const response = Deno.core.dispatch(type, view);
+  const response = core.dispatch(type, view);
 }
 
-Deno.core.setAsyncHandler(type, (response) => {
+core.setAsyncHandler(type, () => {
   // leave this blank
 });
 
-Deno.core.setAsyncHandler(moveMouse, (response) => {
+core.setAsyncHandler(moveMouse, () => {
   // leave this blank
 });
 
-Deno.core.setAsyncHandler(screenSize, (response) => {
+core.setAsyncHandler(screenSize, () => {
   // leave this blank
 });
 
-Deno.core.setAsyncHandler(alert, (response) => {
+core.setAsyncHandler(alert, () => {
   // leave this blank
 });
+
 logger.info(`Autopilot setup complete`);
