@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 // @ts-ignore
 export const core = Deno.core as {
   ops: () => { [key: string]: number };
@@ -8,7 +10,6 @@ export const core = Deno.core as {
     buf?: ArrayBufferView,
   ): Uint8Array | undefined;
 };
-
 
 export interface AlertOptions {
   title?: string;

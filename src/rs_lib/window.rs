@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 // window.rs
 use std::process::Command;
 use std::str::FromStr;

@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 import { prepare, logger } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
 import filename from "./detect.ts";

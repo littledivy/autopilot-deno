@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 extern crate image;
 
 use geometry::{Point, Rect, Size};

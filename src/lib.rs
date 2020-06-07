@@ -1,7 +1,4 @@
-// lib.rs
-// Copyright 2020 Divy Srivastava
-//
-//! autopilot-deno-rs is the rust automation library behind autopilot-deno
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
 extern crate rs_lib;
 

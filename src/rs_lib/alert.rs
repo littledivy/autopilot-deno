@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 #[cfg(target_os = "macos")]
 use core_foundation::base::{CFOptionFlags, TCFType};
 #[cfg(target_os = "macos")]

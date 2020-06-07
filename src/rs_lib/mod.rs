@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 pub mod alert;
 pub mod bitmap;
 pub mod geometry;

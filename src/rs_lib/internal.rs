@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 #[cfg(target_os = "macos")]
 use geometry::{Point, Rect, Size};
 

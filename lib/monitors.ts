@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 // monitors.ts (this file was an idea that has been implemented in windows.rs)
 
 const WinArgs = [

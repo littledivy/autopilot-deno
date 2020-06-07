@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 export default function convert(list: string) {
   let listOfKeyCodes = list.split("\n").join("").trim().split(",").map((x) =>
     `"${x.trim().toLowerCase()}"`

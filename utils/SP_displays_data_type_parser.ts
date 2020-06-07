@@ -1,3 +1,5 @@
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
+
 import { parse } from "https://deno.land/std/encoding/yaml.ts";
 
 export default function parseMonitorsMac(info: string): string {
