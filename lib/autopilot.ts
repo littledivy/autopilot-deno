@@ -44,9 +44,15 @@ class AutoPilot {
     logger.debug("[mod.ts] New AutoPilot instance created");
   }
   /**
-   * Simulates keyboard typing
-   * executes runType with the str param
-   * @param {string} str The string to be typed
+   * Types a string.
+   *
+   * ```typescript
+   * import AutoPilot from "https://deno.land/x/autopilot/mod.ts";
+   * const pilot = new AutoPilot();
+   * pilot.type("Hello, World!");
+   * ```
+   *
+   * @param str String to type
    */
   type(str: string) {
     logger.debug("[mod.ts] Running type");
@@ -54,9 +60,15 @@ class AutoPilot {
     return this;
   }
   /**
-   * Alert bindings with deno plugin
-   * executes runAlert with the opt param
-   * @param {string | AlertOptions} opt The arg to be passed
+   * Displays an alert.
+   *
+   * ```typescript
+   * import AutoPilot from "https://deno.land/x/autopilot/mod.ts";
+   * const pilot = new AutoPilot();
+   * pilot.alert("Hello, World!");
+   * ```
+   *
+   * @param opt alert options or msg to display alert.
    */
   alert(opt: string | AlertOptions) {
     logger.debug("[mod.ts] Running alert");
@@ -64,10 +76,16 @@ class AutoPilot {
     return this;
   }
   /**
-   * Notify bindings with deno plugin
-   * executes runNotify with the title and body
-   * @param {string} title The title of the notification
-   * @param {string} body The body of the notification
+   * Triggers a system notification.
+   *
+   * ```typescript
+   * import AutoPilot from "https://deno.land/x/autopilot/mod.ts";
+   * const pilot = new AutoPilot();
+   * pilot.notify("Hello", "World!");
+   * ```
+   *
+   * @param title The title of the notification
+   * @param body The body of the notification
    */
   notify(title: string, body: string) {
     logger.debug("Running notify");
