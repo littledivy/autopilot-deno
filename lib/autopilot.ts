@@ -1,9 +1,4 @@
-// autopilot.ts
-// Copyright 2020 Divy Srivastava
-//
-// autopilot-deno is a desktop automation module written in rust for deno :)
-
-// Import deno plugin methods
+// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
 import { logger } from "../deps.ts";
 
