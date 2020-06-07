@@ -65,9 +65,8 @@ struct NotifyParams {
     body: String,
 }
 
-// incomplete fn to get the window name
+// deno bindings to `type`
 fn op_notify(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
-    let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let params: NotifyParams = serde_json::from_slice(data).unwrap();
     rs_lib::notify::notify(&params.title, &params.body);
     let result = b"true";
@@ -76,7 +75,7 @@ fn op_notify(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [Zero
 }
 
 // deno bindings for `type`
-fn op_type(_interface: &mut dyn Interface, data: &[u8], zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_type(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     // convert arg to string
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
 
@@ -109,7 +108,7 @@ struct Resp {
 fn op_screen_size(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: &mut [ZeroCopyBuf],
+    _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let mut response = Resp {
         width: 1000_f64,
@@ -133,7 +132,7 @@ struct MonitorResponse<'a> {
 fn op_monitor_list(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: &mut [ZeroCopyBuf],
+    _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let _data_str = std::str::from_utf8(&data[..]).unwrap();
     let no_of_monitors = rs_lib::window::get_active_monitors();
@@ -153,7 +152,7 @@ struct ScaleResponse {
 fn op_screen_scale(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: &mut [ZeroCopyBuf],
+    _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let mut response = ScaleResponse { scale: 1000_f64 };
 
@@ -174,7 +173,7 @@ struct QuickMousePostition {
 fn op_quick_move_mouse(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: &mut [ZeroCopyBuf],
+    _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let params: QuickMousePostition = serde_json::from_slice(data).unwrap();
 
@@ -196,7 +195,7 @@ struct MousePostition {
     d: f64,
 }
 
-fn op_move_mouse(_interface: &mut dyn Interface, data: &[u8], zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_move_mouse(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let params: MousePostition = serde_json::from_slice(data).unwrap();
 
     rs_lib::mouse::smooth_move(
@@ -220,7 +219,7 @@ struct TransformParams {
 fn op_transform_by_id(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: &mut [ZeroCopyBuf],
+    _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let params: TransformParams = serde_json::from_slice(data).unwrap();
     rs_lib::window::transform_by_index(params.index, params.height, params.width);
@@ -232,7 +231,7 @@ fn op_transform_by_id(
 fn op_screen_shot(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: &mut [ZeroCopyBuf],
+    _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let bmp = rs_lib::bitmap::capture_screen().expect("Unable to capture screen");
@@ -260,7 +259,7 @@ struct AlertOptions {
 }
 
 // deno bindings for `alert`
-fn op_alert(_interface: &mut dyn Interface, data: &[u8], zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_alert(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let params: AlertOptions = serde_json::from_slice(data).unwrap();
 
     let _ = rs_lib::alert::alert(&params.msg, &params.title, None, None);
@@ -312,7 +311,7 @@ struct PixelRsp {
 fn op_mouse_pixel_color(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: &mut [ZeroCopyBuf],
+    _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let mut response = PixelRsp {
         r: 0x82u8,
@@ -343,7 +342,7 @@ struct PointPosition {
 fn op_point_visible(
     _interface: &mut dyn Interface,
     data: &[u8],
-    zero_copy: &mut [ZeroCopyBuf],
+    _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let params: PointPosition = serde_json::from_slice(data).unwrap();
 
@@ -366,7 +365,7 @@ struct MouseResp {
 }
 
 // get mouse position
-fn op_mouse_pos(_interface: &mut dyn Interface, data: &[u8], zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_mouse_pos(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let mut response = MouseResp {
         x: 100_f64,
         y: 100_f64,
