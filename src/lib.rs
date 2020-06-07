@@ -287,6 +287,7 @@ fn op_click(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroC
     Op::Sync(result_box)
 }
 
+// TODO: incomplete
 fn op_scroll(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     // convert arg to string
     let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
@@ -309,7 +310,7 @@ struct PixelRsp {
 // get mouse pixel color
 fn op_mouse_pixel_color(
     _interface: &mut dyn Interface,
-    data: &[u8],
+    _data: &[u8],
     _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
     let mut response = PixelRsp {
@@ -364,7 +365,7 @@ struct MouseResp {
 }
 
 // get mouse position
-fn op_mouse_pos(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_mouse_pos(_interface: &mut dyn Interface, _data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let mut response = MouseResp {
         x: 100_f64,
         y: 100_f64,
@@ -391,8 +392,6 @@ fn op_toggle_key(
     data: &[u8],
     _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
-    let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
-
     let params: ToggleOptions = serde_json::from_slice(data).unwrap();
 
     rs_lib::key::toggle(
@@ -410,10 +409,10 @@ fn op_toggle_key(
 // tap a key
 fn op_tap(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     // convert arg to string
-    let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+    let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
 
     rs_lib::key::tap(
-        &rs_lib::key::Code(bind_tap(&_data_str)),
+        &rs_lib::key::Code(bind_tap(&data_str)),
         &[],
         0. as u64,
         0. as u64,
