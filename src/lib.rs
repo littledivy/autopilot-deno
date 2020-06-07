@@ -131,10 +131,9 @@ struct MonitorResponse<'a> {
 
 fn op_monitor_list(
     _interface: &mut dyn Interface,
-    data: &[u8],
+    _data: &[u8],
     _zero_copy: &mut [ZeroCopyBuf],
 ) -> Op {
-    let _data_str = std::str::from_utf8(&data[..]).unwrap();
     let no_of_monitors = rs_lib::window::get_active_monitors();
 
     let response = MonitorResponse {
