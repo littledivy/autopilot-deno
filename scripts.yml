@@ -5,7 +5,7 @@ scripts:
       DEV: true
       DEBUG: true
   test:
-    cmd: deno run --unstable -A examples/type.ts
+    cmd: deno test
     env:
       DEV: true
       DEBUG: true
