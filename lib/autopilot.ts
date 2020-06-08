@@ -31,6 +31,11 @@ import {
   NotificationParams,
 } from "../types.ts";
 
+import {
+  isAscii,
+  throwAsciiError
+} from "../utils/isAscii.ts";
+
 /**
  * Creates an autopilot instance
  */
@@ -50,6 +55,7 @@ class AutoPilot {
    * @param str String to type
    */
   type(str: string) {
+    !isAscii(str) && throwAsciiError();
     logger.debug("[mod.ts] Running type");
     runType(str);
     return this;

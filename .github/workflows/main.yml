@@ -75,7 +75,7 @@ jobs:
       - name: Build
         env:
           RUST_BACKTRACE: 1
-        run: cargo build
+        run: cargo build --release
 
       - name: Release Plugin
         uses: softprops/action-gh-release@master
@@ -85,6 +85,6 @@ jobs:
           tag_name: "release draft"
           draft: true
           files: |
-            target/debug/libautopilot_deno.dylib
-            target/debug/autopilot_deno.dll
-            target/debug/libautopilot_deno.so
+            target/release/libautopilot_deno.dylib
+            target/release/autopilot_deno.dll
+            target/release/libautopilot_deno.so
