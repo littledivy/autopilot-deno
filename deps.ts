@@ -8,7 +8,14 @@ import {
   jsonFormat,
   textFormat,
 } from "https://deno.land/x/deno_structured_logging@0.4.1/mod.ts";
-
+export {
+  runBenchmarks,
+  bench,
+} from "https://deno.land/std@0.56.0/testing/bench.ts";
+export {
+  prettyBenchmarkResult,
+  prettyBenchmarkProgress,
+} from "https://deno.land/x/pretty_benching/mod.ts";
 export { prepare } from "https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts";
 
 export const logger = createLogger({
