@@ -2,6 +2,7 @@
 
 import { prepare, logger } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
+import parseMonitorsWin from "../utils/wmic_data_parser.ts";
 import filename from "./detect.ts";
 import config from "../plugin_config.ts";
 import { core } from "../types.ts";
@@ -140,6 +141,9 @@ export function runGetMonitors() {
   const response = core.dispatch(getMonitors);
   if (Deno.build.os === "darwin") {
     return parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors);
+  }
+  if (Deno.build.os === "windows") {
+    return parseMonitorsWin(JSON.parse(textDecoder.decode(response)).monitors);
   }
   return JSON.parse(textDecoder.decode(response)).monitors;
 }
