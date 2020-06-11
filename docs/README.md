@@ -251,7 +251,9 @@ pilot.alert({
 
 #### .getMonitors
 
-Returns the number of monitors.
+Get the number of monitors.
+
+Returns: `Promise<number>`
 
 Example:
 ```typescript
