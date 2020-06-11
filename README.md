@@ -10,6 +10,7 @@
 ![version](https://img.shields.io/badge/version-0.1.4-success)
 ![deno version](https://img.shields.io/badge/deno-1.0.5-success)
 [![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
+[![discord](https://discordapp.com/api/guilds/715564894904123424/widget.png)](https://discord.gg/uqywa4W)
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
@@ -94,3 +95,31 @@ pilot.moveMouse(200, 400);
 // take a full-screen screenshot
 pilot.screenshot("screenshot.png");
 ```
+
+### Env variables
+
+* `CACHE`: Set if you want to update the release from Github.
+* `DEV`: Set if you want t use the development debug builds.
+
+## Development
+
+* Requires rust and cargo.
+* Requires [velociraptor](https://velociraptor.run) (script runner for Deno) - Makes life easier
+
+Clone this repo and run `cargo build` to produce a development build.
+
+#### Commands
+
+* Run __tests__: `vr test`
+* Run and produce __benchmarks__: `vr bench`
+* Format code __fmt__: `vr fmt`
+* Create development build: `vr build`
+
+### Contributing
+Contributing code and ideas to AutoPilot is really easy! You can join the Discord server or Create an issue or PR. :)
+
+[![](https://discordapp.com/api/guilds/715564894904123424/widget.png)](https://discord.gg/uqywa4W)
+
+### License
+
+See [MIT License](LICENSE). All rights reserved. Divy Srivastava 2020.
