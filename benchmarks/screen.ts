@@ -28,7 +28,7 @@ export default [
   {
     name: "getMonitors",
     do: function (pilot: any) {
-      pilot.getMonitors();
+      pilot.getMonitors().then((x: number) => console.log(x));
     },
   },
 ];

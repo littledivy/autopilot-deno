@@ -3,6 +3,8 @@
 import { prepare, logger } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
 import parseMonitorsWin from "../utils/wmic_data_parser.ts";
+import {getMonitors as getMonitorsFallback} from "../lib/monitors.ts";
+
 import filename from "./detect.ts";
 import config from "../plugin_config.ts";
 import { core } from "../types.ts";
@@ -137,13 +139,15 @@ export function runScreenScale() {
   return JSON.parse(textDecoder.decode(response)).scale;
 }
 
-export function runGetMonitors() {
+export async function runGetMonitors() {
+  if (Deno.build.os === "windows") {
+    return await parseMonitorsWin(getMonitorsFallback());
+  }
   const response = core.dispatch(getMonitors);
   if (Deno.build.os === "darwin") {
-    return parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors);
-  }
-  if (Deno.build.os === "windows") {
-    return parseMonitorsWin(JSON.parse(textDecoder.decode(response)).monitors);
+    return new Promise((resolve, reject) => {
+      resolve(parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors));
+    })
   }
   return JSON.parse(textDecoder.decode(response)).monitors;
 }

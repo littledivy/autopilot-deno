@@ -219,13 +219,15 @@ class AutoPilot {
   /**
    * Gets the number of monitors
    * executes runGetMonitors and returns the nyumber of monitors
-   * @return {number} The number of monitors
+   * @return {Promise<number>} The number of monitors
    */
-  getMonitors(): number {
+  getMonitors(): Promise<number> {
     logger.debug("[mod.ts] Running getMonitors");
-    return parseInt(
-      runGetMonitors().split("\n")[0].split("Monitors:").join("").trim(),
-    );
+    return new Promise(resolve => {
+      runGetMonitors().then(n => {
+        resolve(parseInt(n.split("\n")[0].split("Monitors:").join("").trim()))
+      })
+    });
   }
   /**
    * Gets the window at 0th index. (needs improvement)
