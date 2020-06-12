@@ -2,6 +2,14 @@
 
 import { writeJsonSync } from "https://deno.land/std/fs/mod.ts";
 
-export default function write(data: object) {
-  writeJsonSync("benchmarks/benchmarks.dat", data, { spaces: 2 });
+var columns = `|Name|Time(ms)|\n|----|----|`
+var rows = ``;
+
+export default function write(data: any) {
+for (let i = 0; i < data.results.length; i++) {
+  rows += `|${data.results[i].name}|${data.results[i].totalMs}|\n`
+}
+let table = `${columns}\n${rows}`;
+Deno.writeTextFile("benchmarks/README.md", table);
+writeJsonSync("benchmarks/benchmarks.dat", data, { spaces: 2 });
 }
