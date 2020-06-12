@@ -271,6 +271,32 @@ Example:
 pilot.getMonitors();
 ```
 
+### Window management (linux)
+
+#### .getWindow
+
+Get window title by its index.
+
+Arguments:
+* `index` - number - The index of window
+
+```typescript
+pilot.getWindow(0); // outputs 'Desktop', maybe?
+```
+
+#### .transformByIndex
+
+Transform a window by its index.
+
+Arguments:
+* `index` - number - The index of window
+* `height` - number - Desired height of the window
+* `width` - number - Desired width of the window
+
+```typescript
+pilot.transformByIndex(3, 960, 300);
+```
+
 ### Building from source
 
 > Warning: This requires Rust and Cargo setup in your machine.
