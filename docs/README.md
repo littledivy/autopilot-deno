@@ -258,7 +258,7 @@ Arguments:
 pilot.notify("Hello", "World");
 ```
 
-### Others
+### Monitors
 
 #### .getMonitors
 
