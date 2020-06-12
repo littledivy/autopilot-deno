@@ -2,71 +2,71 @@
   "results": [
     {
       "name": "type",
-      "totalMs": 0.5930969999999434
+      "totalMs": 1.3800839999994423
     },
     {
       "name": "tap",
-      "totalMs": 2.080380999999761
+      "totalMs": 3.5752960000008898
     },
     {
       "name": "toggle",
-      "totalMs": 1.1903860000002169
+      "totalMs": 1.492389999999432
     },
     {
       "name": "click",
-      "totalMs": 10.9883719999998
+      "totalMs": 11.114211999998588
     },
     {
       "name": "scroll",
-      "totalMs": 0.4551599999995233
+      "totalMs": 0.8114279999990686
     },
     {
       "name": "pixelColor",
-      "totalMs": 6.259164999999484
+      "totalMs": 5.972074000001157
     },
     {
       "name": "mousePosition",
-      "totalMs": 1.0864609999989625
+      "totalMs": 1.2447290000018256
     },
     {
       "name": "moveMouse",
-      "totalMs": 1.5311450000008335
+      "totalMs": 1.2214710000007472
     },
     {
       "name": "screenSize",
-      "totalMs": 0.7730809999993653
+      "totalMs": 1.266940000001341
     },
     {
       "name": "screenshot",
-      "totalMs": 2517.182568999997
+      "totalMs": 2462.0108169999985
     },
     {
       "name": "pointVisible",
-      "totalMs": 1.3801480000001902
+      "totalMs": 1.3138729999991483
     },
     {
       "name": "screenScale",
-      "totalMs": 0.9866570000012871
+      "totalMs": 0.9946940000008908
     },
     {
       "name": "getMonitors",
-      "totalMs": 197.33967100000154
+      "totalMs": 209.72790199999872
     },
     {
       "name": "notify",
-      "totalMs": 10.026723999995738
+      "totalMs": 7.505043999997724
     },
     {
       "name": "alert",
-      "totalMs": 1281.3682359999948
+      "totalMs": 979.0816530000011
     },
     {
       "name": "getWindow",
-      "totalMs": 16.77234199999657
+      "totalMs": 21.598872000002302
     },
     {
       "name": "transformByIndex",
-      "totalMs": 21.612530999998853
+      "totalMs": 32.24402700000064
     }
   ],
   "os": {
@@ -87,6 +87,6 @@
     "opsCompletedAsyncUnref": 0,
     "bytesSentControl": 1248,
     "bytesSentData": 5083,
-    "bytesReceived": 7997
+    "bytesReceived": 8061
   }
 }

@@ -33,7 +33,7 @@ import {
 
 import {
   isAscii,
-  throwAsciiError
+  throwAsciiError,
 } from "../utils/isAscii.ts";
 
 /**
@@ -223,10 +223,10 @@ class AutoPilot {
    */
   getMonitors(): Promise<number> {
     logger.debug("[mod.ts] Running getMonitors");
-    return new Promise(resolve => {
-      runGetMonitors().then(n => {
-        resolve(parseInt(n.split("\n")[0].split("Monitors:").join("").trim()))
-      })
+    return new Promise((resolve) => {
+      runGetMonitors().then((n) => {
+        resolve(parseInt(n.split("\n")[0].split("Monitors:").join("").trim()));
+      });
     });
   }
   /**

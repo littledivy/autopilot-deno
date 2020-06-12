@@ -194,7 +194,11 @@ struct MousePostition {
     d: f64,
 }
 
-fn op_move_mouse(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_move_mouse(
+    _interface: &mut dyn Interface,
+    data: &[u8],
+    _zero_copy: &mut [ZeroCopyBuf],
+) -> Op {
     let params: MousePostition = serde_json::from_slice(data).unwrap();
 
     rs_lib::mouse::smooth_move(
@@ -365,7 +369,11 @@ struct MouseResp {
 }
 
 // get mouse position
-fn op_mouse_pos(_interface: &mut dyn Interface, _data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_mouse_pos(
+    _interface: &mut dyn Interface,
+    _data: &[u8],
+    _zero_copy: &mut [ZeroCopyBuf],
+) -> Op {
     let mut response = MouseResp {
         x: 100_f64,
         y: 100_f64,

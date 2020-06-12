@@ -33,7 +33,7 @@ export async function getMonitors() {
       return res.split("\n")[0].split("Monitors:").join("").trim();
       break;
     default:
-      return "1"
+      return "1";
       break;
   }
 }
