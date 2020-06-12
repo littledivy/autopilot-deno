@@ -26,6 +26,8 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 
 - [x] Mouse
   - [x] Simulate mouse movement using `.moveMouse`
+  - [x] Click using `.click`
+  - [x] Simulate a scroll using `.scroll`
   - [x] Get mouse position using `.mousePosition`
   - [x] Get mouse position pixel color `.pixelColor`
 
