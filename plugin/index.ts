@@ -26,7 +26,7 @@ if (isDev) {
   const pluginId = await prepare({
     name: "autopilot_deno",
     printLog: true,
-    checkCache: Boolean(Deno.env.get("CACHE")) || true,
+    checkCache: Deno.env.get("CACHE") ? false : true,
     urls: {
       darwin: `${pluginBase}/libautopilot_deno.dylib`,
       windows: `${pluginBase}/autopilot_deno.dll`,
