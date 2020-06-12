@@ -220,7 +220,7 @@ pilot.pointVisible(100, 35);
 
 ### Alert
 
-### .alert
+#### .alert
 
 Trigger a native popup.
 
