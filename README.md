@@ -19,33 +19,33 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 
 ### Features
 
-- [x] Keyboard
+- [x] __Keyboard__
   - [x] Type a string using `.type`
   - [x] Tap a key using `.tap`
   - [x] Toggle key using `.toggleKey`
 
-- [x] Mouse
+- [x] __Mouse__
   - [x] Simulate mouse movement using `.moveMouse`
   - [x] Click using `.click`
   - [x] Simulate a scroll using `.scroll`
   - [x] Get mouse position using `.mousePosition`
   - [x] Get mouse position pixel color `.pixelColor`
 
-- [x] Screen
+- [x] __Screen__
   - [x] Capture screen using `.screenshot`
   - [x] Get screen size using `.screenSize`
   - [x] Check if point out of bounds using `.pointVisible`
   - [x] Get number of pixels in a point using `.screenScale`
   - [ ] Screen recording
 
-- [x] Notifications
+- [x] __Notifications__
   - [x] Native popup using `.alert`
   - [x] Notifications using `.notify`
 
-- [x] Monitors
+- [x] __Monitors__
    - [x] Get the number of monitors using `.getMonitors`
 
-- [x] Window management __(only for linux)__
+- [x] __Window management (only for linux)__
   - [x] Get window title using `.getWindow`
   - [x] Transform windows size using `.transformByIndex`
 
