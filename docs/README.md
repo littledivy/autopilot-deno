@@ -218,7 +218,7 @@ Example:
 pilot.pointVisible(100, 35);
 ```
 
-### Alert
+### Notifications
 
 #### .alert
 
@@ -246,6 +246,17 @@ pilot.alert({
 
 ![](assets/alert.gif)
 
+#### .notify
+
+Trigger a native OS notification.
+
+Arguments:
+* `title` - string - notification title
+* `body` - string - notification body
+
+```typescript
+pilot.notify("Hello", "World");
+```
 
 ### Others
 
