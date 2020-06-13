@@ -16,14 +16,3 @@ export const logger = createLogger({
   minimumLevel: Deno.env.get("DEBUG") ? LogLevel.DEBUG : LogLevel.INFO,
   outputFormat: textFormat,
 }).addSink(consoleSink());
-
-// Benchmark exports
-export {
-  runBenchmarks,
-  bench,
-} from "https://deno.land/std@0.56.0/testing/bench.ts";
-
-export {
-  prettyBenchmarkResult,
-  prettyBenchmarkProgress,
-} from "https://deno.land/x/pretty_benching/mod.ts";
