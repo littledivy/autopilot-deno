@@ -70,7 +70,7 @@ Arguments:
 
 Example:
 ```typescript
-pilot.tap("enter", true);
+pilot.toggleKey("enter", true);
 ```
 
 ### Mouse
