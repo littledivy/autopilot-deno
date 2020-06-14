@@ -1,5 +1,7 @@
 target/
 .deno_plugins/
+.autopilot_plugins/
 examples/.deno_plugins
+examples/.autopilot_plugins
 screenshot.png
 myscripts/

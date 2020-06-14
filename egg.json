@@ -1,1 +1,1 @@
-{"name":"autopilot","version": "0.1.5", "description":"Cross platform desktop automation for Deno","stable":false,"files":["./README.md","./LICENSE","./mod.ts","./deps.ts","./types.ts","./version.ts","./utils","./plugin","./lib","./conversions"]}
+{"name":"autopilot","version": "0.1.6","description":"Cross platform desktop automation for Deno","stable":true,"files":["./README.md","./LICENSE","./mod.ts","./deps.ts","./types.ts","./version.ts","./utils/**/*","./plugin/**/*","./lib/**/*","./conversions/**/*"]}
