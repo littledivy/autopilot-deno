@@ -1,6 +1,6 @@
 [package]
 name = "autopilot-deno"
-version = "0.1.5"
+version = "0.1.7"
 authors = ["Divy Srivastava"]
 edition = "2018"
 publish = false
