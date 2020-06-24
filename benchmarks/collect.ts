@@ -5,7 +5,7 @@ import {
   prettyBenchmarkProgress,
   runBenchmarks,
   bench,
-} from "../deps.ts";
+} from "./deps.ts";
 
 import write from "./write.ts";
 
