@@ -7,10 +7,12 @@
 [![stars](https://img.shields.io/github/stars/divy-work/autopilot-deno)](https://github.com/divy-work/autopilot-deno/stargazers)
 [![issues](https://img.shields.io/github/issues/divy-work/autopilot-deno)](https://github.com/divy-work/autopilot-deno/issues)
 [![ci](https://github.com/divy-work/autopilot-deno/workflows/ci/badge.svg)](https://github.com/divy-work/autopilot-deno/actions)
-![version](https://img.shields.io/badge/version-0.1.4-success)
+![version](https://img.shields.io/badge/version-0.1.7-success)
 ![deno version](https://img.shields.io/badge/deno-1.0.5-success)
 [![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
 [![discord](https://discordapp.com/api/guilds/715564894904123424/widget.png)](https://discord.gg/uqywa4W)
+[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/autopilot@0.1.7)
+
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
