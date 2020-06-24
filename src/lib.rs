@@ -8,11 +8,13 @@ use deno_core::plugin_api::Interface;
 use deno_core::plugin_api::Op;
 use deno_core::plugin_api::ZeroCopyBuf;
 use futures::future::FutureExt;
+use std::path::Path;
 
 mod structs;
+mod utils;
 
 use crate::structs::*;
-use std::path::Path;
+use crate::utils::bind_tap;
 
 // register all ops here
 #[no_mangle]
@@ -348,54 +350,4 @@ fn op_tap(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCop
     let result = b"true";
     let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)
-}
-
-// the below code is complete shit
-fn bind_tap(key: &str) -> rs_lib::key::KeyCode {
-    match key {
-        "f1" => rs_lib::key::KeyCode::F1,
-        "f2" => rs_lib::key::KeyCode::F2,
-        "f3" => rs_lib::key::KeyCode::F3,
-        "f4" => rs_lib::key::KeyCode::F4,
-        "f5" => rs_lib::key::KeyCode::F5,
-        "f6" => rs_lib::key::KeyCode::F6,
-        "f7" => rs_lib::key::KeyCode::F7,
-        "f8" => rs_lib::key::KeyCode::F8,
-        "f9" => rs_lib::key::KeyCode::F9,
-        "f10" => rs_lib::key::KeyCode::F9,
-        "f11" => rs_lib::key::KeyCode::F9,
-        "f12" => rs_lib::key::KeyCode::F9,
-        "f13" => rs_lib::key::KeyCode::F9,
-        "f14" => rs_lib::key::KeyCode::F9,
-        "f15" => rs_lib::key::KeyCode::F9,
-        "f16" => rs_lib::key::KeyCode::F9,
-        "f17" => rs_lib::key::KeyCode::F9,
-        "f18" => rs_lib::key::KeyCode::F9,
-        "f19" => rs_lib::key::KeyCode::F9,
-        "f20" => rs_lib::key::KeyCode::F9,
-        "f21" => rs_lib::key::KeyCode::F9,
-        "f22" => rs_lib::key::KeyCode::F9,
-        "f23" => rs_lib::key::KeyCode::F9,
-        "f24" => rs_lib::key::KeyCode::F9,
-        "leftarrow" => rs_lib::key::KeyCode::LeftArrow,
-        "control" => rs_lib::key::KeyCode::Control,
-        "rightarrow" => rs_lib::key::KeyCode::RightArrow,
-        "downarrow" => rs_lib::key::KeyCode::DownArrow,
-        "end" => rs_lib::key::KeyCode::End,
-        "uparrow" => rs_lib::key::KeyCode::UpArrow,
-        "pageup" => rs_lib::key::KeyCode::PageUp,
-        "alt" => rs_lib::key::KeyCode::Alt,
-        "enter" => rs_lib::key::KeyCode::Return,
-        "pagedown" => rs_lib::key::KeyCode::PageDown,
-        "delete" => rs_lib::key::KeyCode::Delete,
-        "home" => rs_lib::key::KeyCode::Home,
-        "escape" => rs_lib::key::KeyCode::Escape,
-        "backspace" => rs_lib::key::KeyCode::Backspace,
-        "meta" => rs_lib::key::KeyCode::Meta,
-        "capslock" => rs_lib::key::KeyCode::CapsLock,
-        "shift" => rs_lib::key::KeyCode::Shift,
-        "tab" => rs_lib::key::KeyCode::Tab,
-        "space" => rs_lib::key::KeyCode::Space,
-        _ => rs_lib::key::KeyCode::Return,
-    }
 }
