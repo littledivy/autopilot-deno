@@ -9,10 +9,9 @@ use deno_core::plugin_api::Op;
 use deno_core::plugin_api::ZeroCopyBuf;
 use futures::future::FutureExt;
 
-// use serde
-use serde::Deserialize;
-use serde::Serialize;
+mod structs;
 
+use crate::structs::*;
 use std::path::Path;
 
 // register all ops here
@@ -38,11 +37,6 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("notify", op_notify);
 }
 
-#[derive(Serialize)]
-struct WindowResponse<'a> {
-    window: &'a str,
-}
-
 // incomplete fn to get the window name
 fn op_get_window(
     _interface: &mut dyn Interface,
@@ -57,12 +51,6 @@ fn op_get_window(
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
 
     Op::Sync(result_box)
-}
-
-#[derive(Deserialize)]
-struct NotifyParams {
-    title: String,
-    body: String,
 }
 
 // deno bindings to `type`
@@ -99,12 +87,6 @@ fn op_type(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCo
     Op::Async(fut.boxed())
 }
 
-#[derive(Serialize)]
-struct Resp {
-    height: f64,
-    width: f64,
-}
-
 fn op_screen_size(
     _interface: &mut dyn Interface,
     _data: &[u8],
@@ -124,11 +106,6 @@ fn op_screen_size(
     Op::Sync(result_box)
 }
 
-#[derive(Serialize)]
-struct MonitorResponse<'a> {
-    monitors: &'a str,
-}
-
 fn op_monitor_list(
     _interface: &mut dyn Interface,
     _data: &[u8],
@@ -141,11 +118,6 @@ fn op_monitor_list(
     };
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
     Op::Sync(result_box)
-}
-
-#[derive(Serialize)]
-struct ScaleResponse {
-    scale: f64,
 }
 
 fn op_screen_scale(
@@ -161,12 +133,6 @@ fn op_screen_scale(
 
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
     Op::Sync(result_box)
-}
-
-#[derive(Deserialize)]
-struct QuickMousePostition {
-    x: f64,
-    y: f64,
 }
 
 fn op_quick_move_mouse(
@@ -187,13 +153,6 @@ fn op_quick_move_mouse(
     Op::Sync(result_box)
 }
 
-#[derive(Deserialize)]
-struct MousePostition {
-    x: f64,
-    y: f64,
-    d: f64,
-}
-
 fn op_move_mouse(
     _interface: &mut dyn Interface,
     data: &[u8],
@@ -210,13 +169,6 @@ fn op_move_mouse(
     let result = b"true";
     let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)
-}
-
-#[derive(Deserialize)]
-struct TransformParams {
-    height: u16,
-    width: u16,
-    index: usize,
 }
 
 fn op_transform_by_id(
@@ -252,13 +204,6 @@ fn op_screen_shot(
     let result = b"true";
     let result_box: Buf = Box::new(*result);
     Op::Sync(result_box)
-}
-
-// struct for options used by Alert
-#[derive(Deserialize)]
-struct AlertOptions {
-    msg: String,
-    title: String,
 }
 
 // deno bindings for `alert`
@@ -303,14 +248,6 @@ fn op_scroll(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [Zero
     Op::Sync(result_box)
 }
 
-#[derive(Serialize)]
-struct PixelRsp {
-    r: u8,
-    g: u8,
-    b: u8,
-    a: u8,
-}
-
 // get mouse pixel color
 fn op_mouse_pixel_color(
     _interface: &mut dyn Interface,
@@ -336,12 +273,6 @@ fn op_mouse_pixel_color(
     Op::Sync(result_box)
 }
 
-#[derive(Deserialize)]
-struct PointPosition {
-    x: f64,
-    y: f64,
-}
-
 // point is visible or not
 fn op_point_visible(
     _interface: &mut dyn Interface,
@@ -362,12 +293,6 @@ fn op_point_visible(
     Op::Sync(result_box)
 }
 
-#[derive(Serialize)]
-struct MouseResp {
-    x: f64,
-    y: f64,
-}
-
 // get mouse position
 fn op_mouse_pos(
     _interface: &mut dyn Interface,
@@ -386,12 +311,6 @@ fn op_mouse_pos(
 
     let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
     Op::Sync(result_box)
-}
-
-#[derive(Deserialize)]
-struct ToggleOptions {
-    key: String,
-    down: i32,
 }
 
 // toggle a key

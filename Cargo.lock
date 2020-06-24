@@ -44,7 +44,7 @@ checksum = "f8aac770f1885fd7e387acedd76065302551364496e46b3dd00860b2f8359b9d"
 
 [[package]]
 name = "autopilot-deno"
-version = "0.0.1"
+version = "0.1.5"
 dependencies = [
  "cocoa",
  "core-foundation",
