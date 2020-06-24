@@ -6,6 +6,6 @@ export default {
     "build": "cargo build",
     "bench": "DEV=* DEBUG=* deno run --unstable -A benchmarks/index.ts",
     "fmt": "deno fmt && cargo fmt",
-    "test": "deno test --unstable -A",
+    "test": "DEV=* DEBUG=* deno test --unstable -A",
   },
 };
