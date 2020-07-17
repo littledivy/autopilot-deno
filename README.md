@@ -1,6 +1,8 @@
 <p align="center">
 
-![](docs/logo.png)
+<p align="center">
+  <img src="docs/logo.png">
+</p>
 
 </p>
 
@@ -11,7 +13,7 @@
 ![deno version](https://img.shields.io/badge/deno-1.0.5-success)
 [![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
 [![discord](https://discordapp.com/api/guilds/715564894904123424/widget.png)](https://discord.gg/uqywa4W)
-[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/autopilot@0.1.7)
+[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/autopilot)
 
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
