@@ -40,11 +40,8 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
 }
 
 // incomplete fn to get the window name
-fn op_get_window(
-    _interface: &mut dyn Interface,
-    data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_get_window(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let index: usize = data_str.trim().parse().unwrap();
     let window = rs_lib::window::get_window(index);
@@ -56,7 +53,8 @@ fn op_get_window(
 }
 
 // deno bindings to `type`
-fn op_notify(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_notify(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let params: NotifyParams = serde_json::from_slice(data).unwrap();
     rs_lib::notify::notify(&params.title, &params.body);
     let result = b"true";
@@ -65,7 +63,8 @@ fn op_notify(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [Zero
 }
 
 // deno bindings for `type`
-fn op_type(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_type(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     // convert arg to string
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
 
@@ -89,11 +88,7 @@ fn op_type(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCo
     Op::Async(fut.boxed())
 }
 
-fn op_screen_size(
-    _interface: &mut dyn Interface,
-    _data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_screen_size(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let mut response = Resp {
         width: 1000_f64,
         height: 1000_f64,
@@ -108,11 +103,7 @@ fn op_screen_size(
     Op::Sync(result_box)
 }
 
-fn op_monitor_list(
-    _interface: &mut dyn Interface,
-    _data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_monitor_list(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let no_of_monitors = rs_lib::window::get_active_monitors();
 
     let response = MonitorResponse {
@@ -122,11 +113,7 @@ fn op_monitor_list(
     Op::Sync(result_box)
 }
 
-fn op_screen_scale(
-    _interface: &mut dyn Interface,
-    _data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_screen_scale(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let mut response = ScaleResponse { scale: 1000_f64 };
 
     let result = rs_lib::screen::scale();
@@ -137,11 +124,8 @@ fn op_screen_scale(
     Op::Sync(result_box)
 }
 
-fn op_quick_move_mouse(
-    _interface: &mut dyn Interface,
-    data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_quick_move_mouse(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let params: QuickMousePostition = serde_json::from_slice(data).unwrap();
 
     rs_lib::mouse::move_to(rs_lib::geometry::Point::new(
@@ -155,11 +139,8 @@ fn op_quick_move_mouse(
     Op::Sync(result_box)
 }
 
-fn op_move_mouse(
-    _interface: &mut dyn Interface,
-    data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_move_mouse(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let params: MousePostition = serde_json::from_slice(data).unwrap();
 
     rs_lib::mouse::smooth_move(
@@ -173,11 +154,8 @@ fn op_move_mouse(
     Op::Sync(result_box)
 }
 
-fn op_transform_by_id(
-    _interface: &mut dyn Interface,
-    data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_transform_by_id(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let params: TransformParams = serde_json::from_slice(data).unwrap();
     rs_lib::window::transform_by_index(params.index, params.height, params.width);
     let result = b"true";
@@ -185,11 +163,8 @@ fn op_transform_by_id(
     Op::Sync(result_box)
 }
 
-fn op_screen_shot(
-    _interface: &mut dyn Interface,
-    data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_screen_shot(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let bmp = rs_lib::bitmap::capture_screen().expect("Unable to capture screen");
 
@@ -209,7 +184,8 @@ fn op_screen_shot(
 }
 
 // deno bindings for `alert`
-fn op_alert(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_alert(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let params: AlertOptions = serde_json::from_slice(data).unwrap();
 
     let _ = rs_lib::alert::alert(&params.msg, &params.title, None, None);
@@ -219,7 +195,8 @@ fn op_alert(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroC
     Op::Sync(result_box)
 }
 
-fn op_click(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_click(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     // convert arg to string
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
 
@@ -239,7 +216,8 @@ fn op_click(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroC
 }
 
 // TODO: incomplete
-fn op_scroll(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_scroll(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     // convert arg to string
     let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
 
@@ -251,11 +229,7 @@ fn op_scroll(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [Zero
 }
 
 // get mouse pixel color
-fn op_mouse_pixel_color(
-    _interface: &mut dyn Interface,
-    _data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_mouse_pixel_color(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let mut response = PixelRsp {
         r: 0x82u8,
         g: 0x82u8,
@@ -276,11 +250,8 @@ fn op_mouse_pixel_color(
 }
 
 // point is visible or not
-fn op_point_visible(
-    _interface: &mut dyn Interface,
-    data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_point_visible(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let params: PointPosition = serde_json::from_slice(data).unwrap();
 
     let r = rs_lib::screen::is_point_visible(rs_lib::geometry::Point::new(
@@ -296,11 +267,7 @@ fn op_point_visible(
 }
 
 // get mouse position
-fn op_mouse_pos(
-    _interface: &mut dyn Interface,
-    _data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_mouse_pos(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let mut response = MouseResp {
         x: 100_f64,
         y: 100_f64,
@@ -316,11 +283,8 @@ fn op_mouse_pos(
 }
 
 // toggle a key
-fn op_toggle_key(
-    _interface: &mut dyn Interface,
-    data: &[u8],
-    _zero_copy: &mut [ZeroCopyBuf],
-) -> Op {
+fn op_toggle_key(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     let params: ToggleOptions = serde_json::from_slice(data).unwrap();
 
     rs_lib::key::toggle(
@@ -336,7 +300,8 @@ fn op_toggle_key(
 }
 
 // tap a key
-fn op_tap(_interface: &mut dyn Interface, data: &[u8], _zero_copy: &mut [ZeroCopyBuf]) -> Op {
+fn op_tap(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
+    let data = &zero_copy[0][..];
     // convert arg to string
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
 
