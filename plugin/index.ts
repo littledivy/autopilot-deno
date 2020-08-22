@@ -1,6 +1,6 @@
 // Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
-import { prepare, logger } from "../deps.ts";
+import { prepare } from "../deps.ts";
 import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
 import parseMonitorsWin from "../utils/wmic_data_parser.ts";
 import { getMonitors as getMonitorsFallback } from "../lib/monitors.ts";
@@ -14,7 +14,7 @@ const { filenameBase, pluginBase } = config;
 const isDev = Deno.env.get("DEV");
 
 if (isDev) {
-  logger.info("Running in DEV mode");
+  // logger.info("Running in DEV mode");
 
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
@@ -22,11 +22,9 @@ if (isDev) {
 
   const rid = Deno.openPlugin("./target/debug/" + filename(filenameBase));
 } else {
-  logger.info(`Downloading latest Autopilot release from Github`);
-  const pluginId = await prepare({
+  // logger.info(`Downloading latest Autopilot release from Github`);
+  const pluginId = await prepare.prepare({
     name: "autopilot_deno",
-    printLog: true,
-    checkCache: Deno.env.get("CACHE") ? false : true,
     urls: {
       darwin: `${pluginBase}/libautopilot_deno.dylib`,
       windows: `${pluginBase}/autopilot_deno.dll`,
@@ -35,7 +33,7 @@ if (isDev) {
   });
 }
 
-logger.info(`Preparing Autopilot for ${Deno.build.os}`);
+// logger.info(`Preparing Autopilot for ${Deno.build.os}`);
 
 const {
   type,
@@ -206,4 +204,4 @@ core.setAsyncHandler(alert, () => {
   // leave this blank
 });
 
-logger.info(`Autopilot setup complete`);
+//logger.info(`Autopilot setup complete`);

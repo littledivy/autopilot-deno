@@ -1,7 +1,5 @@
 // Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
-import { logger } from "../deps.ts";
-
 import {
   runType,
   runAlert,
@@ -41,7 +39,7 @@ import {
  */
 class AutoPilot {
   constructor() {
-    logger.debug("[mod.ts] New AutoPilot instance created");
+    // logger.debug("[mod.ts] New AutoPilot instance created");
   }
   /**
    * Types a string.
@@ -56,7 +54,7 @@ class AutoPilot {
    */
   type(str: string) {
     !isAscii(str) && throwAsciiError();
-    logger.debug("[mod.ts] Running type");
+    // logger.debug("[mod.ts] Running type");
     runType(str);
     return this;
   }
@@ -72,7 +70,7 @@ class AutoPilot {
    * @param opt alert options or msg to display alert.
    */
   alert(opt: string | AlertOptions) {
-    logger.debug("[mod.ts] Running alert");
+    // logger.debug("[mod.ts] Running alert");
     runAlert(opt);
     return this;
   }
@@ -89,7 +87,7 @@ class AutoPilot {
    * @param body The body of the notification
    */
   notify(title: string, body: string) {
-    logger.debug("Running notify");
+    // logger.debug("Running notify");
     runNotify(
       {
         title,
@@ -104,7 +102,7 @@ class AutoPilot {
    * @return {object} width and height of the screen
    */
   screenSize() {
-    logger.debug("[mod.ts] Running screenSize");
+    // logger.debug("[mod.ts] Running screenSize");
     return JSON.parse(runScreenSize());
   }
   /**
@@ -115,8 +113,10 @@ class AutoPilot {
    * @param {number} d The speed of mouse
    */
   moveMouse(x: number, y: number, d?: number) {
-    logger.debug("[mod.ts] Running moveMouse");
-    if (isNaN(x) || isNaN(y)) logger.error("TypeError: height or width is NaN");
+    // logger.debug("[mod.ts] Running moveMouse");
+    if (isNaN(x) || isNaN(y)) {
+      console.error("TypeError: height or width is NaN");
+    }
     runMoveMouse({ x, y, d });
     return this;
   }
@@ -126,7 +126,7 @@ class AutoPilot {
    * @param {string} file The output file name
    */
   screenshot(file: string) {
-    logger.debug("[mod.ts] Running screenshot");
+    // logger.debug("[mod.ts] Running screenshot");
     runScreenShot(file);
     return this;
   }
@@ -136,7 +136,7 @@ class AutoPilot {
    * @param {string} arg The key name
    */
   tap(arg: string) {
-    logger.debug("[mod.ts] Running tap");
+    // logger.debug("[mod.ts] Running tap");
     arg = arg.trim().toLowerCase();
     runKeyTap(arg as ToggleKeys);
     return this;
@@ -147,7 +147,7 @@ class AutoPilot {
    * @param {ClickOptions} arg The mouse section to click
    */
   click(arg: ClickOptions) {
-    logger.debug("[mod.ts] Running click");
+    // logger.debug("[mod.ts] Running click");
     runMouseClick(arg);
     return this;
   }
@@ -157,7 +157,7 @@ class AutoPilot {
    * @param {ScrollOptions} arg The direction of scroll
    */
   scroll(arg: ScrollOptions) {
-    logger.debug("[mod.ts] Running scroll");
+    // logger.debug("[mod.ts] Running scroll");
     runMouseScroll(arg);
     return this;
   }
@@ -167,7 +167,7 @@ class AutoPilot {
    * @return {object} The coordinates of mouse on screen
    */
   mousePosition() {
-    logger.debug("[mod.ts] Running mousePosition");
+    // logger.debug("[mod.ts] Running mousePosition");
     return JSON.parse(runMousePosition());
   }
   /**
@@ -176,7 +176,7 @@ class AutoPilot {
    * @return {object} The RGBA color
    */
   pixelColor() {
-    logger.debug("[mod.ts] Running pixelColor");
+    // logger.debug("[mod.ts] Running pixelColor");
     return JSON.parse(runPixelColor());
   }
   /**
@@ -186,7 +186,7 @@ class AutoPilot {
    * @param {boolean} down Whether to press the key or unpress it
    */
   toggleKey(key: ToggleKeys, down: boolean) {
-    logger.debug("[mod.ts] Running toggleKey");
+    // logger.debug("[mod.ts] Running toggleKey");
     runToggleKey({
       key,
       down: down ? 1 : 0,
@@ -201,7 +201,7 @@ class AutoPilot {
    * @return {boolean} true if point is visible else false
    */
   pointVisible(x: number, y: number) {
-    logger.debug("[mod.ts] Running pointVisible");
+    // logger.debug("[mod.ts] Running pointVisible");
     return runPointVisible({
       x,
       y,
@@ -213,7 +213,7 @@ class AutoPilot {
    * @return {number} The number of pixels in a point
    */
   screenScale(): number {
-    logger.debug("[mod.ts] Running screenScale");
+    // logger.debug("[mod.ts] Running screenScale");
     return runScreenScale();
   }
   /**
@@ -222,7 +222,7 @@ class AutoPilot {
    * @return {Promise<number>} The number of monitors
    */
   getMonitors(): Promise<number> {
-    logger.debug("[mod.ts] Running getMonitors");
+    // logger.debug("[mod.ts] Running getMonitors");
     return new Promise((resolve) => {
       runGetMonitors().then((n) => {
         resolve(parseInt(n.split("\n")[0].split("Monitors:").join("").trim()));
@@ -236,7 +236,7 @@ class AutoPilot {
    */
   // **EXPERIMENTAL** (Only for Linux)
   getWindow(index?: number) {
-    logger.debug("[mod.ts] Running getWindow");
+    // logger.debug("[mod.ts] Running getWindow");
     return runGetWindow(index || 0);
   }
   /**
@@ -246,7 +246,7 @@ class AutoPilot {
    */
   // **EXPERIMENTAL** (Only for Linux)
   transformByIndex(index: number, width: number, height: number) {
-    logger.debug("[mod.ts] Running transformByIndex");
+    // logger.debug("[mod.ts] Running transformByIndex");
     runTransformByIndex({
       index,
       width,

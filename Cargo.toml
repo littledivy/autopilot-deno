@@ -1,6 +1,6 @@
 [package]
 name = "autopilot-deno"
-version = "0.1.7"
+version = "0.1.9"
 authors = ["Divy Srivastava"]
 edition = "2018"
 publish = false
@@ -13,11 +13,12 @@ rs_lib = { path = "./autopilot_core/" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 futures = "0.3.4"
-deno_core = "0.47.1"
+deno_core = "0.54.0"
 image = "0.22.4"
 libc = "0.2.66"
 rand = "0.7.2"
 scopeguard = "1.0.0"
+failure_derive = "0.1.8"
 
 [build-dependencies]
 pkg-config = "0.3.17"
