@@ -117,9 +117,7 @@ Clone this repo and run `cargo build` to produce a development build.
 * Create development build: `vr build`
 
 ### Contributing
-Contributing code and ideas to AutoPilot is really easy! You can join the Discord server or Create an issue or PR. :)
-
-[![](https://discordapp.com/api/guilds/715564894904123424/widget.png)](https://discord.gg/uqywa4W)
+Contributing code and ideas to AutoPilot is really easy! Create an issue or PR. :)
 
 ### License
 
