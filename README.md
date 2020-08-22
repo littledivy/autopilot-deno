@@ -12,7 +12,6 @@
 ![version](https://img.shields.io/badge/version-0.1.7-success)
 ![deno version](https://img.shields.io/badge/deno-1.0.5-success)
 [![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
-[![discord](https://discordapp.com/api/guilds/715564894904123424/widget.png)](https://discord.gg/uqywa4W)
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/autopilot)
 
 
@@ -52,10 +51,6 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 - [x] __Window management (only for linux)__
   - [x] Get window title using `.getWindow`
   - [x] Transform windows size using `.transformByIndex`
-
-#### Join Discord
-
-[![](https://discordapp.com/api/guilds/715564894904123424/widget.png?style=banner2)](https://discord.gg/uqywa4W)
 
 ### Documentation
 
