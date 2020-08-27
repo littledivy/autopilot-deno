@@ -50,7 +50,9 @@ fn op_get_window(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) 
             let window = rs_lib::window::get_window(index);
             tx.send(Ok(WindowResponse { window: window }));
         });
-        let result_box: Buf = serde_json::to_vec(&rx.await.unwrap()).unwrap().into_boxed_slice();        
+        let result_box: Buf = serde_json::to_vec(&rx.await.unwrap())
+            .unwrap()
+            .into_boxed_slice();
         result_box
     };
 
@@ -73,7 +75,7 @@ fn op_notify(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> O
         let result_box: Buf = Box::new(*result);
         result_box
     };
-    
+
     Op::Async(fut.boxed())
 }
 
@@ -153,7 +155,7 @@ fn op_screen_scale(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf
         response.scale = result;
         let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
         result_box
-    }
+    };
     Op::Async(fut.boxed())
 }
 
@@ -173,7 +175,7 @@ fn op_quick_move_mouse(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopy
         let result = b"true";
         let result_box: Buf = Box::new(*result);
         result_box
-    }
+    };
     Op::Async(fut.boxed())
 }
 
