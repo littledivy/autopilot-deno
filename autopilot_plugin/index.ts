@@ -1,20 +1,20 @@
 // Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
-import { prepare } from "../deps.ts";
-import parseMonitorsMac from "../utils/SP_displays_data_type_parser.ts";
-import parseMonitorsWin from "../utils/wmic_data_parser.ts";
-import { getMonitors as getMonitorsFallback } from "../lib/monitors.ts";
+import { prepare, logger } from "../deps.ts";
+import parseMonitorsMac from "../autopilot_deno/utils/SP_displays_data_type_parser.ts";
+import parseMonitorsWin from "../autopilot_deno/utils/wmic_data_parser.ts";
+import { getMonitors as getMonitorsFallback } from "../autopilot_deno/monitors.ts";
 
 import filename from "./detect.ts";
 import config from "../plugin_config.ts";
-import { core } from "../types.ts";
+import { core } from "../autopilot_deno/types.ts";
 
 const { filenameBase, pluginBase } = config;
 
 const isDev = Deno.env.get("DEV");
 
 if (isDev) {
-  // logger.info("Running in DEV mode");
+  logger.info("Running in DEV mode");
 
   // This will be checked against open resources after Plugin.close()
   // in runTestClose() below.
@@ -33,7 +33,7 @@ if (isDev) {
   });
 }
 
-// logger.info(`Preparing Autopilot for ${Deno.build.os}`);
+logger.info(`Preparing Autopilot for ${Deno.build.os}`);
 
 const {
   type,
@@ -137,17 +137,13 @@ export function runScreenScale() {
   return JSON.parse(textDecoder.decode(response)).scale;
 }
 
-export async function runGetMonitors() {
-  if (Deno.build.os === "windows") {
-    return await parseMonitorsWin(getMonitorsFallback());
-  }
+export function runGetMonitors() {
   const response = core.dispatch(getMonitors);
+  if (Deno.build.os === "windows") {
+    return parseMonitorsWin(textDecoder.decode(response));
+  }
   if (Deno.build.os === "darwin") {
-    return new Promise((resolve, reject) => {
-      resolve(
-        parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors),
-      );
-    });
+    return parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors);
   }
   return JSON.parse(textDecoder.decode(response)).monitors;
 }
@@ -204,4 +200,4 @@ core.setAsyncHandler(alert, () => {
   // leave this blank
 });
 
-//logger.info(`Autopilot setup complete`);
+logger.info(`Autopilot setup complete`);

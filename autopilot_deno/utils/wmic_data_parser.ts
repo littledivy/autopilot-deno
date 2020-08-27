@@ -1,23 +1,18 @@
 // Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
-function parse(yml: Promise<string>) {
-  return new Promise((resolve, reject) => {
-    yml.then((x) => {
-      let arr = x.split("\n");
+function parse(yml: string) {
+      let arr = yml.split("\n");
       let obj: any[] = [];
       arr.forEach((element) => {
         obj.push(element.split(":")[1]);
       });
-      resolve(obj);
-    });
-  });
+      return obj;
 }
 
 export default function parseMonitorsWin(
-  info: Promise<string>,
-): Promise<string> {
-  return new Promise((resolve, reject) => {
-    parse(info).then((result) => {
+  info: string,
+): string {
+      let result = parse(info);
       let displayLength = 0;
       // @ts-ignore
       for (var i in result) {
@@ -28,9 +23,7 @@ export default function parseMonitorsWin(
           else displayLength++;
         }
       }
-      resolve(makeParseableString(displayLength));
-    });
-  });
+      return makeParseableString(displayLength);
 }
 
 function makeParseableString(len: number) {

@@ -6,6 +6,7 @@ edition = "2018"
 publish = false
 
 [lib]
+path = "./autopilot_bindings/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
