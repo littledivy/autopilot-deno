@@ -5,7 +5,7 @@ export default {
   "scripts": {
     "build": "cargo build",
     "bench": "DEV=* DEBUG=* deno run --unstable -A benchmarks/index.ts",
-    "fmt": "deno fmt && cargo fmt",
+    "fmt": "cargo fmt && deno fmt",
     "test": "DEV=* DEBUG=* deno test --unstable -A",
   },
 };
