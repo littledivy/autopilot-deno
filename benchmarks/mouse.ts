@@ -3,32 +3,32 @@
 export default [
   {
     name: "click",
-    do: function (pilot: any) {
-      pilot.click("right");
+    do: async function (pilot: any) {
+      await pilot.click("right");
     },
   },
   {
     name: "scroll",
-    do: function (pilot: any) {
-      pilot.tap("up");
+    do: async function (pilot: any) {
+      await pilot.tap("up");
     },
   },
   {
     name: "pixelColor",
-    do: function (pilot: any) {
-      pilot.pixelColor();
+    do: async function (pilot: any) {
+      await pilot.pixelColor();
     },
   },
   {
     name: "mousePosition",
-    do: function (pilot: any) {
-      pilot.mousePosition();
+    do: async function (pilot: any) {
+      await pilot.mousePosition();
     },
   },
   {
     name: "moveMouse",
-    do: function (pilot: any) {
-      pilot.moveMouse(500, 500, 0);
+    do: async function (pilot: any) {
+      await pilot.moveMouse(500, 500, 0);
     },
   },
 ];

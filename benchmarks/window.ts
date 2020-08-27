@@ -3,14 +3,14 @@
 export default [
   {
     name: "getWindow",
-    do: function (pilot: any) {
-      pilot.getWindow(0);
+    do: async function (pilot: any) {
+      await pilot.getWindow(0);
     },
   },
   {
     name: "transformByIndex",
-    do: function (pilot: any) {
-      pilot.transformByIndex(3, 300, 500);
+    do: async function (pilot: any) {
+      await pilot.transformByIndex(3, 300, 500);
     },
   },
 ];

@@ -9,6 +9,9 @@ extern crate wmctrl;
 #[cfg(target_os = "linux")]
 pub fn get_window(index: usize) -> String {
     let windows = wmctrl::get_windows();
+    if windows.is_empty() {
+      panic!("No windows are open.")
+    }
     let win = &windows[index].title();
     format!("{}", win)
 }
@@ -61,7 +64,7 @@ pub fn get_active_monitors() -> String {
 #[cfg(target_os = "windows")]
 pub fn get_active_monitors() -> String {
     let output = Command::new("cmd")
-                     .args(&["/C", "monitors.bat"])
+                     .args(&["/C", r#"for /F %%M in (' wmic path Win32_PnPEntity where "Service='monitor' and Status='OK'" get DeviceID /VALUE ') do echo Monitors: %%M"#])
                      .output()
                      .expect("failed to execute process");
     let active_monitors_cli = String::from_utf8_lossy(&output.stdout);

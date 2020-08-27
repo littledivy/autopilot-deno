@@ -3,8 +3,8 @@ use serde::Deserialize;
 use serde::Serialize;
 
 #[derive(Serialize)]
-pub struct WindowResponse<'a> {
-    pub window: &'a str,
+pub struct WindowResponse {
+    pub window: String,
 }
 
 #[derive(Deserialize)]

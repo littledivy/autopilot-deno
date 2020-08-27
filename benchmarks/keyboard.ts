@@ -3,20 +3,20 @@
 export default [
   {
     name: "type",
-    do: function (pilot: any) {
-      pilot.type("hello");
+    do: async function (pilot: any) {
+      await pilot.type("hello");
     },
   },
   {
     name: "tap",
-    do: function (pilot: any) {
-      pilot.tap("alt");
+    do: async function (pilot: any) {
+      await pilot.tap("alt");
     },
   },
   {
     name: "toggle",
-    do: function (pilot: any) {
-      pilot.toggleKey("alt");
+    do: async function (pilot: any) {
+      await pilot.toggleKey("alt");
     },
   },
 ];

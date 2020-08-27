@@ -18,7 +18,7 @@ import {
   runTransformByIndex,
   runGetMonitors,
   runNotify,
-} from "../plugin/index.ts";
+} from "../autopilot_plugin/index.ts";
 
 // Import types
 import {
@@ -27,19 +27,21 @@ import {
   ScrollOptions,
   ToggleKeys,
   NotificationParams,
-} from "../types.ts";
+} from "./types.ts";
 
 import {
   isAscii,
   throwAsciiError,
-} from "../utils/isAscii.ts";
+} from "./utils/isAscii.ts";
+
+import { logger } from "../deps.ts";
 
 /**
  * Creates an autopilot instance
  */
 class AutoPilot {
   constructor() {
-    // logger.debug("[mod.ts] New AutoPilot instance created");
+    logger.info("[mod.ts] New AutoPilot instance created");
   }
   /**
    * Types a string.
@@ -52,10 +54,10 @@ class AutoPilot {
    *
    * @param str String to type
    */
-  type(str: string) {
+  async type(str: string) {
     !isAscii(str) && throwAsciiError();
-    // logger.debug("[mod.ts] Running type");
-    runType(str);
+    logger.info("[mod.ts] Running type");
+    await runType(str);
     return this;
   }
   /**
@@ -69,9 +71,9 @@ class AutoPilot {
    *
    * @param opt alert options or msg to display alert.
    */
-  alert(opt: string | AlertOptions) {
-    // logger.debug("[mod.ts] Running alert");
-    runAlert(opt);
+  async alert(opt: string | AlertOptions) {
+    logger.info("[mod.ts] Running alert");
+    await runAlert(opt);
     return this;
   }
   /**
@@ -86,9 +88,9 @@ class AutoPilot {
    * @param title The title of the notification
    * @param body The body of the notification
    */
-  notify(title: string, body: string) {
-    // logger.debug("Running notify");
-    runNotify(
+  async notify(title: string, body: string) {
+    logger.info("Running notify");
+    await runNotify(
       {
         title,
         body,
@@ -101,9 +103,9 @@ class AutoPilot {
    * executes runScreenSize and returns a JSON
    * @return {object} width and height of the screen
    */
-  screenSize() {
-    // logger.debug("[mod.ts] Running screenSize");
-    return JSON.parse(runScreenSize());
+  async screenSize() {
+    logger.info("[mod.ts] Running screenSize");
+    return JSON.parse(await runScreenSize());
   }
   /**
    * Simulate mouse movement
@@ -112,12 +114,12 @@ class AutoPilot {
    * @param {number} y The y corrdinate
    * @param {number} d The speed of mouse
    */
-  moveMouse(x: number, y: number, d?: number) {
-    // logger.debug("[mod.ts] Running moveMouse");
+  async moveMouse(x: number, y: number, d?: number) {
+    logger.info("[mod.ts] Running moveMouse");
     if (isNaN(x) || isNaN(y)) {
       console.error("TypeError: height or width is NaN");
     }
-    runMoveMouse({ x, y, d });
+    await runMoveMouse({ x, y, d });
     return this;
   }
   /**
@@ -125,9 +127,9 @@ class AutoPilot {
    * executes runScreenShot with the file name and writes file to disk
    * @param {string} file The output file name
    */
-  screenshot(file: string) {
-    // logger.debug("[mod.ts] Running screenshot");
-    runScreenShot(file);
+  async screenshot(file: string) {
+    logger.info("[mod.ts] Running screenshot");
+    await runScreenShot(file);
     return this;
   }
   /**
@@ -135,10 +137,10 @@ class AutoPilot {
    * executes runKeyTap with the key name
    * @param {string} arg The key name
    */
-  tap(arg: string) {
-    // logger.debug("[mod.ts] Running tap");
+  async tap(arg: string) {
+    logger.info("[mod.ts] Running tap");
     arg = arg.trim().toLowerCase();
-    runKeyTap(arg as ToggleKeys);
+    await runKeyTap(arg as ToggleKeys);
     return this;
   }
   /**
@@ -146,9 +148,9 @@ class AutoPilot {
    * executes runMouseClick with the given arg
    * @param {ClickOptions} arg The mouse section to click
    */
-  click(arg: ClickOptions) {
-    // logger.debug("[mod.ts] Running click");
-    runMouseClick(arg);
+  async click(arg: ClickOptions) {
+    logger.info("[mod.ts] Running click");
+    await runMouseClick(arg);
     return this;
   }
   /**
@@ -156,9 +158,9 @@ class AutoPilot {
    * executes runMouseScroll with the given arg
    * @param {ScrollOptions} arg The direction of scroll
    */
-  scroll(arg: ScrollOptions) {
-    // logger.debug("[mod.ts] Running scroll");
-    runMouseScroll(arg);
+  async scroll(arg: ScrollOptions) {
+    logger.info("[mod.ts] Running scroll");
+    await runMouseScroll(arg);
     return this;
   }
   /**
@@ -166,18 +168,18 @@ class AutoPilot {
    * executes runMousePostition and returns a JSON
    * @return {object} The coordinates of mouse on screen
    */
-  mousePosition() {
-    // logger.debug("[mod.ts] Running mousePosition");
-    return JSON.parse(runMousePosition());
+  async mousePosition() {
+    logger.info("[mod.ts] Running mousePosition");
+    return JSON.parse(await runMousePosition());
   }
   /**
    * Get pixel color
    * executes runPixelColor and returns a JSON
    * @return {object} The RGBA color
    */
-  pixelColor() {
-    // logger.debug("[mod.ts] Running pixelColor");
-    return JSON.parse(runPixelColor());
+  async pixelColor() {
+    await logger.info("[mod.ts] Running pixelColor");
+    return await runPixelColor();
   }
   /**
    * Toggle a key
@@ -185,9 +187,9 @@ class AutoPilot {
    * @param {string} key The key to be toggled
    * @param {boolean} down Whether to press the key or unpress it
    */
-  toggleKey(key: ToggleKeys, down: boolean) {
-    // logger.debug("[mod.ts] Running toggleKey");
-    runToggleKey({
+  async toggleKey(key: ToggleKeys, down: boolean) {
+    logger.info("[mod.ts] Running toggleKey");
+    await runToggleKey({
       key,
       down: down ? 1 : 0,
     });
@@ -200,9 +202,9 @@ class AutoPilot {
    * @param {number} y The y corrdinate
    * @return {boolean} true if point is visible else false
    */
-  pointVisible(x: number, y: number) {
-    // logger.debug("[mod.ts] Running pointVisible");
-    return runPointVisible({
+  async pointVisible(x: number, y: number) {
+    logger.info("[mod.ts] Running pointVisible");
+    return await runPointVisible({
       x,
       y,
     });
@@ -212,22 +214,19 @@ class AutoPilot {
    * executes runScreenScale and returns the scale
    * @return {number} The number of pixels in a point
    */
-  screenScale(): number {
-    // logger.debug("[mod.ts] Running screenScale");
-    return runScreenScale();
+  async screenScale(): Promise<number> {
+    logger.info("[mod.ts] Running screenScale");
+    return await runScreenScale();
   }
   /**
    * Gets the number of monitors
    * executes runGetMonitors and returns the nyumber of monitors
    * @return {Promise<number>} The number of monitors
    */
-  getMonitors(): Promise<number> {
-    // logger.debug("[mod.ts] Running getMonitors");
-    return new Promise((resolve) => {
-      runGetMonitors().then((n) => {
-        resolve(parseInt(n.split("\n")[0].split("Monitors:").join("").trim()));
-      });
-    });
+  async getMonitors(): Promise<number> {
+    logger.info("[mod.ts] Running getMonitors");
+    let n = await runGetMonitors();
+    return parseInt(n.split("\n")[0].split("Monitors:").join("").trim());
   }
   /**
    * Gets the window at 0th index. (needs improvement)
@@ -235,9 +234,9 @@ class AutoPilot {
    * Works only on Linux
    */
   // **EXPERIMENTAL** (Only for Linux)
-  getWindow(index?: number) {
-    // logger.debug("[mod.ts] Running getWindow");
-    return runGetWindow(index || 0);
+  async getWindow(index?: number) {
+    logger.info("[mod.ts] Running getWindow");
+    return await runGetWindow(index || 0);
   }
   /**
    * Transform a window by index
@@ -245,9 +244,9 @@ class AutoPilot {
    * Works only on Linux
    */
   // **EXPERIMENTAL** (Only for Linux)
-  transformByIndex(index: number, width: number, height: number) {
-    // logger.debug("[mod.ts] Running transformByIndex");
-    runTransformByIndex({
+  async transformByIndex(index: number, width: number, height: number) {
+    logger.info("[mod.ts] Running transformByIndex");
+    await runTransformByIndex({
       index,
       width,
       height,

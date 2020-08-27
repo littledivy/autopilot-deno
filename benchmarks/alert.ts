@@ -3,14 +3,14 @@
 export default [
   {
     name: "notify",
-    do: function (pilot: any) {
-      pilot.notify("Hello", "Benchmarks!");
+    do: async function (pilot: any) {
+      await pilot.notify("Hello", "Benchmarks!");
     },
   },
   {
     name: "alert",
-    do: function (pilot: any) {
-      pilot.alert("Benchmarks");
+    do: async function (pilot: any) {
+      await pilot.alert("Benchmarks");
     },
   },
 ];

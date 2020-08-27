@@ -22,7 +22,7 @@ const prebenchList = keyboard.concat(mouse).concat(screen).concat(alert).concat(
 export function createBench(pilot: any, logger: any) {
   for (let i = 0; i < prebenchList.length; i++) {
     const benchItem = prebenchList[i];
-    logger.debug(`collecting ${benchItem.name}`);
+    logger.info(`collecting ${benchItem.name}`);
     bench({
       name: benchItem.name,
       runs: 1,
@@ -41,7 +41,7 @@ export function createBench(pilot: any, logger: any) {
 }
 
 export async function runBench() {
-  var res = await runBenchmarks({ silent: true }, prettyBenchmarkProgress());
+  var res = await runBenchmarks();
   let toWrite = {
     results: res.results,
     os: Deno.build,
