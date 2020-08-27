@@ -39,27 +39,42 @@ pub fn deno_plugin_init(interface: &mut dyn Interface) {
     interface.register_op("notify", op_notify);
 }
 
-// incomplete fn to get the window name
 fn op_get_window(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let data = &zero_copy[0][..];
     let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let index: usize = data_str.trim().parse().unwrap();
-    let window = rs_lib::window::get_window(index);
+    let fut = async move {
+        let (tx, rx) = futures::channel::oneshot::channel::<Result<WindowResponse, ()>>();
+        std::thread::spawn(move || {
+            // call type_string
+            let window = rs_lib::window::get_window(index);
+            tx.send(Ok(WindowResponse { window: window }));
+        });
+        let result_box: Buf = serde_json::to_vec(&rx.await.unwrap()).unwrap().into_boxed_slice();        
+        result_box
+    };
 
-    let response = WindowResponse { window: &window };
-    let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
-
-    Op::Sync(result_box)
+    Op::Async(fut.boxed())
 }
 
 // deno bindings to `type`
 fn op_notify(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let data = &zero_copy[0][..];
     let params: NotifyParams = serde_json::from_slice(data).unwrap();
-    rs_lib::notify::notify(&params.title, &params.body);
-    let result = b"true";
-    let result_box: Buf = Box::new(*result);
-    Op::Sync(result_box)
+    let fut = async move {
+        let (tx, rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
+        std::thread::spawn(move || {
+            // call type_string
+            rs_lib::notify::notify(&params.title, &params.body);
+            tx.send(Ok(()));
+        });
+
+        let result = b"true";
+        let result_box: Buf = Box::new(*result);
+        result_box
+    };
+    
+    Op::Async(fut.boxed())
 }
 
 // deno bindings for `type`
@@ -74,7 +89,6 @@ fn op_type(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op 
         std::thread::spawn(move || {
             // call type_string
             rs_lib::key::type_string(&data_str, &[], 200., 0.);
-            std::thread::sleep(std::time::Duration::from_secs(1));
             tx.send(Ok(())).unwrap();
         });
         assert!(rx.await.is_ok());
@@ -94,23 +108,37 @@ fn op_screen_size(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]
         height: 1000_f64,
     };
 
-    let result = rs_lib::screen::size();
+    let fut = async move {
+        let (tx, rx) = futures::channel::oneshot::channel::<Result<_, ()>>();
+        std::thread::spawn(move || {
+            let result = rs_lib::screen::size();
+            tx.send(Ok(result));
+        });
+        let result = rx.await.unwrap().unwrap();
+        response.height = result.height;
+        response.width = result.width;
+        let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+        result_box
+    };
 
-    response.height = result.height;
-    response.width = result.width;
-
-    let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
-    Op::Sync(result_box)
+    Op::Async(fut.boxed())
 }
 
 fn op_monitor_list(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]) -> Op {
-    let no_of_monitors = rs_lib::window::get_active_monitors();
-
-    let response = MonitorResponse {
-        monitors: &no_of_monitors,
+    let fut = async move {
+        let (tx, rx) = futures::channel::oneshot::channel::<Result<_, ()>>();
+        std::thread::spawn(move || {
+            let no_of_monitors = rs_lib::window::get_active_monitors();
+            tx.send(Ok(no_of_monitors));
+        });
+        let no_of_monitors = rx.await.unwrap().unwrap();
+        let response = MonitorResponse {
+            monitors: &no_of_monitors,
+        };
+        let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+        result_box
     };
-    let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
-    Op::Sync(result_box)
+    Op::Async(fut.boxed())
 }
 
 fn op_screen_scale(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]) -> Op {
