@@ -2,71 +2,71 @@
   "results": [
     {
       "name": "type",
-      "totalMs": 1.652806999999484
+      "totalMs": 0.8774359999997614
     },
     {
       "name": "tap",
-      "totalMs": 1.202675000000454
+      "totalMs": 1.2016080000003058
     },
     {
       "name": "toggle",
-      "totalMs": 1.2767060000005586
+      "totalMs": 1.3114129999994475
     },
     {
       "name": "click",
-      "totalMs": 1.1288489999988087
+      "totalMs": 0.46070999999938067
     },
     {
       "name": "scroll",
-      "totalMs": 0.6509929999992892
+      "totalMs": 0.36298400000123365
     },
     {
       "name": "pixelColor",
-      "totalMs": 0.9064020000005257
+      "totalMs": 0.2841050000006362
     },
     {
       "name": "mousePosition",
-      "totalMs": 1.2171959999996034
+      "totalMs": 1.0234770000024582
     },
     {
       "name": "moveMouse",
-      "totalMs": 1.6619179999979679
+      "totalMs": 1.3518399999993562
     },
     {
       "name": "screenSize",
-      "totalMs": 1.0422460000008869
+      "totalMs": 0.4035599999988335
     },
     {
       "name": "screenshot",
-      "totalMs": 1.4479930000015884
+      "totalMs": 1.1300929999997607
     },
     {
       "name": "pointVisible",
-      "totalMs": 0.48295000000143773
+      "totalMs": 0.4988259999990987
     },
     {
       "name": "screenScale",
-      "totalMs": 1.0219690000012633
+      "totalMs": 1.0921500000004016
     },
     {
       "name": "getMonitors",
-      "totalMs": 1.4194209999986924
+      "totalMs": 1.1735310000003665
     },
     {
       "name": "notify",
-      "totalMs": 1.5553619999991497
+      "totalMs": 1.2554720000007364
     },
     {
       "name": "alert",
-      "totalMs": 1.3370020000002114
+      "totalMs": 1.3610020000051009
     },
     {
       "name": "getWindow",
-      "totalMs": 0.49875400000019
+      "totalMs": 0.503593000001274
     },
     {
       "name": "transformByIndex",
-      "totalMs": 1.6049790000033681
+      "totalMs": 0.5072260000015376
     }
   ],
   "os": {
