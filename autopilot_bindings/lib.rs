@@ -389,7 +389,7 @@ fn op_toggle_key(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) 
                 &[],
                 0. as u64,
             );
-            tx.send(Ok(())).unwrap();
+            tx.send(Ok(()));
         });
         let result = b"true";
         let result_box: Buf = Box::new(*result);

@@ -59,128 +59,189 @@ const {
 const textDecoder = new TextDecoder();
 const decoder = new TextDecoder();
 
-export function runNotify(arg: object) {
+export async function runNotify(arg: object) {
   let sarg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(sarg);
-
-  const response = core.dispatch(notify, view);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(notify, (bytes) => {
+      resolve(textDecoder.decode(bytes));
+    });
+    core.dispatch(notify, view);
+  });
 }
 
-export function runAlert(arg: object | string) {
+export async function runAlert(arg: object | string) {
   let pass: any = { title: "AutoPilot", msg: "Alert" };
   typeof arg == "object"
     ? (pass = JSON.stringify(arg))
     : ((pass.msg = arg), (pass = JSON.stringify(pass)));
   const encoder = new TextEncoder();
   const view = encoder.encode(pass);
-
-  const response = core.dispatch(alert, view);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(alert, (bytes) => {
+      resolve(textDecoder.decode(bytes));
+    });
+    core.dispatch(alert, view);
+  });
 }
 
-export function runMouseClick(arg: string) {
+export async function runMouseClick(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
-
-  const response = core.dispatch(click, view);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(click, (bytes) => {
+      resolve(textDecoder.decode(bytes));
+    });
+    core.dispatch(click, view);
+  });
 }
 
-export function runTransformByIndex(arg: object) {
+export async function runTransformByIndex(arg: object) {
   const encoder = new TextEncoder();
   const view = encoder.encode(JSON.stringify(arg));
-
-  const response = core.dispatch(transformByIndex, view);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(transformByIndex, (bytes) => {
+      resolve(textDecoder.decode(bytes));
+    });
+    core.dispatch(transformByIndex, view);
+  });
 }
 
-export function runGetWindow(arg: number = 0) {
+export async function runGetWindow(arg: number = 0) {
   let i = arg.toString();
   const encoder = new TextEncoder();
   const view = encoder.encode(i);
-
-  const response = core.dispatch(getWindow, view);
-  return JSON.parse(textDecoder.decode(response)).window;
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(getWindow, (bytes) => {
+      resolve(JSON.parse(textDecoder.decode(bytes)).window);
+    });
+    core.dispatch(getWindow, view);
+  });
 }
 
-export function runToggleKey(arg: object) {
+export async function runToggleKey(arg: object) {
   const encoder = new TextEncoder();
   const view = encoder.encode(JSON.stringify(arg));
-
-  const response = core.dispatch(toggleKey, view);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(toggleKey, (bytes) => {
+      resolve(textDecoder.decode(bytes));
+    });
+    core.dispatch(toggleKey, view);
+  });
 }
 
-export function runPointVisible(arg: object) {
+export async function runPointVisible(arg: object) {
   const encoder = new TextEncoder();
   const view = encoder.encode(JSON.stringify(arg));
-
-  const response = core.dispatch(pointVisible, view);
-  return textDecoder.decode(response) == "1" ? true : false;
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(pointVisible, (bytes) => {
+      resolve(textDecoder.decode(bytes) == "1" ? true : false);
+    });
+    core.dispatch(pointVisible, view);
+  });
 }
 
-export function runMousePosition() {
-  const response = core.dispatch(mousePostition);
-  return textDecoder.decode(response);
+export async function runMousePosition(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(mousePostition, (bytes) => {
+      resolve(textDecoder.decode(bytes));
+    });
+    core.dispatch(mousePostition);
+  });
 }
 
-export function runMouseScroll(arg: string) {
+export async function runMouseScroll(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
-
-  const response = core.dispatch(scroll, view);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(scroll, (bytes) => {
+      resolve(textDecoder.decode(bytes));
+    });
+    core.dispatch(scroll, view);
+  });
 }
 
-export function runScreenSize() {
-  const response = core.dispatch(screenSize);
-  return textDecoder.decode(response);
+export async function runScreenSize(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(screenSize, (bytes) => {
+      resolve(textDecoder.decode(bytes));
+    });
+    core.dispatch(screenSize);
+  });
 }
 
-export function runScreenScale() {
-  const response = core.dispatch(screenScale);
-  return JSON.parse(textDecoder.decode(response)).scale;
+export async function runScreenScale(): Promise<number> {
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(screenScale, (bytes) => {
+      let response = JSON.parse(decoder.decode(bytes));
+      resolve(response.scale);
+    });
+    core.dispatch(screenScale);
+  });
 }
 
-export function runGetMonitors() {
-  const response = core.dispatch(getMonitors);
-  if (Deno.build.os === "windows") {
-    return parseMonitorsWin(textDecoder.decode(response));
-  }
-  if (Deno.build.os === "darwin") {
-    return parseMonitorsMac(JSON.parse(textDecoder.decode(response)).monitors);
-  }
-  return JSON.parse(textDecoder.decode(response)).monitors;
+export async function runGetMonitors(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(getMonitors, (response) => {
+      let res = textDecoder.decode(response);
+      if (Deno.build.os === "windows") {
+        resolve(parseMonitorsWin(res));
+      }
+      if (Deno.build.os === "darwin") {
+        resolve(parseMonitorsMac(JSON.parse(res).monitors));
+      }
+      resolve(textDecoder.decode(response));
+    });
+    core.dispatch(getMonitors);
+  });
 }
 
-export function runPixelColor() {
-  const response = core.dispatch(pixelColor);
-  return textDecoder.decode(response);
+export async function runPixelColor(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(pixelColor, (bytes) => {
+      let response = JSON.parse(decoder.decode(bytes));
+      resolve(response);
+    });
+    core.dispatch(pixelColor);
+  });
 }
 
-export function runKeyTap(arg: string) {
+export async function runKeyTap(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
-
-  const response = core.dispatch(tap, view);
-  return textDecoder.decode(response);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(tap, (bytes) => {
+      let response = JSON.parse(decoder.decode(bytes));
+      resolve(response);
+    });
+    core.dispatch(tap, view);
+  });
 }
 
-export function runScreenShot(arg: string) {
+export async function runScreenShot(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
-
-  const response = core.dispatch(screenshot, view);
-  return textDecoder.decode(response);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(screenshot, (bytes) => {
+      let response = JSON.parse(decoder.decode(bytes));
+      resolve(response);
+    });
+    core.dispatch(screenshot, view);
+  });
 }
 
-export function runMoveMouse(arg: any) {
+export async function runMoveMouse(arg: any) {
   let sarg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(sarg);
   return new Promise((resolve, reject) => {
     core.setAsyncHandler(arg.d ? moveMouse : quickMoveMouse, (bytes) => {
-      let response = JSON.parse(decoder.decode(bytes))
+      let response = JSON.parse(decoder.decode(bytes));
       resolve(response);
     });
     core.dispatch(arg.d ? moveMouse : quickMoveMouse, view);
-  })
+  });
 }
 
 export async function runType(arg: string) {
@@ -188,30 +249,11 @@ export async function runType(arg: string) {
   const view = encoder.encode(arg);
   return new Promise((resolve, reject) => {
     core.setAsyncHandler(type, (bytes) => {
-      let response = JSON.parse(decoder.decode(bytes))
+      let response = JSON.parse(decoder.decode(bytes));
       resolve(response);
     });
     core.dispatch(type, view);
-  })
+  });
 }
-
-async function setAsyncAnchor(opId: any) {
-  
-}
-core.setAsyncHandler(type, () => {
-  // leave this blank
-});
-
-core.setAsyncHandler(moveMouse, () => {
-  // leave this blank
-});
-
-core.setAsyncHandler(screenSize, () => {
-  // leave this blank
-});
-
-core.setAsyncHandler(alert, () => {
-  // leave this blank
-});
 
 logger.info(`Autopilot setup complete`);

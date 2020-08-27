@@ -179,7 +179,7 @@ class AutoPilot {
    */
   async pixelColor() {
     await logger.info("[mod.ts] Running pixelColor");
-    return JSON.parse(runPixelColor());
+    return await runPixelColor();
   }
   /**
    * Toggle a key
