@@ -143,28 +143,38 @@ fn op_monitor_list(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf
 
 fn op_screen_scale(_interface: &mut dyn Interface, _zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let mut response = ScaleResponse { scale: 1000_f64 };
-
-    let result = rs_lib::screen::scale();
-
-    response.scale = result;
-
-    let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
-    Op::Sync(result_box)
+    let fut = async move {
+        let (tx, rx) = futures::channel::oneshot::channel::<Result<_, ()>>();
+        std::thread::spawn(move || {
+            let result = rs_lib::screen::scale();
+            tx.send(Ok(result));
+        });
+        let result = rx.await.unwrap().unwrap();
+        response.scale = result;
+        let result_box: Buf = serde_json::to_vec(&response).unwrap().into_boxed_slice();
+        result_box
+    }
+    Op::Async(fut.boxed())
 }
 
 fn op_quick_move_mouse(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let data = &zero_copy[0][..];
     let params: QuickMousePostition = serde_json::from_slice(data).unwrap();
-
-    rs_lib::mouse::move_to(rs_lib::geometry::Point::new(
-        params.x as f64,
-        params.y as f64,
-    ))
-    .expect("Unable to move mouse");
-
-    let result = b"true";
-    let result_box: Buf = Box::new(*result);
-    Op::Sync(result_box)
+    let fut = async move {
+        let (tx, rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
+        std::thread::spawn(move || {
+            rs_lib::mouse::move_to(rs_lib::geometry::Point::new(
+                params.x as f64,
+                params.y as f64,
+            ))
+            .expect("Unable to move mouse");
+            tx.send(Ok(()));
+        });
+        let result = b"true";
+        let result_box: Buf = Box::new(*result);
+        result_box
+    }
+    Op::Async(fut.boxed())
 }
 
 fn op_move_mouse(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
