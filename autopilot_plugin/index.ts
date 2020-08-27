@@ -57,6 +57,7 @@ const {
 } = core.ops();
 
 const textDecoder = new TextDecoder();
+const decoder = new TextDecoder();
 
 export function runNotify(arg: object) {
   let sarg = JSON.stringify(arg);
@@ -173,17 +174,30 @@ export function runMoveMouse(arg: any) {
   let sarg = JSON.stringify(arg);
   const encoder = new TextEncoder();
   const view = encoder.encode(sarg);
-  const response = core.dispatch(arg.d ? moveMouse : quickMoveMouse, view);
-  return textDecoder.decode(response);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(arg.d ? moveMouse : quickMoveMouse, (bytes) => {
+      let response = JSON.parse(decoder.decode(bytes))
+      resolve(response);
+    });
+    core.dispatch(arg.d ? moveMouse : quickMoveMouse, view);
+  })
 }
 
-export function runType(arg: string) {
+export async function runType(arg: string) {
   const encoder = new TextEncoder();
   const view = encoder.encode(arg);
-
-  const response = core.dispatch(type, view);
+  return new Promise((resolve, reject) => {
+    core.setAsyncHandler(type, (bytes) => {
+      let response = JSON.parse(decoder.decode(bytes))
+      resolve(response);
+    });
+    core.dispatch(type, view);
+  })
 }
 
+async function setAsyncAnchor(opId: any) {
+  
+}
 core.setAsyncHandler(type, () => {
   // leave this blank
 });
