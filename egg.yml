@@ -1,6 +1,6 @@
 name: autopilot
-version: 0.1.9
-description: Cross platform desktop automation for Deno
+version: 0.2.0
+description: Cross platform desktop automation framework for Deno
 stable: true
 repository: https://github.com/divy-work/autopilot-deno
 files:
