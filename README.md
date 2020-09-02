@@ -15,9 +15,7 @@
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/autopilot)
 
 
-AutoPilot is a simple cross-platform desktop automation library for Deno.
-
-> __NOTE__: Works with Deno v1.3.0 or up.
+Cross-platform desktop automation framework for Deno.
 
 
 ### Features
@@ -39,7 +37,6 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
   - [x] Get screen size using `.screenSize`
   - [x] Check if point out of bounds using `.pointVisible`
   - [x] Get number of pixels in a point using `.screenScale`
-  - [ ] Screen recording
 
 - [x] __Notifications__
   - [x] Native popup using `.alert`
@@ -56,7 +53,7 @@ AutoPilot is a simple cross-platform desktop automation library for Deno.
 
 Detailed documentation of the API is available at:
 
-https://autopilot.divy.work
+https://autopilot.mod.land
 
 ### Requirements
 
@@ -105,7 +102,7 @@ pilot.screenshot("screenshot.png");
 ## Development
 
 * Requires rust and cargo.
-* Requires [velociraptor](https://velociraptor.run) (script runner for Deno) - Makes life easier
+* Requires [velociraptor](https://velociraptor.run)
 
 Clone this repo and run `cargo build` to produce a development build.
 
