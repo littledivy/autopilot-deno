@@ -19,7 +19,7 @@ sudo apt-get install libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 Simple import `Autopilot` from Github raw cdn.
 
 ```typescript
-import AutoPilot from 'https://raw.githubusercontent.com/divy-work/autopilot-deno/master/mod.ts';
+import AutoPilot from 'https://x.nest.land/autopilot@0.2.0/mod.ts';
 ```
 
 > Info: AutoPilot automatically installs prebuilt binaries for the first time and caches it for future runs.
@@ -44,7 +44,7 @@ Simulates keyboard input to type the given string.
 
 Example:
 ```typescript
-pilot.type("Hello, World!");
+await pilot.type("Hello, World!");
 ```
 
 ![](assets/type.gif)
@@ -55,7 +55,7 @@ Simulates a key tap for the given key.
 
 Example:
 ```typescript
-pilot.tap("enter");
+await pilot.tap("enter");
 ```
 
 #### .toggleKey
@@ -70,7 +70,7 @@ Arguments:
 
 Example:
 ```typescript
-pilot.toggleKey("enter", true);
+await pilot.toggleKey("enter", true);
 ```
 
 ##### Keymap
@@ -136,7 +136,7 @@ Arguments:
 
 Example:
 ```typescript
-pilot.moveMouse(300, 500);
+await pilot.moveMouse(300, 500);
 ```
 
 ![](assets/mouse-move.gif)
@@ -156,7 +156,7 @@ interface Point {
 
 Example:
 ```typescript
-pilot.mousePosition();
+await pilot.mousePosition();
 ```
 
 ![](assets/mouse-position.gif)
@@ -178,7 +178,7 @@ interface RGBA {
 
 Example:
 ```typescript
-pilot.pixelColor();
+await pilot.pixelColor();
 ```
 
 ![](assets/pixel-color.gif)
@@ -196,7 +196,7 @@ type ClickArguments = "right" | "left" | "middle";
 
 Example:
 ```typescript
-pilot.click("right");
+await pilot.click("right");
 ```
 
 #### .scroll
@@ -210,7 +210,7 @@ type ScrollArguments = "up" | "down";
 
 Example:
 ```typescript
-pilot.scroll("up");
+await pilot.scroll("up");
 ```
 
 ### Screen
@@ -229,7 +229,7 @@ interface ScreenSize {
 
 Example:
 ```typescript
-pilot.screenSize();
+await pilot.screenSize();
 ```
 
 #### .screenshot
@@ -240,7 +240,7 @@ Argument: Output image name
 
 Example:
 ```typescript
-pilot.screenshot("screenshot.png");
+await pilot.screenshot("screenshot.png");
 ```
 
 #### .screenScale
@@ -251,7 +251,7 @@ Returns: `number`
 
 Example:
 ```typescript
-pilot.screenScale(); // mostly outputs 1
+await pilot.screenScale(); // mostly outputs 1
 ```
 
 #### .pointVisible
@@ -265,7 +265,7 @@ Arguments:
 
 Example:
 ```typescript
-pilot.pointVisible(100, 35);
+await pilot.pointVisible(100, 35);
 ```
 
 ### Notifications
@@ -286,9 +286,9 @@ interface AlertOptions {
 
 Example:
 ```typescript
-pilot.alert("alert without title");
+await pilot.alert("alert without title");
 // or
-pilot.alert({
+await pilot.alert({
   title: "Oops! This is an alert!"
   msg: "Something definetly went wrong!"
 })
@@ -305,7 +305,7 @@ Arguments:
 * `body` - string - notification body
 
 ```typescript
-pilot.notify("Hello", "World");
+await pilot.notify("Hello", "World");
 ```
 
 ### Monitors
@@ -318,7 +318,7 @@ Returns: `Promise<number>`
 
 Example:
 ```typescript
-pilot.getMonitors();
+await pilot.getMonitors();
 ```
 
 ### Window management (linux)
@@ -331,7 +331,7 @@ Arguments:
 * `index` - number - The index of window
 
 ```typescript
-pilot.getWindow(0); // outputs 'Desktop', maybe?
+await pilot.getWindow(0); // outputs 'Desktop', maybe?
 ```
 
 #### .transformByIndex
@@ -344,7 +344,7 @@ Arguments:
 * `width` - number - Desired width of the window
 
 ```typescript
-pilot.transformByIndex(3, 960, 300);
+await pilot.transformByIndex(3, 960, 300);
 ```
 
 ### Building from source
