@@ -5,9 +5,9 @@ on:
     branches:
       - master
     paths:
-        - "Cargo.toml"
-        - "src/**"
-        - ".github/workflows/**"
+      - "Cargo.toml"
+      - "src/**"
+      - ".github/workflows/**"
 
 jobs:
   build:
