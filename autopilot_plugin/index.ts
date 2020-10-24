@@ -23,7 +23,7 @@ if (isDev) {
   const rid = Deno.openPlugin("./target/debug/" + filename(filenameBase));
 } else {
   // logger.info(`Downloading latest Autopilot release from Github`);
-  const pluginId = await prepare.prepare({
+  const pluginId = await prepare({
     name: "autopilot_deno",
     urls: {
       darwin: `${pluginBase}/libautopilot_deno.dylib`,
