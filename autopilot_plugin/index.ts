@@ -1,6 +1,6 @@
 // Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
-import { prepare, logger } from "../deps.ts";
+import { logger, prepare } from "../deps.ts";
 import parseMonitorsMac from "../autopilot_deno/utils/SP_displays_data_type_parser.ts";
 import parseMonitorsWin from "../autopilot_deno/utils/wmic_data_parser.ts";
 import { getMonitors as getMonitorsFallback } from "../autopilot_deno/monitors.ts";

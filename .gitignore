@@ -5,3 +5,4 @@ examples/.deno_plugins
 examples/.autopilot_plugins
 screenshot.png
 myscripts/
+*.log

@@ -1,10 +1,10 @@
 // Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
 import {
-  prettyBenchmarkResult,
-  prettyBenchmarkProgress,
-  runBenchmarks,
   bench,
+  prettyBenchmarkProgress,
+  prettyBenchmarkResult,
+  runBenchmarks,
 } from "./deps.ts";
 
 import write from "./write.ts";

@@ -1,38 +1,35 @@
 // Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
 
 import {
-  runType,
   runAlert,
-  runScreenSize,
-  runMoveMouse,
-  runScreenShot,
-  runMouseClick,
+  runGetMonitors,
+  runGetWindow,
   runKeyTap,
-  runMouseScroll,
+  runMouseClick,
   runMousePosition,
+  runMouseScroll,
+  runMoveMouse,
+  runNotify,
   runPixelColor,
-  runToggleKey,
   runPointVisible,
   runScreenScale,
-  runGetWindow,
+  runScreenShot,
+  runScreenSize,
+  runToggleKey,
   runTransformByIndex,
-  runGetMonitors,
-  runNotify,
+  runType,
 } from "../autopilot_plugin/index.ts";
 
 // Import types
 import {
   AlertOptions,
   ClickOptions,
+  NotificationParams,
   ScrollOptions,
   ToggleKeys,
-  NotificationParams,
 } from "./types.ts";
 
-import {
-  isAscii,
-  throwAsciiError,
-} from "./utils/isAscii.ts";
+import { isAscii, throwAsciiError } from "./utils/isAscii.ts";
 
 import { logger } from "../deps.ts";
 
