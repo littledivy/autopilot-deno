@@ -3,4 +3,4 @@ import AutoPilot from "../mod.ts";
 
 const pilot = new AutoPilot();
 
-console.log(pilot.getWindow(parseInt(Deno.args[0]) || 1));
+console.log(await pilot.getWindow(parseInt(Deno.args[0]) || 1));
