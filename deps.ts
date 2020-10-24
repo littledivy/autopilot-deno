@@ -3,4 +3,4 @@
 import { Houston, ConsoleTransport } from "https://deno.land/x/houston/mod.ts";
 export const logger = new Houston([new ConsoleTransport()]);
 
-export { Plug as prepare } from "https://x.nest.land/plug@0.0.5/mod.ts";
+export { prepare } from "https://deno.land/x/plugin_prepare@v0.8.0/mod.ts";
