@@ -289,11 +289,15 @@ fn op_click(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op
 fn op_scroll(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let data = &zero_copy[0][..];
     // convert arg to string
-    let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+    let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let fut = async move {
         let (tx, _rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
         std::thread::spawn(move || {
-            rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Up, 5 as u32);
+            if (data_str == "down") {
+                rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Down, 5 as u32);
+            } else {
+                rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Up, 5 as u32);
+            }
             tx.send(Ok(()));
         });
         let result = b"true";
