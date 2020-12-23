@@ -293,10 +293,10 @@ fn op_scroll(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> O
     let fut = async move {
         let (tx, _rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
         std::thread::spawn(move || {
-            if (data_str == "up") {
+            if data_str == "up" {
                 rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Up, 5 as u32);
             } 
-            if (data_str == "down") {
+            if data_str == "down" {
                 rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Down, 5 as u32);
             }
             tx.send(Ok(()));
