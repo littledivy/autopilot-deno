@@ -267,14 +267,11 @@ fn op_click(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op
     let fut = async move {
         let (tx, _rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
         std::thread::spawn(move || {
-            if data_str == "left" {
-                rs_lib::mouse::click(rs_lib::mouse::Button::Left, 10 as u64);
-            }
-            if data_str == "right" {
-                rs_lib::mouse::click(rs_lib::mouse::Button::Right, 10 as u64);
-            }
-            if data_str == "middle" {
-                rs_lib::mouse::click(rs_lib::mouse::Button::Middle, 10 as u64);
+            match data_str.as_str() {
+                "left" => rs_lib::mouse::click(rs_lib::mouse::Button::Left, 10 as u64),
+                "right" => rs_lib::mouse::click(rs_lib::mouse::Button::Right, 10 as u64),
+                "middle" => rs_lib::mouse::click(rs_lib::mouse::Button::Middle, 10 as u64),
+                _ => ()
             }
             tx.send(Ok(()));
         });
@@ -289,11 +286,15 @@ fn op_click(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op
 fn op_scroll(_interface: &mut dyn Interface, zero_copy: &mut [ZeroCopyBuf]) -> Op {
     let data = &zero_copy[0][..];
     // convert arg to string
-    let _data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
+    let data_str = std::str::from_utf8(&data[..]).unwrap().to_string();
     let fut = async move {
         let (tx, _rx) = futures::channel::oneshot::channel::<Result<(), ()>>();
         std::thread::spawn(move || {
-            rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Up, 5 as u32);
+            match data_str.as_str() {
+                "up" => rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Up, 5 as u32),
+                "down" => rs_lib::mouse::scroll(rs_lib::mouse::ScrollDirection::Down, 5 as u32),
+                _ => ()
+            }
             tx.send(Ok(()));
         });
         let result = b"true";
