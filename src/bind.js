@@ -1,5 +1,8 @@
 // deno-lint-ignore-file
+import { prepare } from "https://deno.land/x/plugin_prepare@v0.8.0/mod.ts";
 
+const releaseUrl =
+  "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/";
 const filenameBase = "autopilot_deno";
 
 let filenameSuffix = ".so";
@@ -12,10 +15,22 @@ if (Deno.build.os === "windows") {
   filenameSuffix = ".dylib";
 }
 
-const filename =
-  `target/release/${filenamePrefix}${filenameBase}${filenameSuffix}`;
+const filename = `${filenamePrefix}${filenameBase}${filenameSuffix}`;
 
-Deno.openPlugin(filename);
+const pluginOptions = {
+  name: filenameBase,
+  urls: {
+    darwin: `${releaseUrl}/${filename}`,
+    windows: `${releaseUrl}/${filename}`,
+    linux: `${releaseUrl}/${filename}`,
+  },
+};
+
+if (Deno.env.get("DEV")) {
+  Deno.openPlugin("target/release/" + filename);
+} else {
+  await prepare(pluginOptions);
+}
 
 let exports = {};
 

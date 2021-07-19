@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v1
+        with:
+          submodules: true
 
       - name: Install rust
         uses: hecrj/setup-rust-action@v1
