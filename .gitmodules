@@ -1,0 +1,3 @@
+[submodule "autopilot-rs"]
+	path = autopilot-rs
+	url = git@github.com:littledivy/autopilot-rs.git

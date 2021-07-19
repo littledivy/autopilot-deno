@@ -4,13 +4,13 @@ description: Cross platform desktop automation framework for Deno
 stable: true
 repository: https://github.com/divy-work/autopilot-deno
 files:
- - ./README.md
- - ./LICENSE
- - ./mod.ts
- - ./deps.ts
- - ./plugin_config.ts
- - ./examples/**/*
- - ./version.ts
- - ./autopilot_plugin/**/*
- - ./autopilot_deno/**/*
- - ./autopilot_type_conversions/**/*
+  - ./README.md
+  - ./LICENSE
+  - ./mod.ts
+  - ./deps.ts
+  - ./plugin_config.ts
+  - ./examples/**/*
+  - ./version.ts
+  - ./autopilot_plugin/**/*
+  - ./autopilot_deno/**/*
+  - ./autopilot_type_conversions/**/*
