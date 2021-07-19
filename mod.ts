@@ -1,4 +1,2 @@
-// Copyright 2020-present Divy Srivastava and friends. All rights reserved. MIT license.
-
-import AutoPilot from "./autopilot_deno/autopilot.ts";
+import AutoPilot from "./src/autopilot.ts";
 export default AutoPilot;

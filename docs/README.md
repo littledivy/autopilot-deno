@@ -19,14 +19,16 @@ sudo apt-get install libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 Simple import `Autopilot` from Github raw cdn.
 
 ```typescript
-import AutoPilot from 'https://x.nest.land/autopilot@0.2.0/mod.ts';
+import AutoPilot from "https://x.nest.land/autopilot@0.2.0/mod.ts";
 ```
 
-> Info: AutoPilot automatically installs prebuilt binaries for the first time and caches it for future runs.
+> Info: AutoPilot automatically installs prebuilt binaries for the first time
+> and caches it for future runs.
 
 ## Usage
 
-The `AutoPilot` constructors provides the API for interacting with the rust bindings.
+The `AutoPilot` constructors provides the API for interacting with the rust
+bindings.
 
 ```typescript
 const pilot = new AutoPilot();
@@ -43,6 +45,7 @@ See the list of available methods inside `Autopilot` constructor.
 Simulates keyboard input to type the given string.
 
 Example:
+
 ```typescript
 await pilot.type("Hello, World!");
 ```
@@ -54,6 +57,7 @@ await pilot.type("Hello, World!");
 Simulates a key tap for the given key.
 
 Example:
+
 ```typescript
 await pilot.tap("enter");
 ```
@@ -62,18 +66,19 @@ await pilot.tap("enter");
 
 Toggle the given key.
 
-
 Arguments:
 
-* `key` - string - The key to be toggled.
-* `down` - boolean - Whether to press down or not.
+- `key` - string - The key to be toggled.
+- `down` - boolean - Whether to press down or not.
 
 Example:
+
 ```typescript
 await pilot.toggleKey("enter", true);
 ```
 
 ##### Keymap
+
 Below is the key map that is accepted by AutoPilot.
 
 ```typescript
@@ -131,10 +136,11 @@ Move the mouse cursor to the given position.
 
 Arguments:
 
-* `x` - number - abcissa of mouse position
-* `y` - number - ordinate of mouse position
+- `x` - number - abcissa of mouse position
+- `y` - number - ordinate of mouse position
 
 Example:
+
 ```typescript
 await pilot.moveMouse(300, 500);
 ```
@@ -149,12 +155,13 @@ Returns type `Point`.
 
 ```typescript
 interface Point {
-    x: number,
-    y: number
+  x: number;
+  y: number;
 }
 ```
 
 Example:
+
 ```typescript
 await pilot.mousePosition();
 ```
@@ -169,20 +176,20 @@ Returns type `RGBA`.
 
 ```typescript
 interface RGBA {
-    r: number,
-    g: number,
-    b: number,
-    a: number
+  r: number;
+  g: number;
+  b: number;
+  a: number;
 }
 ```
 
 Example:
+
 ```typescript
 await pilot.pixelColor();
 ```
 
 ![](assets/pixel-color.gif)
-
 
 #### .click
 
@@ -195,6 +202,7 @@ type ClickArguments = "right" | "left" | "middle";
 ```
 
 Example:
+
 ```typescript
 await pilot.click("right");
 ```
@@ -204,11 +212,13 @@ await pilot.click("right");
 Simulate a mouse scroll (5 ticks).
 
 Argument:
+
 ```typescript
 type ScrollArguments = "up" | "down";
 ```
 
 Example:
+
 ```typescript
 await pilot.scroll("up");
 ```
@@ -220,14 +230,16 @@ await pilot.scroll("up");
 Get the screen size.
 
 Returns:
+
 ```typescript
 interface ScreenSize {
-  height: number,
-  width: number
+  height: number;
+  width: number;
 }
 ```
 
 Example:
+
 ```typescript
 await pilot.screenSize();
 ```
@@ -239,6 +251,7 @@ Simulate a screengrab and output an image.
 Argument: Output image name
 
 Example:
+
 ```typescript
 await pilot.screenshot("screenshot.png");
 ```
@@ -250,6 +263,7 @@ Get the number of pixels in a point
 Returns: `number`
 
 Example:
+
 ```typescript
 await pilot.screenScale(); // mostly outputs 1
 ```
@@ -260,10 +274,11 @@ Check whether point is out of screen bounds or not.
 
 Arguments:
 
-* `x` - number - abcissa of point
-* `y` - number - ordinate of point
+- `x` - number - abcissa of point
+- `y` - number - ordinate of point
 
 Example:
+
 ```typescript
 await pilot.pointVisible(100, 35);
 ```
@@ -275,6 +290,7 @@ await pilot.pointVisible(100, 35);
 Trigger a native popup.
 
 Arguments:
+
 ```typescript
 type Alert = string | AlertOptions;
 // where
@@ -285,6 +301,7 @@ interface AlertOptions {
 ```
 
 Example:
+
 ```typescript
 await pilot.alert("alert without title");
 // or
@@ -301,8 +318,9 @@ await pilot.alert({
 Trigger a native OS notification.
 
 Arguments:
-* `title` - string - notification title
-* `body` - string - notification body
+
+- `title` - string - notification title
+- `body` - string - notification body
 
 ```typescript
 await pilot.notify("Hello", "World");
@@ -317,6 +335,7 @@ Get the number of monitors.
 Returns: `Promise<number>`
 
 Example:
+
 ```typescript
 await pilot.getMonitors();
 ```
@@ -328,7 +347,8 @@ await pilot.getMonitors();
 Get window title by its index.
 
 Arguments:
-* `index` - number - The index of window
+
+- `index` - number - The index of window
 
 ```typescript
 await pilot.getWindow(0); // outputs 'Desktop', maybe?
@@ -339,9 +359,10 @@ await pilot.getWindow(0); // outputs 'Desktop', maybe?
 Transform a window by its index.
 
 Arguments:
-* `index` - number - The index of window
-* `height` - number - Desired height of the window
-* `width` - number - Desired width of the window
+
+- `index` - number - The index of window
+- `height` - number - Desired height of the window
+- `width` - number - Desired width of the window
 
 ```typescript
 await pilot.transformByIndex(3, 960, 300);
@@ -352,6 +373,7 @@ await pilot.transformByIndex(3, 960, 300);
 > Warning: This requires Rust and Cargo setup in your machine.
 
 Clone the github repo
+
 ```sh
 git clone https://github.com/divy-work/autopilot-deno
 cd autopilot
@@ -368,8 +390,9 @@ DEV=* deno run --unstable --allow-* examples/sine.ts
 
 ### OS Support
 
-* Ubuntu - Full Support
-* MacOS - Full support except Window management
-* Windows - Full support except Window managment
+- Ubuntu - Full Support
+- MacOS - Full support except Window management
+- Windows - Full support except Window managment
 
-If you find any difficulty while building from source or using this module, please open a issue or PR stating your issue.
+If you find any difficulty while building from source or using this module,
+please open a issue or PR stating your issue.
