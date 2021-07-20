@@ -64,6 +64,7 @@ dependencies = [
  "rand",
  "scopeguard",
  "winapi",
+ "winrt",
  "wmctrl",
  "x11",
 ]
