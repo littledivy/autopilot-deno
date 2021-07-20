@@ -72,3 +72,4 @@ jobs:
         env:
           RUST_BACKTRACE: 1
         run: cargo build
+
