@@ -1,6 +1,6 @@
 ## Introduction
 
-![deno version](https://img.shields.io/badge/deno-1.12.5-success)
+![deno version](https://img.shields.io/badge/deno-1.12.1-success)
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
