@@ -20,35 +20,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Autopilot Deno</title>
     <!-- Stylesheet -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/@egoist/docup@1/dist/docup.min.css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/docute@4/dist/docute.css">
   </head>
   <body>
+    <div id="app"></div>
     <!-- Script -->
-    <script src="docup.min.js"></script>
+    <script src="https://unpkg.com/docute@4/dist/docute.js"></script>
     <!-- Start app -->
     <script>
-      docup.init({
+      new Docute({
+        target: '#app',
         title: "Autopilot",
-        highlightLanguages: ["typescript"],
-        navLinks: [
+        highlight: ["typescript"],
+        theme: "dark",
+        layout: "left",
+        sidebar: [],
+        nav: [
           {
-            text: "Quick Start",
+            title: "Quick Start",
             link: "#quick-start",
           },
           {
-            text: "API",
+            title: "API",
             link: "#api",
           },
           {
-            text: "Github",
-            link: "https://github.com/divy-work/autopilot-deno",
-          },
-          {
-            text: "Benchmarks",
-            link: "/Benchmarks",
+            title: "Github",
+            link: "https://github.com/littledivy/autopilot-deno",
           },
         ],
       });

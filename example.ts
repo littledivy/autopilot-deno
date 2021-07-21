@@ -3,6 +3,7 @@ import AutoPilot from "./mod.ts";
 const pilot = new AutoPilot();
 
 const screenSize = pilot.screenSize();
+
 const height = (screenSize.height / 2) - 10;
 const width = screenSize.width;
 

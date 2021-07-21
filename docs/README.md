@@ -1,8 +1,6 @@
 ## Introduction
 
-> Warning: These are for the latest version of Autopilot
-
-![deno version](https://img.shields.io/badge/deno-1.0.5-success)
+![deno version](https://img.shields.io/badge/deno-1.12.5-success)
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
@@ -19,11 +17,8 @@ sudo apt-get install libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 Simple import `Autopilot` from Github raw cdn.
 
 ```typescript
-import AutoPilot from "https://x.nest.land/autopilot@0.2.0/mod.ts";
+import AutoPilot from "https://x.nest.land/autopilot/mod.ts";
 ```
-
-> Info: AutoPilot automatically installs prebuilt binaries for the first time
-> and caches it for future runs.
 
 ## Usage
 
@@ -49,8 +44,6 @@ Example:
 ```typescript
 await pilot.type("Hello, World!");
 ```
-
-![](assets/type.gif)
 
 #### .tap
 
@@ -145,8 +138,6 @@ Example:
 await pilot.moveMouse(300, 500);
 ```
 
-![](assets/mouse-move.gif)
-
 #### .mousePosition
 
 Get current mouse position.
@@ -165,8 +156,6 @@ Example:
 ```typescript
 await pilot.mousePosition();
 ```
-
-![](assets/mouse-position.gif)
 
 #### .pixelColor
 
@@ -188,8 +177,6 @@ Example:
 ```typescript
 await pilot.pixelColor();
 ```
-
-![](assets/pixel-color.gif)
 
 #### .click
 
@@ -268,21 +255,6 @@ Example:
 await pilot.screenScale(); // mostly outputs 1
 ```
 
-#### .pointVisible
-
-Check whether point is out of screen bounds or not.
-
-Arguments:
-
-- `x` - number - abcissa of point
-- `y` - number - ordinate of point
-
-Example:
-
-```typescript
-await pilot.pointVisible(100, 35);
-```
-
 ### Notifications
 
 #### .alert
@@ -292,8 +264,6 @@ Trigger a native popup.
 Arguments:
 
 ```typescript
-type Alert = string | AlertOptions;
-// where
 interface AlertOptions {
   title?: string;
   msg: string;
@@ -303,15 +273,11 @@ interface AlertOptions {
 Example:
 
 ```typescript
-await pilot.alert("alert without title");
-// or
 await pilot.alert({
-  title: "Oops! This is an alert!"
-  msg: "Something definetly went wrong!"
-})
+  title: "Oops! This is an alert!",
+  msg: "Something definetly went wrong!",
+});
 ```
-
-![](assets/alert.gif)
 
 #### .notify
 
@@ -326,73 +292,15 @@ Arguments:
 await pilot.notify("Hello", "World");
 ```
 
-### Monitors
+### Contributing
 
-#### .getMonitors
-
-Get the number of monitors.
-
-Returns: `Promise<number>`
-
-Example:
-
-```typescript
-await pilot.getMonitors();
+```shell
+git clone https://github.com/littledivy/autopilot-deno \
+  && cd autopilot-deno \
+  && cargo build
 ```
 
-### Window management (linux)
-
-#### .getWindow
-
-Get window title by its index.
-
-Arguments:
-
-- `index` - number - The index of window
-
-```typescript
-await pilot.getWindow(0); // outputs 'Desktop', maybe?
+```shell
+# DEV env variable tells autopilot to use local builds
+DEV=1 deno run --unstable --allow-plugin example.ts
 ```
-
-#### .transformByIndex
-
-Transform a window by its index.
-
-Arguments:
-
-- `index` - number - The index of window
-- `height` - number - Desired height of the window
-- `width` - number - Desired width of the window
-
-```typescript
-await pilot.transformByIndex(3, 960, 300);
-```
-
-### Building from source
-
-> Warning: This requires Rust and Cargo setup in your machine.
-
-Clone the github repo
-
-```sh
-git clone https://github.com/divy-work/autopilot-deno
-cd autopilot
-cargo build
-```
-
-Running `cargo build` might take several minutes to build for the first time.
-
-Now, you can test the current builds using the `DEV` env variable
-
-```sh
-DEV=* deno run --unstable --allow-* examples/sine.ts
-```
-
-### OS Support
-
-- Ubuntu - Full Support
-- MacOS - Full support except Window management
-- Windows - Full support except Window managment
-
-If you find any difficulty while building from source or using this module,
-please open a issue or PR stating your issue.
