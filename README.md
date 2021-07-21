@@ -32,7 +32,6 @@
 
   - [x] Capture screen using `.screenshot`
   - [x] Get screen size using `.screenSize`
-  - [x] Check if point out of bounds using `.pointVisible`
   - [x] Get number of pixels in a point using `.screenScale`
 
 - [x] **Notifications**
