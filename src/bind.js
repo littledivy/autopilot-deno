@@ -2,7 +2,7 @@
 import { prepare } from "https://deno.land/x/plugin_prepare@v0.8.0/mod.ts";
 
 const releaseUrl =
-  "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/";
+  "https://github.com/littledivy/autopilot-deno/releases/download/";
 const filenameBase = "autopilot_deno";
 
 let filenameSuffix = ".so";
