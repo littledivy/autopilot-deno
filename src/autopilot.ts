@@ -20,7 +20,6 @@ class AutoPilot {
   }
 
   /**
-   *
    * @param opt alert options or msg to display alert.
    */
   alert(opt: AlertOptions) {
