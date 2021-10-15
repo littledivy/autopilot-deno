@@ -8,7 +8,7 @@ struct StrArg {
 }
 
 #[deno_bindgen]
-fn op_type(arg: StrArg) {
+fn type_(arg: StrArg) {
     autopilot::key::type_string(&arg.text, &[], 200., 0.);
 }
 
@@ -120,7 +120,7 @@ impl From<KeyCode> for autopilot::key::KeyCode {
 }
 
 #[deno_bindgen]
-fn op_toggle_key(arg: KeyToggleParams) {
+fn toggle_key(arg: KeyToggleParams) {
     autopilot::key::toggle(&autopilot::key::Code(arg.key.into()), arg.down, &[], 0);
 }
 
@@ -134,7 +134,7 @@ fn op_toggle_key(arg: KeyToggleParams) {
 // }
 
 #[deno_bindgen]
-fn op_tap(arg: KeyToggleParams) {
+fn tap(arg: KeyToggleParams) {
     autopilot::key::tap(&autopilot::key::Code(arg.key.into()), &[], 0, 0);
 }
 // fn op_tap(
@@ -153,7 +153,7 @@ pub struct NotifyParams {
 }
 
 #[deno_bindgen]
-fn op_notify(arg: NotifyParams) {
+fn notify(arg: NotifyParams) {
     autopilot::notify::notify(&arg.title, &arg.body).unwrap();
 }
 
@@ -174,7 +174,7 @@ pub struct MouseMoveParams {
 }
 
 #[deno_bindgen]
-fn op_smooth_mouse_move(arg: MouseMoveParams) {
+fn smooth_mouse_move(arg: MouseMoveParams) {
     autopilot::mouse::smooth_move(autopilot::geometry::Point::new(arg.x, arg.y), arg.d);
 }
 
@@ -188,7 +188,7 @@ fn op_smooth_mouse_move(arg: MouseMoveParams) {
 // }
 
 #[deno_bindgen]
-fn op_mouse_move(arg: MouseMoveParams) {
+fn mouse_move(arg: MouseMoveParams) {
     autopilot::mouse::move_to(autopilot::geometry::Point::new(arg.x, arg.y));
 }
 
@@ -204,30 +204,30 @@ fn op_mouse_move(arg: MouseMoveParams) {
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum MouseClickParams {
-     Left,
-     Middle,
-     Right,
+    Left,
+    Middle,
+    Right,
 }
 
 impl From<MouseClickParams> for autopilot::mouse::Button {
-     fn from(value: MouseClickParams) -> autopilot::mouse::Button {
-         match value {
-             MouseClickParams::Left => autopilot::mouse::Button::Left,
-             MouseClickParams::Middle => autopilot::mouse::Button::Middle,
-             MouseClickParams::Right => autopilot::mouse::Button::Right,
-         }
-     }
+    fn from(value: MouseClickParams) -> autopilot::mouse::Button {
+        match value {
+            MouseClickParams::Left => autopilot::mouse::Button::Left,
+            MouseClickParams::Middle => autopilot::mouse::Button::Middle,
+            MouseClickParams::Right => autopilot::mouse::Button::Right,
+        }
+    }
 }
 
 // TODO: Wrapper for MouseClickParams enum
-//       remove when deno_bindgen supports enums. 
+//       remove when deno_bindgen supports enums.
 #[deno_bindgen]
 pub struct MouseClickParamsWrapper {
-    params: MouseClickParams
+    params: MouseClickParams,
 }
 
 #[deno_bindgen]
-fn op_mouse_click(arg: MouseClickParamsWrapper) {
+fn mouse_click(arg: MouseClickParamsWrapper) {
     autopilot::mouse::click(autopilot::mouse::Button::from(arg.params), Some(10));
 }
 
@@ -241,7 +241,7 @@ fn op_mouse_click(arg: MouseClickParamsWrapper) {
 // }
 
 #[deno_bindgen]
-fn op_mouse_scroll() {
+fn mouse_scroll() {
     // TODO
     autopilot::mouse::scroll(autopilot::mouse::ScrollDirection::Up, 5);
 }
@@ -257,18 +257,18 @@ fn op_mouse_scroll() {
 
 #[deno_bindgen]
 pub struct Point {
-     pub x: f64,
-     pub y: f64,
+    pub x: f64,
+    pub y: f64,
 }
 
 #[deno_bindgen]
-fn op_mouse_pos_x() -> f64 {
+fn mouse_pos_x() -> f64 {
     let pos = autopilot::mouse::location();
     pos.x
 }
 
 #[deno_bindgen]
-fn op_mouse_pos_y() -> f64 {
+fn mouse_pos_y() -> f64 {
     let pos = autopilot::mouse::location();
     pos.y
 }
@@ -284,14 +284,14 @@ fn op_mouse_pos_y() -> f64 {
 
 #[deno_bindgen]
 pub struct AlertParams {
-     pub msg: String,
-     pub title: String,
+    pub msg: String,
+    pub title: String,
 }
 
 #[deno_bindgen]
-fn op_alert(arg: AlertParams) {
+fn alert(arg: AlertParams) {
     autopilot::alert::alert(&arg.msg, Some(&arg.title), None, None);
-} 
+}
 
 // fn op_alert(
 //     _state: &mut OpState,
@@ -303,9 +303,14 @@ fn op_alert(arg: AlertParams) {
 // }
 
 #[deno_bindgen]
-fn op_screenshot(arg: StrArg) {
+fn screenshot(arg: StrArg) {
     let bitmap = autopilot::bitmap::capture_screen().unwrap();
-    let path = Path::new(file!()).parent().unwrap().parent().unwrap().join(&arg.text);
+    let path = Path::new(file!())
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .join(&arg.text);
     bitmap.image.save(&path).unwrap();
 }
 
@@ -327,20 +332,20 @@ fn op_screenshot(arg: StrArg) {
 
 #[deno_bindgen]
 pub struct ScreenSize {
-     pub height: f64,
-     pub width: f64,
+    pub height: f64,
+    pub width: f64,
 }
 
 #[deno_bindgen]
-fn op_screensize_height() -> f64 {
-  let size = autopilot::screen::size();
-  size.height
+fn screensize_height() -> f64 {
+    let size = autopilot::screen::size();
+    size.height
 }
 
 #[deno_bindgen]
-fn op_screensize_width() -> f64 {
-  let size = autopilot::screen::size();
-  size.width
+fn screensize_width() -> f64 {
+    let size = autopilot::screen::size();
+    size.width
 }
 
 // fn op_screensize(
@@ -355,6 +360,12 @@ fn op_screensize_width() -> f64 {
 //     Ok(ScreenSize { width, height })
 // }
 
+#[deno_bindgen]
+fn screenscale() -> f64 {
+    let scale = autopilot::screen::scale();
+    scale
+}
+
 // fn op_screenscale(
 //     _state: &mut OpState,
 //     arg: (),
@@ -366,10 +377,10 @@ fn op_screensize_width() -> f64 {
 
 #[deno_bindgen]
 pub struct Pixel {
-   pub r: u8,
-   pub g: u8,
-   pub b: u8,
-   pub a: u8,
+    pub r: u8,
+    pub g: u8,
+    pub b: u8,
+    pub a: u8,
 }
 
 macro_rules! mouse_px_op {
@@ -379,13 +390,13 @@ macro_rules! mouse_px_op {
             let pixel = autopilot::screen::get_color(autopilot::mouse::location()).unwrap();
             pixel[$idx]
         }
-    }
+    };
 }
 
-mouse_px_op!(op_mouse_pixel_color_r, 0);
-mouse_px_op!(op_mouse_pixel_color_g, 1);
-mouse_px_op!(op_mouse_pixel_color_b, 2);
-mouse_px_op!(op_mouse_pixel_color_a, 3);
+mouse_px_op!(mouse_pixel_color_r, 0);
+mouse_px_op!(mouse_pixel_color_g, 1);
+mouse_px_op!(mouse_pixel_color_b, 2);
+mouse_px_op!(mouse_pixel_color_a, 3);
 
 // fn op_mouse_pixel_color(
 //     _state: &mut OpState,

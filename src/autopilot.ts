@@ -1,5 +1,4 @@
-import _inner from "./bind.js";
-const inner = _inner as any;
+import * as inner from "../bindings/bindings.ts";
 
 export function isAscii(str: string): boolean {
   return /^[\x00-\x7F]*$/.test(str);
@@ -11,11 +10,11 @@ export function throwAsciiError() {
 
 class AutoPilot {
   /**
-   * @param str String to type
+   * @param text String to type
    */
-  type(str: string) {
-    !isAscii(str) && throwAsciiError();
-    inner.type(str);
+  type(text: string) {
+    !isAscii(text) && throwAsciiError();
+    inner.type_({ text });
     return this;
   }
 
@@ -35,7 +34,7 @@ class AutoPilot {
     inner.notify({
       title,
       body,
-    } as NotificationParams);
+    });
     return this;
   }
 
@@ -43,7 +42,10 @@ class AutoPilot {
    * @return {object} width and height of the screen
    */
   screenSize(): Dimensions {
-    return inner.screensize();
+    return {
+      width: inner.screensize_width(),
+      height: inner.screensize_height(),
+    };
   }
 
   /**
@@ -56,7 +58,7 @@ class AutoPilot {
     if (isNaN(x) || isNaN(y)) {
       throw new TypeError("height or width is NaN");
     }
-    inner.smoothMouseMove({ x, y, d });
+    inner.smooth_mouse_move({ x, y, d });
     return this;
   }
 
@@ -64,7 +66,7 @@ class AutoPilot {
    * @param {string} file The output file name
    */
   screenshot(file: string) {
-    inner.screenshot(file);
+    inner.screenshot({ text: file });
     return this;
   }
 
@@ -73,7 +75,7 @@ class AutoPilot {
    */
   tap(arg: ToggleKeys) {
     (arg as string) = arg.trim().toLowerCase();
-    inner.tap(arg);
+    inner.tap({ key: arg, down: false });
     return this;
   }
 
@@ -81,7 +83,7 @@ class AutoPilot {
    * @param {ClickOptions} arg The mouse section to click
    */
   click(arg: string) {
-    inner.mouseClick(arg);
+    inner.mouse_click({ params: arg });
     return this;
   }
 
@@ -89,7 +91,7 @@ class AutoPilot {
    * @param {ScrollOptions} arg The direction of scroll
    */
   scroll(arg: ScrollOptions) {
-    inner.mouseScroll(arg);
+    inner.mouse_scroll();
     return this;
   }
 
@@ -97,14 +99,19 @@ class AutoPilot {
    * @return {object} The coordinates of mouse on screen
    */
   mousePosition(): Point {
-    return inner.mousePosition();
+    return { x: inner.mouse_pos_x(), y: inner.mouse_pos_y() };
   }
 
   /**
    * @return {object} The RGBA color
    */
   pixelColor(): Pixel {
-    return inner.mousePixelColor();
+    return {
+      r: inner.mouse_pixel_color_r(),
+      g: inner.mouse_pixel_color_g(),
+      b: inner.mouse_pixel_color_b(),
+      a: inner.mouse_pixel_color_a(),
+    };
   }
 
   /**
@@ -112,7 +119,7 @@ class AutoPilot {
    * @param {boolean} down Whether to press the key or unpress it
    */
   toggleKey(key: ToggleKeys, down: boolean) {
-    inner.toggleKey({
+    inner.toggle_key({
       key,
       down,
     });
@@ -131,7 +138,6 @@ export interface AlertOptions {
   title: string;
   msg: string;
 }
-
 export interface NotificationParams {
   title: string;
   body: string;
