@@ -33,7 +33,7 @@ jobs:
       - name: Install rust
         uses: hecrj/setup-rust-action@v1
         with:
-          rust-version: stable
+          rust-version: nightly
 
       - name: Log versions
         run: |
