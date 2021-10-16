@@ -25,4 +25,3 @@ const pluginOptions = {
     linux: `${releaseUrl}/${filename}`,
   },
 };
-

@@ -35,6 +35,10 @@ jobs:
         with:
           rust-version: nightly
 
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: canary
+
       - name: Log versions
         run: |
           node -v
@@ -75,10 +79,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install libdbus-1-dev x11-xserver-utils wmctrl libxtst-dev cmake libc-dev libx11-dev libxcb1-dev
 
+      - name: Install deno_bindgen
+        run: deno install -Afq -n deno_bindgen https://raw.githubusercontent.com/littledivy/deno_bindgen/main/cli.ts
+
       - name: Build
         env:
           RUST_BACKTRACE: 1
-        run: cargo build --release
+        run: deno_bindgen --release
 
       - name: Release Plugin
         uses: softprops/action-gh-release@master
