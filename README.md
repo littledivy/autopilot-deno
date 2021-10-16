@@ -7,7 +7,7 @@
 </p>
 
 [![ci](https://github.com/littledivy/autopilot-deno/workflows/ci/badge.svg)](https://github.com/littledivy/autopilot-deno/actions)
-![deno version](https://img.shields.io/badge/deno-1.12.1-success)
+![deno version](https://img.shields.io/badge/deno-1.15.1-success)
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/autopilot)
 
 **AutoPilot Deno -** Cross-platform desktop automation framework for Deno.
@@ -56,29 +56,27 @@ sudo apt-get install libdbus-1-dev x11-xserver-utils wmctrl libxtst-dev cmake li
 
 ### Usage
 
-Running your Deno script with AutoPilot requires some flags
-
 ```sh
-deno run --unstable --allow-plugin file.ts
+deno run --unstable --allow-ffi example.ts
 ```
 
 ```typescript
+// example.ts
 import AutoPilot from "https://deno.land/x/autopilot/mod.ts";
 
 const pilot = new AutoPilot();
 
 // type a string
 await pilot.type("Yay! This works");
-// alert something
-await pilot.alert("This is a alert");
 // get screen size
 const screenSize = await pilot.screenSize();
 // move mouse
 await pilot.moveMouse(200, 400);
 // take a screenshot
 await pilot.screenshot("screenshot.png");
+// ...and more stuff
 ```
 
 ### License
 
-See [MIT License](LICENSE). All rights reserved. Divy Srivastava 2020.
+[MIT License](LICENSE).
