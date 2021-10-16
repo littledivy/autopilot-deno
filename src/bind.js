@@ -25,36 +25,3 @@ const pluginOptions = {
     linux: `${releaseUrl}/${filename}`,
   },
 };
-
-if (Deno.env.get("DEV")) {
-  Deno.openPlugin("target/release/" + filename);
-} else {
-  await prepare(pluginOptions);
-}
-
-let exports = {};
-
-[
-  "type",
-  "notify",
-  "smoothMouseMove",
-  "mouseMove",
-  "mouseClick",
-  "mouseScroll",
-  "screenshot",
-  "screensize",
-  "screenscale",
-  "mousePixelColor",
-  "mousePosition",
-  "alert",
-  "toggleKey",
-  "tap",
-].forEach((name) => {
-  const fn = Deno.core.ops()["op_" + name];
-  if (!fn) throw new Error(`${name} op was not registered`);
-  exports[name] = function (arg, buf) {
-    return Deno.core.opSync("op_" + name, arg, buf || new Uint8Array());
-  };
-});
-
-export default exports;

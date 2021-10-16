@@ -1,47 +1,18 @@
-#![allow(unused_must_use)]
-
-use deno_core::error::AnyError;
-use deno_core::op_sync;
-use deno_core::Extension;
-use deno_core::OpState;
-use deno_core::ZeroCopyBuf;
+use deno_bindgen::deno_bindgen;
+use serde::Deserialize;
 use std::path::Path;
 
-use serde::Deserialize;
-use serde::Serialize;
-
-#[no_mangle]
-pub fn init() -> Extension {
-    Extension::builder()
-        .ops(vec![
-            ("op_type", op_sync(op_type)),
-            ("op_notify", op_sync(op_notify)),
-            ("op_smoothMouseMove", op_sync(op_smooth_mouse_move)),
-            ("op_mouseMove", op_sync(op_mouse_move)),
-            ("op_mouseClick", op_sync(op_mouse_click)),
-            ("op_mouseScroll", op_sync(op_mouse_scroll)),
-            ("op_screenshot", op_sync(op_screenshot)),
-            ("op_screensize", op_sync(op_screensize)),
-            ("op_screenscale", op_sync(op_screenscale)),
-            ("op_mousePixelColor", op_sync(op_mouse_pixel_color)),
-            ("op_mousePosition", op_sync(op_mouse_pos)),
-            ("op_alert", op_sync(op_alert)),
-            ("op_toggleKey", op_sync(op_toggle_key)),
-            ("op_tap", op_sync(op_tap)),
-        ])
-        .build()
+#[deno_bindgen]
+struct StrArg {
+    text: String,
 }
 
-fn op_type(
-    _state: &mut OpState,
-    arg: String,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
-    autopilot::key::type_string(&arg, &[], 200., 0.);
-    Ok(())
+#[deno_bindgen]
+fn type_(arg: StrArg) {
+    autopilot::key::type_string(&arg.text, &[], 200., 0.);
 }
 
-#[derive(Deserialize)]
+#[deno_bindgen]
 pub struct KeyToggleParams {
     pub key: KeyCode,
     pub down: bool,
@@ -148,63 +119,87 @@ impl From<KeyCode> for autopilot::key::KeyCode {
     }
 }
 
-fn op_toggle_key(
-    _state: &mut OpState,
-    arg: KeyToggleParams,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
+#[deno_bindgen]
+fn toggle_key(arg: KeyToggleParams) {
     autopilot::key::toggle(&autopilot::key::Code(arg.key.into()), arg.down, &[], 0);
-    Ok(())
 }
 
-fn op_tap(
-    _state: &mut OpState,
-    arg: KeyToggleParams,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
+// fn op_toggle_key(
+//     _state: &mut OpState,
+//     arg: KeyToggleParams,
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     autopilot::key::toggle(&autopilot::key::Code(arg.key.into()), arg.down, &[], 0);
+//     Ok(())
+// }
+
+#[deno_bindgen]
+fn tap(arg: KeyToggleParams) {
     autopilot::key::tap(&autopilot::key::Code(arg.key.into()), &[], 0, 0);
-    Ok(())
 }
+// fn op_tap(
+//     _state: &mut OpState,
+//     arg: KeyToggleParams,
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     autopilot::key::tap(&autopilot::key::Code(arg.key.into()), &[], 0, 0);
+//     Ok(())
+// }
 
-#[derive(Deserialize)]
+#[deno_bindgen]
 pub struct NotifyParams {
     pub title: String,
     pub body: String,
 }
 
-fn op_notify(
-    _state: &mut OpState,
-    arg: NotifyParams,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
-    autopilot::notify::notify(&arg.title, &arg.body);
-    Ok(())
+#[deno_bindgen]
+fn notify(arg: NotifyParams) {
+    autopilot::notify::notify(&arg.title, &arg.body).unwrap();
 }
 
-#[derive(Deserialize)]
+// fn op_notify(
+//     _state: &mut OpState,
+//     arg: NotifyParams,
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     autopilot::notify::notify(&arg.title, &arg.body);
+//     Ok(())
+// }
+
+#[deno_bindgen]
 pub struct MouseMoveParams {
     pub x: f64,
     pub y: f64,
     pub d: Option<f64>,
 }
 
-fn op_smooth_mouse_move(
-    _state: &mut OpState,
-    arg: MouseMoveParams,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
+#[deno_bindgen]
+fn smooth_mouse_move(arg: MouseMoveParams) {
     autopilot::mouse::smooth_move(autopilot::geometry::Point::new(arg.x, arg.y), arg.d);
-    Ok(())
 }
 
-fn op_mouse_move(
-    _state: &mut OpState,
-    arg: MouseMoveParams,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
+// fn op_smooth_mouse_move(
+//     _state: &mut OpState,
+//     arg: MouseMoveParams,
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     autopilot::mouse::smooth_move(autopilot::geometry::Point::new(arg.x, arg.y), arg.d);
+//     Ok(())
+// }
+
+#[deno_bindgen]
+fn mouse_move(arg: MouseMoveParams) {
     autopilot::mouse::move_to(autopilot::geometry::Point::new(arg.x, arg.y));
-    Ok(())
 }
+
+// fn op_mouse_move(
+//     _state: &mut OpState,
+//     arg: MouseMoveParams,
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     autopilot::mouse::move_to(autopilot::geometry::Point::new(arg.x, arg.y));
+//     Ok(())
+// }
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -224,98 +219,163 @@ impl From<MouseClickParams> for autopilot::mouse::Button {
     }
 }
 
-fn op_mouse_click(
-    _state: &mut OpState,
-    arg: MouseClickParams,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
-    autopilot::mouse::click(autopilot::mouse::Button::from(arg), Some(10));
-    Ok(())
+// TODO: Wrapper for MouseClickParams enum
+//       remove when deno_bindgen supports enums.
+#[deno_bindgen]
+pub struct MouseClickParamsWrapper {
+    params: MouseClickParams,
 }
 
-fn op_mouse_scroll(
-    _state: &mut OpState,
-    arg: (),
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
+#[deno_bindgen]
+fn mouse_click(arg: MouseClickParamsWrapper) {
+    autopilot::mouse::click(autopilot::mouse::Button::from(arg.params), Some(10));
+}
+
+// fn op_mouse_click(
+//     _state: &mut OpState,
+//     arg: MouseClickParams,
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     autopilot::mouse::click(autopilot::mouse::Button::from(arg), Some(10));
+//     Ok(())
+// }
+
+#[deno_bindgen]
+fn mouse_scroll() {
+    // TODO
     autopilot::mouse::scroll(autopilot::mouse::ScrollDirection::Up, 5);
-    Ok(())
 }
 
-#[derive(Serialize)]
+// fn op_mouse_scroll(
+//     _state: &mut OpState,
+//     arg: (),
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     autopilot::mouse::scroll(autopilot::mouse::ScrollDirection::Up, 5);
+//     Ok(())
+// }
+
+#[deno_bindgen]
 pub struct Point {
     pub x: f64,
     pub y: f64,
 }
 
-fn op_mouse_pos(
-    _state: &mut OpState,
-    arg: (),
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<Point, AnyError> {
+#[deno_bindgen]
+fn mouse_pos_x() -> f64 {
     let pos = autopilot::mouse::location();
-    Ok(Point { x: pos.x, y: pos.y })
+    pos.x
 }
 
-#[derive(Deserialize)]
+#[deno_bindgen]
+fn mouse_pos_y() -> f64 {
+    let pos = autopilot::mouse::location();
+    pos.y
+}
+
+// fn op_mouse_pos(
+//     _state: &mut OpState,
+//     arg: (),
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<Point, AnyError> {
+//     let pos = autopilot::mouse::location();
+//     Ok(Point { x: pos.x, y: pos.y })
+// }
+
+#[deno_bindgen]
 pub struct AlertParams {
     pub msg: String,
     pub title: String,
 }
 
-fn op_alert(
-    _state: &mut OpState,
-    arg: AlertParams,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
+#[deno_bindgen]
+fn alert(arg: AlertParams) {
     autopilot::alert::alert(&arg.msg, Some(&arg.title), None, None);
-    Ok(())
 }
 
-fn op_screenshot(
-    _state: &mut OpState,
-    arg: String,
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<(), AnyError> {
-    let bitmap = autopilot::bitmap::capture_screen()?;
+// fn op_alert(
+//     _state: &mut OpState,
+//     arg: AlertParams,
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     autopilot::alert::alert(&arg.msg, Some(&arg.title), None, None);
+//     Ok(())
+// }
+
+#[deno_bindgen]
+fn screenshot(arg: StrArg) {
+    let bitmap = autopilot::bitmap::capture_screen().unwrap();
     let path = Path::new(file!())
         .parent()
         .unwrap()
         .parent()
         .unwrap()
-        .join(&arg);
-    bitmap.image.save(&path)?;
-    Ok(())
+        .join(&arg.text);
+    bitmap.image.save(&path).unwrap();
 }
 
-#[derive(Serialize)]
+// fn op_screenshot(
+//     _state: &mut OpState,
+//     arg: String,
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<(), AnyError> {
+//     let bitmap = autopilot::bitmap::capture_screen()?;
+//     let path = Path::new(file!())
+//         .parent()
+//         .unwrap()
+//         .parent()
+//         .unwrap()
+//         .join(&arg);
+//     bitmap.image.save(&path)?;
+//     Ok(())
+// }
+
+#[deno_bindgen]
 pub struct ScreenSize {
     pub height: f64,
     pub width: f64,
 }
 
-fn op_screensize(
-    _state: &mut OpState,
-    arg: (),
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<ScreenSize, AnyError> {
+#[deno_bindgen]
+fn screensize_height() -> f64 {
     let size = autopilot::screen::size();
-    let width = size.width;
-    let height = size.height;
-
-    Ok(ScreenSize { width, height })
+    size.height
 }
 
-fn op_screenscale(
-    _state: &mut OpState,
-    arg: (),
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<f64, AnyError> {
+#[deno_bindgen]
+fn screensize_width() -> f64 {
+    let size = autopilot::screen::size();
+    size.width
+}
+
+// fn op_screensize(
+//     _state: &mut OpState,
+//     arg: (),
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<ScreenSize, AnyError> {
+//     let size = autopilot::screen::size();
+//     let width = size.width;
+//     let height = size.height;
+
+//     Ok(ScreenSize { width, height })
+// }
+
+#[deno_bindgen]
+fn screenscale() -> f64 {
     let scale = autopilot::screen::scale();
-    Ok(scale)
+    scale
 }
 
-#[derive(Serialize)]
+// fn op_screenscale(
+//     _state: &mut OpState,
+//     arg: (),
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<f64, AnyError> {
+//     let scale = autopilot::screen::scale();
+//     Ok(scale)
+// }
+
+#[deno_bindgen]
 pub struct Pixel {
     pub r: u8,
     pub g: u8,
@@ -323,16 +383,31 @@ pub struct Pixel {
     pub a: u8,
 }
 
-fn op_mouse_pixel_color(
-    _state: &mut OpState,
-    arg: (),
-    zero_copy: Option<ZeroCopyBuf>,
-) -> Result<Pixel, AnyError> {
-    let pixel = autopilot::screen::get_color(autopilot::mouse::location())?;
-    Ok(Pixel {
-        r: pixel[0],
-        g: pixel[1],
-        b: pixel[2],
-        a: pixel[3],
-    })
+macro_rules! mouse_px_op {
+    ($fn: ident, $idx: literal) => {
+        #[deno_bindgen]
+        fn $fn() -> u8 {
+            let pixel = autopilot::screen::get_color(autopilot::mouse::location()).unwrap();
+            pixel[$idx]
+        }
+    };
 }
+
+mouse_px_op!(mouse_pixel_color_r, 0);
+mouse_px_op!(mouse_pixel_color_g, 1);
+mouse_px_op!(mouse_pixel_color_b, 2);
+mouse_px_op!(mouse_pixel_color_a, 3);
+
+// fn op_mouse_pixel_color(
+//     _state: &mut OpState,
+//     arg: (),
+//     zero_copy: Option<ZeroCopyBuf>,
+// ) -> Result<Pixel, AnyError> {
+//     let pixel = autopilot::screen::get_color(autopilot::mouse::location())?;
+//     Ok(Pixel {
+//         r: pixel[0],
+//         g: pixel[1],
+//         b: pixel[2],
+//         a: pixel[3],
+//     })
+// }
