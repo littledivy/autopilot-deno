@@ -1,6 +1,6 @@
 ## Introduction
 
-![deno version](https://img.shields.io/badge/deno-1.12.1-success)
+![deno version](https://img.shields.io/badge/deno-1.15.1-success)
 
 AutoPilot is a simple cross-platform desktop automation library for Deno.
 
@@ -290,17 +290,4 @@ Arguments:
 
 ```typescript
 await pilot.notify("Hello", "World");
-```
-
-### Contributing
-
-```shell
-git clone https://github.com/littledivy/autopilot-deno \
-  && cd autopilot-deno \
-  && cargo build
-```
-
-```shell
-# DEV env variable tells autopilot to use local builds
-DEV=1 deno run --unstable --allow-plugin example.ts
 ```
