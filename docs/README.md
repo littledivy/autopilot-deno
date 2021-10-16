@@ -291,4 +291,3 @@ Arguments:
 ```typescript
 await pilot.notify("Hello", "World");
 ```
-
