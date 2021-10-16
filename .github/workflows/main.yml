@@ -8,7 +8,7 @@ on:
       - "Cargo.toml"
       - "src/**"
       - ".github/workflows/**"
-
+      - "bindings/**"
 
 jobs:
   build:
