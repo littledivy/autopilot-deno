@@ -14,6 +14,7 @@ pub struct KeyToggleParams {
 }
 
 #[deno_bindgen]
+#[serde(rename_all = "lowercase")]
 pub enum KeyCode {
     F1,
     F2,
@@ -196,6 +197,7 @@ fn mouse_move(arg: MouseMoveParams) {
 // }
 
 #[deno_bindgen]
+#[serde(rename_all = "lowercase")]
 pub enum MouseClickParams {
     Left,
     Middle,

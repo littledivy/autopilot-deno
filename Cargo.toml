@@ -10,7 +10,7 @@ path = "./src/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-deno_bindgen = { git = "https://github.com/littledivy/deno_bindgen", rev = "722f9f0" }
+deno_bindgen = { git = "https://github.com/littledivy/deno_bindgen", rev = "3ca55e7" }
 autopilot = { path = "./autopilot-rs/" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
