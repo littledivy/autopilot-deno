@@ -1,4 +1,26 @@
-import * as inner from "../bindings/bindings.ts";
+import {
+  alert,
+  AlertParams,
+  KeyCode,
+  MouseClickParams,
+  mouse_click,
+  mouse_pixel_color_b,
+  mouse_pixel_color_g,
+  mouse_pixel_color_r,
+  mouse_pixel_color_a,
+  mouse_pos_x,
+  mouse_pos_y,
+  mouse_scroll,
+  notify,
+  screenscale,
+  screenshot,
+  screensize_height,
+  screensize_width,
+  smooth_mouse_move,
+  tap,
+  toggle_key,
+  type_,
+} from "../bindings/bindings.ts";
 
 export function isAscii(str: string): boolean {
   return /^[\x00-\x7F]*$/.test(str);
@@ -14,15 +36,15 @@ class AutoPilot {
    */
   type(text: string) {
     !isAscii(text) && throwAsciiError();
-    inner.type_({ text });
+    type_(text);
     return this;
   }
 
   /**
    * @param opt alert options or msg to display alert.
    */
-  alert(opt: AlertOptions) {
-    inner.alert(opt);
+  alert(opt: AlertParams) {
+    alert(opt);
     return this;
   }
 
@@ -31,7 +53,7 @@ class AutoPilot {
    * @param body The body of the notification
    */
   notify(title: string, body: string) {
-    inner.notify({
+    notify({
       title,
       body,
     });
@@ -43,8 +65,8 @@ class AutoPilot {
    */
   screenSize(): Dimensions {
     return {
-      width: inner.screensize_width(),
-      height: inner.screensize_height(),
+      width: screensize_width(),
+      height: screensize_height(),
     };
   }
 
@@ -58,7 +80,7 @@ class AutoPilot {
     if (isNaN(x) || isNaN(y)) {
       throw new TypeError("height or width is NaN");
     }
-    inner.smooth_mouse_move({ x, y, d });
+    smooth_mouse_move({ x, y, d });
     return this;
   }
 
@@ -66,32 +88,32 @@ class AutoPilot {
    * @param {string} file The output file name
    */
   screenshot(file: string) {
-    inner.screenshot({ text: file });
+    screenshot(file);
     return this;
   }
 
   /**
    * @param {string} arg The key name
    */
-  tap(arg: ToggleKeys) {
+  tap(arg: KeyCode) {
     (arg as string) = arg.trim().toLowerCase();
-    inner.tap({ key: arg, down: false });
+    tap({ key: arg, down: false });
     return this;
   }
 
   /**
    * @param {ClickOptions} arg The mouse section to click
    */
-  click(arg: string) {
-    inner.mouse_click({ params: arg });
+  click(param: MouseClickParams) {
+    mouse_click(param);
     return this;
   }
 
   /**
    * @param {ScrollOptions} arg The direction of scroll
    */
-  scroll(arg: ScrollOptions) {
-    inner.mouse_scroll();
+  scroll(arg: string) {
+    mouse_scroll();
     return this;
   }
 
@@ -99,7 +121,7 @@ class AutoPilot {
    * @return {object} The coordinates of mouse on screen
    */
   mousePosition(): Point {
-    return { x: inner.mouse_pos_x(), y: inner.mouse_pos_y() };
+    return { x: mouse_pos_x(), y: mouse_pos_y() };
   }
 
   /**
@@ -107,10 +129,10 @@ class AutoPilot {
    */
   pixelColor(): Pixel {
     return {
-      r: inner.mouse_pixel_color_r(),
-      g: inner.mouse_pixel_color_g(),
-      b: inner.mouse_pixel_color_b(),
-      a: inner.mouse_pixel_color_a(),
+      r: mouse_pixel_color_r(),
+      g: mouse_pixel_color_g(),
+      b: mouse_pixel_color_b(),
+      a: mouse_pixel_color_a(),
     };
   }
 
@@ -118,8 +140,8 @@ class AutoPilot {
    * @param {string} key The key to be toggled
    * @param {boolean} down Whether to press the key or unpress it
    */
-  toggleKey(key: ToggleKeys, down: boolean) {
-    inner.toggle_key({
+  toggleKey(key: KeyCode, down: boolean) {
+    toggle_key({
       key,
       down,
     });
@@ -130,67 +152,9 @@ class AutoPilot {
    * @return {number} The number of pixels in a point
    */
   screenScale(): number {
-    return inner.screenscale();
+    return screenscale();
   }
 }
-
-export interface AlertOptions {
-  title: string;
-  msg: string;
-}
-export interface NotificationParams {
-  title: string;
-  body: string;
-}
-
-export type ClickOptions = "left" | "right" | "middle";
-
-export type ScrollOptions = "up" | "down";
-
-export type ToggleKeys =
-  | "f1"
-  | "f2"
-  | "f3"
-  | "f4"
-  | "f5"
-  | "f6"
-  | "f7"
-  | "f8"
-  | "f9"
-  | "f10"
-  | "f11"
-  | "f12"
-  | "f13"
-  | "f14"
-  | "f15"
-  | "f16"
-  | "f17"
-  | "f18"
-  | "f19"
-  | "f20"
-  | "f21"
-  | "f22"
-  | "f23"
-  | "f24"
-  | "leftarrow"
-  | "control"
-  | "rightarrow"
-  | "downarrow"
-  | "end"
-  | "uparrow"
-  | "pageup"
-  | "alt"
-  | "return"
-  | "pagedown"
-  | "delete"
-  | "home"
-  | "escape"
-  | "backspace"
-  | "meta"
-  | "capslock"
-  | "shift"
-  | "tab"
-  | "space";
 
 interface Point {
   x: number;

@@ -279,8 +279,7 @@ dependencies = [
 [[package]]
 name = "deno_bindgen"
 version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0c0a79e27b0ad3f091a6a9d6ba22676f0f4f5c211933f6cb324fbc22b634cba9"
+source = "git+https://github.com/littledivy/deno_bindgen?rev=722f9f0#722f9f0ae278e3b92d60a3b971ea08d1c4edb0de"
 dependencies = [
  "proc-macro2 1.0.27",
  "quote 1.0.6",
