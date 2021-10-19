@@ -3,13 +3,8 @@ use serde::Deserialize;
 use std::path::Path;
 
 #[deno_bindgen]
-struct StrArg {
-    text: String,
-}
-
-#[deno_bindgen]
-fn type_(arg: StrArg) {
-    autopilot::key::type_string(&arg.text, &[], 200., 0.);
+fn type_(arg: &str) {
+    autopilot::key::type_string(&arg, &[], 200., 0.);
 }
 
 #[deno_bindgen]
@@ -18,7 +13,7 @@ pub struct KeyToggleParams {
     pub down: bool,
 }
 
-#[derive(Deserialize)]
+#[deno_bindgen]
 #[serde(rename_all = "lowercase")]
 pub enum KeyCode {
     F1,
@@ -201,8 +196,8 @@ fn mouse_move(arg: MouseMoveParams) {
 //     Ok(())
 // }
 
-#[derive(Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[deno_bindgen]
+#[serde(rename_all = "lowercase")]
 pub enum MouseClickParams {
     Left,
     Middle,
@@ -219,16 +214,9 @@ impl From<MouseClickParams> for autopilot::mouse::Button {
     }
 }
 
-// TODO: Wrapper for MouseClickParams enum
-//       remove when deno_bindgen supports enums.
 #[deno_bindgen]
-pub struct MouseClickParamsWrapper {
-    params: MouseClickParams,
-}
-
-#[deno_bindgen]
-fn mouse_click(arg: MouseClickParamsWrapper) {
-    autopilot::mouse::click(autopilot::mouse::Button::from(arg.params), Some(10));
+fn mouse_click(arg: MouseClickParams) {
+    autopilot::mouse::click(autopilot::mouse::Button::from(arg), Some(10));
 }
 
 // fn op_mouse_click(
@@ -303,14 +291,14 @@ fn alert(arg: AlertParams) {
 // }
 
 #[deno_bindgen]
-fn screenshot(arg: StrArg) {
+fn screenshot(arg: &str) {
     let bitmap = autopilot::bitmap::capture_screen().unwrap();
     let path = Path::new(file!())
         .parent()
         .unwrap()
         .parent()
         .unwrap()
-        .join(&arg.text);
+        .join(&arg);
     bitmap.image.save(&path).unwrap();
 }
 
